@@ -27,18 +27,8 @@ import java.util.Properties;
 @Configuration
 @Profile("production")
 @EnableJpaRepositories(basePackages = "com.realdolmen.fleet.persist")
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class Config {
 
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/fleet");
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
-        return dataSource;
-    }
 
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
