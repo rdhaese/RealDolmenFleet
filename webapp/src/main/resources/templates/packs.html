@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:spring="http://www.springframework.org/tags">
+<head>
+
+    <title></title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Name </th>
+        <th>Price</th>
+        <th>nbr of Options </th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+
+
+    <tr th:each="pack  : ${packList}">
+
+        <td th:text="${pack.name}"></td>
+
+        <td th:text="${pack.price}"></td>
+
+        <td th:text="${pack.carOptions.size()}"></td>
+
+
+
+
+
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
