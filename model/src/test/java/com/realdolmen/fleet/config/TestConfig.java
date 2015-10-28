@@ -1,5 +1,6 @@
 package com.realdolmen.fleet.config;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -26,6 +27,16 @@ import javax.sql.DataSource;
 public class TestConfig {
 
     @Bean
+    public DataSource dataSource(){
+        BasicDataSource ds = new BasicDataSource();
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
+        ds.setUrl("jdbc:mysql://localhost:3306/fleet-test");
+        ds.setPassword("root");
+        ds.setUsername("root");
+        return ds;
+    }
+
+    @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(emf);
@@ -39,15 +50,11 @@ public class TestConfig {
         em.setPackagesToScan(new String[]{"com.realdolmen.fleet"});
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setDatabase(Database.H2);
+        vendorAdapter.setDatabase(Database.MYSQL);
         vendorAdapter.setGenerateDdl(true);
         em.setJpaVendorAdapter(vendorAdapter);
         return em;
     }
 
-    @Bean
-    public DataSource dataSourceTest(){
-       // return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("classpath:schema.sql").build();
-        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
-    }
+
 }

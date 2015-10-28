@@ -40,6 +40,13 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <!--Extra dependency needed to create a BasicDataSource-->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+
         <!--Extra dependency to use spring security in thymeleaf -->
         <dependency>
              <groupId>org.thymeleaf.extras</groupId>
