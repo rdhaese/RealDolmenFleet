@@ -10,6 +10,7 @@ import javax.validation.constraints.*;
 /**
  * Created on 27/10/2015.
  *
+ * Entity class representing an employee
  * @author Robin D'Haese
  */
 @Entity
@@ -82,7 +83,6 @@ public class Employee extends BaseEntity {
         if (getPassword() != null ? !getPassword().equals(employee.getPassword()) : employee.getPassword() != null)
             return false;
         return getRole() == employee.getRole();
-
     }
 
     @Override
