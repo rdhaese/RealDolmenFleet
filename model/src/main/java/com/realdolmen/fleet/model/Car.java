@@ -26,8 +26,10 @@ public class Car extends BaseEntity{
     private double pk;
     @DecimalMin(value = "1")
     private double emission;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private FuelType fuelType;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private CarType carType;
     @DecimalMin(value = "1")
@@ -55,13 +57,14 @@ public class Car extends BaseEntity{
     private List<CarOption> extraOptions = new ArrayList<>();
 
 
-    public Car(String brand, String model, int category, double pk, double emission, FuelType fuelType, double fiscalHP, double deliveryTime, int idealKm, int maxKm, double listPrice, double benefit, double amountUpgrade, double amountDowngrade, Pack basePack, List<Pack> extraPacks, List<CarOption> extraOptions) {
+    public Car(String brand, String model, int category, double pk, double emission, FuelType fuelType, CarType carType, double fiscalHP, double deliveryTime, int idealKm, int maxKm, double listPrice, double benefit, double amountUpgrade, double amountDowngrade, Pack basePack, List<Pack> extraPacks, List<CarOption> extraOptions) {
         this.brand = brand;
         this.model = model;
         this.category = category;
         this.pk = pk;
         this.emission = emission;
         this.fuelType = fuelType;
+        this.carType = carType;
         this.fiscalHP = fiscalHP;
         this.deliveryTime = deliveryTime;
         this.idealKm = idealKm;
