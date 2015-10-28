@@ -43,11 +43,8 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
     }
 
 
-    private static final Logger LOGGER = Logger.getLogger(ApplicationConfiguration.class);
     public static void main (String[] args){
-        LOGGER.info("APPLICATION STARTUP");
         ConfigurableApplicationContext context = new SpringApplicationBuilder(ApplicationConfiguration.class).profiles("production").build().run(args);
-        LOGGER.info("APPLICATION STARTED");
     }
 
 
