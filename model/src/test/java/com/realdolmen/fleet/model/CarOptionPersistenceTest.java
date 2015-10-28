@@ -18,7 +18,7 @@ import static junit.framework.TestCase.assertNotNull;
 
 /**
  * Created on 28/10/2015.
- *
+ * Persistence test for {@link CarOption}
  * @author Robin D'Haese
  */
 

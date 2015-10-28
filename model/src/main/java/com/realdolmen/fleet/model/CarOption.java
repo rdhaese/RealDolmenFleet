@@ -5,8 +5,8 @@ import javax.validation.constraints.NotNull;
 
 /**
  * Created by JVDAX31 on 28/10/2015.
+ * Entity that represents an option for a car.
  */
-
 @Entity
 public class CarOption extends BaseEntity {
 

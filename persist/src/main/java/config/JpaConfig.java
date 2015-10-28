@@ -21,13 +21,13 @@ import java.util.Properties;
 
 /**
  * Created on 27/10/2015.
- *
+ * Production JpaConfig
  * @author Robin D'Haese
  */
 @Configuration
 @Profile("production")
 @EnableJpaRepositories(basePackages = "com.realdolmen.fleet.persist")
-public class Config {
+public class JpaConfig {
 
 
     @Bean

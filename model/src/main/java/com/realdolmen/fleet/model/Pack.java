@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by JVDAX31 on 28/10/2015.
+ * Entity representing a pack (=collection of car options, name and price) a car can have
  */
 
 @Entity
