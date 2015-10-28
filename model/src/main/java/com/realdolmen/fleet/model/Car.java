@@ -1,8 +1,9 @@
 package com.realdolmen.fleet.model;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,19 +15,36 @@ import java.util.List;
 @Entity
 public class Car extends BaseEntity{
 
+    @NotNull
     private String brand;
+    @NotNull
     private String model;
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "8")
     private int category;
+    @DecimalMin(value = "1")
     private double pk;
+    @DecimalMin(value = "1")
     private double emission;
-    private String fuelType;
+    @Enumerated(EnumType.STRING)
+    private FuelType fuelType;
+    @Enumerated(EnumType.STRING)
+    private CarType carType;
+    @DecimalMin(value = "1")
     private double fiscalHP;
+    @DecimalMin(value = "0")
     private double deliveryTime;
+    @DecimalMin(value = "1")
     private int idealKm;
+    @DecimalMin(value = "1")
     private int maxKm;
+    @DecimalMin(value = "1")
     private double listPrice;
+    @DecimalMin(value = "1")
     private double benefit;
+    @DecimalMin(value = "0")
     private double amountUpgrade;
+    @DecimalMin(value = "0")
     private double amountDowngrade;
 
     @ManyToOne
@@ -37,8 +55,7 @@ public class Car extends BaseEntity{
     private List<CarOption> extraOptions = new ArrayList<>();
 
 
-
-    public Car(String brand, String model, int category, double pk, double emission, String fuelType, double fiscalHP, double deliveryTime, int idealKm, int maxKm, double listPrice, double benefit, double amountUpgrade, double amountDowngrade, Pack basePack, List<Pack> extraPacks, List<CarOption> extraOptions) {
+    public Car(String brand, String model, int category, double pk, double emission, FuelType fuelType, double fiscalHP, double deliveryTime, int idealKm, int maxKm, double listPrice, double benefit, double amountUpgrade, double amountDowngrade, Pack basePack, List<Pack> extraPacks, List<CarOption> extraOptions) {
         this.brand = brand;
         this.model = model;
         this.category = category;
@@ -103,11 +120,11 @@ public class Car extends BaseEntity{
         this.emission = emission;
     }
 
-    public String getFuelType() {
+    public FuelType getFuelType() {
         return fuelType;
     }
 
-    public void setFuelType(String fuelType) {
+    public void setFuelType(FuelType fuelType) {
         this.fuelType = fuelType;
     }
 
@@ -199,6 +216,13 @@ public class Car extends BaseEntity{
         this.extraOptions = extraOptions;
     }
 
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -220,7 +244,8 @@ public class Car extends BaseEntity{
         if (Double.compare(car.getAmountDowngrade(), getAmountDowngrade()) != 0) return false;
         if (getBrand() != null ? !getBrand().equals(car.getBrand()) : car.getBrand() != null) return false;
         if (getModel() != null ? !getModel().equals(car.getModel()) : car.getModel() != null) return false;
-        if (getFuelType() != null ? !getFuelType().equals(car.getFuelType()) : car.getFuelType() != null) return false;
+        if (getFuelType() != car.getFuelType()) return false;
+        if (getCarType() != car.getCarType()) return false;
         if (getBasePack() != null ? !getBasePack().equals(car.getBasePack()) : car.getBasePack() != null) return false;
         if (getExtraPacks() != null ? !getExtraPacks().equals(car.getExtraPacks()) : car.getExtraPacks() != null)
             return false;
@@ -240,6 +265,7 @@ public class Car extends BaseEntity{
         temp = Double.doubleToLongBits(getEmission());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (getFuelType() != null ? getFuelType().hashCode() : 0);
+        result = 31 * result + (getCarType() != null ? getCarType().hashCode() : 0);
         temp = Double.doubleToLongBits(getFiscalHP());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(getDeliveryTime());

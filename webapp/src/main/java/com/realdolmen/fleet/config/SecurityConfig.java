@@ -47,12 +47,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/employee/**").hasRole("FLEET")
                 .anyRequest().permitAll();
     }
-
-    //TODO DELETE
-    public static void main(String... args){
-        BCryptPasswordEncoder e = new BCryptPasswordEncoder();
-        System.out.println(e.matches("password", "$2a$10$jBbMqhA7T.rYHrsblBxk1uyeFhUvONSa7dN4d5.6HotIZC3KShzV."));
-        System.out.println(e.encode("password"));
-    }
-
 }
