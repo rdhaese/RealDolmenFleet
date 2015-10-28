@@ -30,6 +30,16 @@ public class Employee extends BaseEntity {
     @DecimalMax(value = "8")
     private int functionalLevel;
 
+    public Employee(String name, String email, String password, EmployeeType role, int functionalLevel) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.functionalLevel = functionalLevel;
+    }
+
+    public Employee(){}
+
     public String getName() {
         return name;
     }

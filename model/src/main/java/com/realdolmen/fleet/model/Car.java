@@ -3,6 +3,7 @@ package com.realdolmen.fleet.model;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,9 +32,9 @@ public class Car extends BaseEntity{
     @ManyToOne
     private Pack basePack;
     @OneToMany
-    private List<Pack> extraPacks;
+    private List<Pack> extraPacks = new ArrayList<>();
     @OneToMany
-    private List<CarOption> extraOptions;
+    private List<CarOption> extraOptions = new ArrayList<>();
 
 
 
@@ -199,4 +200,63 @@ public class Car extends BaseEntity{
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Car car = (Car) o;
+
+        if (getCategory() != car.getCategory()) return false;
+        if (Double.compare(car.getPk(), getPk()) != 0) return false;
+        if (Double.compare(car.getEmission(), getEmission()) != 0) return false;
+        if (Double.compare(car.getFiscalHP(), getFiscalHP()) != 0) return false;
+        if (Double.compare(car.getDeliveryTime(), getDeliveryTime()) != 0) return false;
+        if (getIdealKm() != car.getIdealKm()) return false;
+        if (getMaxKm() != car.getMaxKm()) return false;
+        if (Double.compare(car.getListPrice(), getListPrice()) != 0) return false;
+        if (Double.compare(car.getBenefit(), getBenefit()) != 0) return false;
+        if (Double.compare(car.getAmountUpgrade(), getAmountUpgrade()) != 0) return false;
+        if (Double.compare(car.getAmountDowngrade(), getAmountDowngrade()) != 0) return false;
+        if (getBrand() != null ? !getBrand().equals(car.getBrand()) : car.getBrand() != null) return false;
+        if (getModel() != null ? !getModel().equals(car.getModel()) : car.getModel() != null) return false;
+        if (getFuelType() != null ? !getFuelType().equals(car.getFuelType()) : car.getFuelType() != null) return false;
+        if (getBasePack() != null ? !getBasePack().equals(car.getBasePack()) : car.getBasePack() != null) return false;
+        if (getExtraPacks() != null ? !getExtraPacks().equals(car.getExtraPacks()) : car.getExtraPacks() != null)
+            return false;
+        return !(getExtraOptions() != null ? !getExtraOptions().equals(car.getExtraOptions()) : car.getExtraOptions() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = getBrand() != null ? getBrand().hashCode() : 0;
+        result = 31 * result + (getModel() != null ? getModel().hashCode() : 0);
+        result = 31 * result + getCategory();
+        temp = Double.doubleToLongBits(getPk());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getEmission());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (getFuelType() != null ? getFuelType().hashCode() : 0);
+        temp = Double.doubleToLongBits(getFiscalHP());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getDeliveryTime());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + getIdealKm();
+        result = 31 * result + getMaxKm();
+        temp = Double.doubleToLongBits(getListPrice());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getBenefit());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getAmountUpgrade());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getAmountDowngrade());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (getBasePack() != null ? getBasePack().hashCode() : 0);
+        result = 31 * result + (getExtraPacks() != null ? getExtraPacks().hashCode() : 0);
+        result = 31 * result + (getExtraOptions() != null ? getExtraOptions().hashCode() : 0);
+        return result;
+    }
 }
