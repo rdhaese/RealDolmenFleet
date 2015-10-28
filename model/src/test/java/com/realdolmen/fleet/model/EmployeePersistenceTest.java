@@ -34,33 +34,33 @@ public class EmployeePersistenceTest {
 
     @Test
     public void canEmployeeBePersisted(){
-        Employee emp = EntityFactory.createEmployee("name", "email", "password", EmployeeType.NORMAL, 2);
+        Employee emp = EntityFactory.createEmployee("name", "email", "password", EmployeeType.ROLE_NORMAL, 2);
         em.persist(emp);
         assertNotNull(emp.getId());
     }
 
     @Test (expected = ConstraintViolationException.class)
     public void employeeCannotBePersistedWithoutName(){
-        Employee emp = EntityFactory.createEmployee(null, "email", "password", EmployeeType.NORMAL, 2);
+        Employee emp = EntityFactory.createEmployee(null, "email", "password", EmployeeType.ROLE_NORMAL, 2);
         em.persist(emp);
 
     }
 
     @Test (expected = ConstraintViolationException.class)
     public void employeeCannotBePersistedWithoutEmail(){
-        Employee emp = EntityFactory.createEmployee("name", null, "password", EmployeeType.NORMAL, 2);
+        Employee emp = EntityFactory.createEmployee("name", null, "password", EmployeeType.ROLE_NORMAL, 2);
         em.persist(emp);
     }
 
     @Test (expected = ConstraintViolationException.class)
     public void employeeCannotBePersistedWithoutPassword(){
-        Employee emp = EntityFactory.createEmployee("name", "email", null, EmployeeType.NORMAL, 2);
+        Employee emp = EntityFactory.createEmployee("name", "email", null, EmployeeType.ROLE_NORMAL, 2);
         em.persist(emp);
     }
 
     @Test (expected = ConstraintViolationException.class)
     public void employeeCannotBePersistedWithPasswordShorterThan6Characters(){
-        Employee emp = EntityFactory.createEmployee("name", "email", "pass", EmployeeType.NORMAL, 2);
+        Employee emp = EntityFactory.createEmployee("name", "email", "pass", EmployeeType.ROLE_NORMAL, 2);
         em.persist(emp);
     }
 
@@ -72,13 +72,13 @@ public class EmployeePersistenceTest {
 
     @Test (expected = ConstraintViolationException.class)
     public void employeeCannotBePersistedWithFunctionalLevelLowerThan0(){
-        Employee emp = EntityFactory.createEmployee("name", "email", "password", EmployeeType.NORMAL, -1);
+        Employee emp = EntityFactory.createEmployee("name", "email", "password", EmployeeType.ROLE_NORMAL, -1);
         em.persist(emp);
     }
 
     @Test (expected = ConstraintViolationException.class)
     public void employeeCannotBePersistedWithFunctionalLevelHigherThan8(){
-        Employee emp = EntityFactory.createEmployee("name", "email", "password", EmployeeType.NORMAL, 9);
+        Employee emp = EntityFactory.createEmployee("name", "email", "password", EmployeeType.ROLE_NORMAL, 9);
         em.persist(emp);
     }
 

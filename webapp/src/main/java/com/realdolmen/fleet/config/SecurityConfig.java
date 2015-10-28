@@ -30,19 +30,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-      /*  auth.jdbcAuthentication()
+        auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select email, password, true from Employee where email=?")
-                .authoritiesByUsernameQuery("select email, role from Employee where email=?");
-                //.passwordEncoder(new BCryptPasswordEncoder());*/
-        //For in memory user store:
-        auth.inMemoryAuthentication().withUser("r.dhaese92@gmail.com").password("password").roles("NORMAL", "FLEET");
+                .authoritiesByUsernameQuery("select email, role from Employee where email=?")
+                .passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage("/login").defaultSuccessUrl("/")
+                .usernameParameter("email").passwordParameter("password")
                 .and().rememberMe().tokenValiditySeconds(2419200)
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

@@ -6,6 +6,6 @@ package com.realdolmen.fleet.model;
  * @author Robin D'Haese
  */
 public enum EmployeeType {
-    NORMAL,
-    FLEET
+    ROLE_NORMAL,
+    ROLE_FLEET
 }
