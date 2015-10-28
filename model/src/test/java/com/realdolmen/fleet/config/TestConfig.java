@@ -52,6 +52,7 @@ public class TestConfig {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setDatabase(Database.MYSQL);
         vendorAdapter.setGenerateDdl(true);
+
         em.setJpaVendorAdapter(vendorAdapter);
         return em;
     }

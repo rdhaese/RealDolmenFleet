@@ -14,6 +14,8 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 
+import static org.junit.Assert.assertNotNull;
+
 /**
  * Created on 28/10/2015.
  *
@@ -34,12 +36,14 @@ public class EmployeePersistenceTest {
     public void canEmployeeBePersisted(){
         Employee emp = EntityFactory.createEmployee("name", "email", "password", EmployeeType.ROLE_NORMAL, 2);
         em.persist(emp);
+        assertNotNull(emp.getId());
     }
 
     @Test (expected = ConstraintViolationException.class)
     public void employeeCannotBePersistedWithoutName(){
         Employee emp = EntityFactory.createEmployee(null, "email", "password", EmployeeType.ROLE_NORMAL, 2);
         em.persist(emp);
+
     }
 
     @Test (expected = ConstraintViolationException.class)
