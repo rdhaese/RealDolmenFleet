@@ -1,17 +1,21 @@
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:spring="http://www.springframework.org/tags" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurty3">
-<head lang="en">
-    <meta charset="UTF-8" />
-    <title>HELLO</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
 <body>
+<div th:replace="fragments/fragments :: header"></div>
 
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
 
-hello index
+    <div class="row">
+        <div class="col-lg-12">
+            <p>Welcome to the RealDolmen Fleet portal!</p>
+            <p>//TODO TEKST?</p>
+        </div>
+    </div>
 
-<div sec:authorize="isAuthenticated()">Logged in as <div sec:authentication="name">loggedInUserName</div></div>
+    <hr/>
+</div>
 
-
-
+<div th:replace="fragments/fragments :: div.scripts"></div>
 </body>
 </html>

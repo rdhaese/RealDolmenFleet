@@ -1,42 +1,50 @@
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:spring="http://www.springframework.org/tags">
-<head lang="en">
-    <meta charset="UTF-8" />
-    <title>Log In</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
 <body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+    <div class="row">
+        <div class="col-lg-12">
 
 
-<h4>Login</h4>
+            <h4>Login</h4>
 
-<p>You will have to log in:</p>
-<form name="loginForm" th:action="@{/login}" method="POST">
+            <p>You will have to log in:</p>
+            <form name="loginForm" th:action="@{/login}" method="POST">
 
-    <table>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text" name="email" value="" /></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><input type="password" name="password" value="" /></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input id="remember_me" name="remember-me" type="checkbox"/>
-                <label for="remember_me" style="display: inline">Remember me</label>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit" name="submit" value="Log In"/>
-            </td>
-        </tr>
-    </table>
+                <table>
+                    <tr>
+                        <td>Email:</td>
+                        <td><input type="text" name="email" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type="password" name="password" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input id="remember_me" name="remember-me" type="checkbox"/>
+                            <label for="remember_me" style="display: inline">Remember me</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" name="submit" value="Log In"/>
+                        </td>
+                    </tr>
+                </table>
 
-</form>
+            </form>
 
 
+        </div>
+    </div>
 
+    <hr/>
+</div>
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
 </body>
 </html>
