@@ -68,4 +68,30 @@ public class Employee extends BaseEntity {
     public void setFunctionalLevel(int functionalLevel) {
         this.functionalLevel = functionalLevel;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Employee employee = (Employee) o;
+
+        if (getFunctionalLevel() != employee.getFunctionalLevel()) return false;
+        if (getName() != null ? !getName().equals(employee.getName()) : employee.getName() != null) return false;
+        if (getEmail() != null ? !getEmail().equals(employee.getEmail()) : employee.getEmail() != null) return false;
+        if (getPassword() != null ? !getPassword().equals(employee.getPassword()) : employee.getPassword() != null)
+            return false;
+        return getRole() == employee.getRole();
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getName() != null ? getName().hashCode() : 0;
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
+        result = 31 * result + (getRole() != null ? getRole().hashCode() : 0);
+        result = 31 * result + getFunctionalLevel();
+        return result;
+    }
 }
