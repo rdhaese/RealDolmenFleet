@@ -2,10 +2,15 @@ package com.realdolmen.fleet.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -25,20 +30,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
+      /*  auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select username, password, true from author where username=?")
-                .authoritiesByUsernameQuery("select username, role from author where username=?")
-                .passwordEncoder(new StandardPasswordEncoder("53cr3t"));
-
+                .usersByUsernameQuery("select email, password, true from Employee where email=?")
+                .authoritiesByUsernameQuery("select email, role from Employee where email=?");
+                //.passwordEncoder(new BCryptPasswordEncoder());*/
         //For in memory user store:
-        //auth.inMemoryAuthentication().withUser("user").password("password").roles("ROLE_USER").and().withUser("admin").password("password").roles("ROLE_USER", "ROLE_ADMIN");
+        auth.inMemoryAuthentication().withUser("r.dhaese92@gmail.com").password("password").roles("NORMAL", "FLEET");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("/login")
+                .loginPage("/login").defaultSuccessUrl("/")
                 .and().rememberMe().tokenValiditySeconds(2419200)
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
@@ -48,6 +52,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/employee/**").hasRole("NORMAL")
                 .antMatchers("/employee/**").hasRole("FLEET")
                 .anyRequest().permitAll();
+    }
+
+    //TODO DELETE
+    public static void main(String... args){
+        BCryptPasswordEncoder e = new BCryptPasswordEncoder();
+        System.out.println(e.matches("password", "$2a$10$jBbMqhA7T.rYHrsblBxk1uyeFhUvONSa7dN4d5.6HotIZC3KShzV."));
+        System.out.println(e.encode("password"));
     }
 
 }

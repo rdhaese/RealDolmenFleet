@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:spring="http://www.springframework.org/tags">
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title>HELLO</title>
+</head>
+<body>
+
+
+<h4>Login</h4>
+
+<p>You will have to log in:</p>
+<form name="loginForm" th:action="@{/login}" method="POST">
+    <table>
+        <tr>
+            <td>Email:</td>
+            <td><input type="text" name="email" value="" /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="password" value="" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input id="remember_me" name="remember-me" type="checkbox"/>
+                <label for="remember_me" style="display: inline">Remember me</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" name="submit" value="Log In"/>
+            </td>
+        </tr>
+    </table>
+
+</form>
+
+
+
+</body>
+</html>

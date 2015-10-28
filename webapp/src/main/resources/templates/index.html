@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:spring="http://www.springframework.org/tags" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurty3">
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title>HELLO</title>
 </head>
 <body>
+
+
+hello index
+
+<div sec:authorize="isAuthenticated()">Logged in as <div sec:authentication="name">loggedInUserName</div></div>
+
+
 
 </body>
 </html>
