@@ -1,49 +1,70 @@
 package com.realdolmen.fleet.model;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created on 28/10/2015.
- *
+ * Entity that represents a car.
  * @author Robin D'Haese
  */
 @Entity
 public class Car extends BaseEntity{
 
+    @NotNull
     private String brand;
+    @NotNull
     private String model;
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "8")
     private int category;
+    @DecimalMin(value = "1")
     private double pk;
+    @DecimalMin(value = "1")
     private double emission;
-    private String fuelType;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private FuelType fuelType;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private CarType carType;
+    @DecimalMin(value = "1")
     private double fiscalHP;
+    @DecimalMin(value = "0")
     private double deliveryTime;
+    @DecimalMin(value = "1")
     private int idealKm;
+    @DecimalMin(value = "1")
     private int maxKm;
+    @DecimalMin(value = "1")
     private double listPrice;
+    @DecimalMin(value = "1")
     private double benefit;
+    @DecimalMin(value = "0")
     private double amountUpgrade;
+    @DecimalMin(value = "0")
     private double amountDowngrade;
 
     @ManyToOne
     private Pack basePack;
     @OneToMany
-    private List<Pack> extraPacks;
+    private List<Pack> extraPacks = new ArrayList<>();
     @OneToMany
-    private List<CarOption> extraOptions;
+    private List<CarOption> extraOptions = new ArrayList<>();
 
 
-
-    public Car(String brand, String model, int category, double pk, double emission, String fuelType, double fiscalHP, double deliveryTime, int idealKm, int maxKm, double listPrice, double benefit, double amountUpgrade, double amountDowngrade, Pack basePack, List<Pack> extraPacks, List<CarOption> extraOptions) {
+    public Car(String brand, String model, int category, double pk, double emission, FuelType fuelType, CarType carType, double fiscalHP, double deliveryTime, int idealKm, int maxKm, double listPrice, double benefit, double amountUpgrade, double amountDowngrade, Pack basePack, List<Pack> extraPacks, List<CarOption> extraOptions) {
         this.brand = brand;
         this.model = model;
         this.category = category;
         this.pk = pk;
         this.emission = emission;
         this.fuelType = fuelType;
+        this.carType = carType;
         this.fiscalHP = fiscalHP;
         this.deliveryTime = deliveryTime;
         this.idealKm = idealKm;
@@ -102,11 +123,11 @@ public class Car extends BaseEntity{
         this.emission = emission;
     }
 
-    public String getFuelType() {
+    public FuelType getFuelType() {
         return fuelType;
     }
 
-    public void setFuelType(String fuelType) {
+    public void setFuelType(FuelType fuelType) {
         this.fuelType = fuelType;
     }
 
@@ -198,5 +219,73 @@ public class Car extends BaseEntity{
         this.extraOptions = extraOptions;
     }
 
+    public CarType getCarType() {
+        return carType;
+    }
 
+    public void setCarType(CarType carType) {
+        this.carType = carType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Car car = (Car) o;
+
+        if (getCategory() != car.getCategory()) return false;
+        if (Double.compare(car.getPk(), getPk()) != 0) return false;
+        if (Double.compare(car.getEmission(), getEmission()) != 0) return false;
+        if (Double.compare(car.getFiscalHP(), getFiscalHP()) != 0) return false;
+        if (Double.compare(car.getDeliveryTime(), getDeliveryTime()) != 0) return false;
+        if (getIdealKm() != car.getIdealKm()) return false;
+        if (getMaxKm() != car.getMaxKm()) return false;
+        if (Double.compare(car.getListPrice(), getListPrice()) != 0) return false;
+        if (Double.compare(car.getBenefit(), getBenefit()) != 0) return false;
+        if (Double.compare(car.getAmountUpgrade(), getAmountUpgrade()) != 0) return false;
+        if (Double.compare(car.getAmountDowngrade(), getAmountDowngrade()) != 0) return false;
+        if (getBrand() != null ? !getBrand().equals(car.getBrand()) : car.getBrand() != null) return false;
+        if (getModel() != null ? !getModel().equals(car.getModel()) : car.getModel() != null) return false;
+        if (getFuelType() != car.getFuelType()) return false;
+        if (getCarType() != car.getCarType()) return false;
+        if (getBasePack() != null ? !getBasePack().equals(car.getBasePack()) : car.getBasePack() != null) return false;
+        if (getExtraPacks() != null ? !getExtraPacks().equals(car.getExtraPacks()) : car.getExtraPacks() != null)
+            return false;
+        return !(getExtraOptions() != null ? !getExtraOptions().equals(car.getExtraOptions()) : car.getExtraOptions() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = getBrand() != null ? getBrand().hashCode() : 0;
+        result = 31 * result + (getModel() != null ? getModel().hashCode() : 0);
+        result = 31 * result + getCategory();
+        temp = Double.doubleToLongBits(getPk());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getEmission());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (getFuelType() != null ? getFuelType().hashCode() : 0);
+        result = 31 * result + (getCarType() != null ? getCarType().hashCode() : 0);
+        temp = Double.doubleToLongBits(getFiscalHP());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getDeliveryTime());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + getIdealKm();
+        result = 31 * result + getMaxKm();
+        temp = Double.doubleToLongBits(getListPrice());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getBenefit());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getAmountUpgrade());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(getAmountDowngrade());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (getBasePack() != null ? getBasePack().hashCode() : 0);
+        result = 31 * result + (getExtraPacks() != null ? getExtraPacks().hashCode() : 0);
+        result = 31 * result + (getExtraOptions() != null ? getExtraOptions().hashCode() : 0);
+        return result;
+    }
 }

@@ -4,6 +4,7 @@ import com.realdolmen.fleet.model.CarOption;
 import com.realdolmen.fleet.model.Pack;
 import com.realdolmen.fleet.persist.CarOptionsRepository;
 import com.realdolmen.fleet.persist.PackRepository;
+import com.realdolmen.fleet.service.PackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,16 +24,14 @@ import java.util.List;
 @Controller
 public class PackController {
     @Autowired
-    private PackRepository packRepository;
+    private PackService packService;
 
     @Autowired
     private CarOptionsRepository carOptionsRepository;
 
     @RequestMapping(value="/packs", method = RequestMethod.GET)
     public List<Pack> packs(){
-        List<Pack> packs = packRepository.findAll();
-        System.out.println(packs);
-        return packs;
+       return packService.findAll();
     }
 
     @RequestMapping(value="/createpack", method = RequestMethod.GET)

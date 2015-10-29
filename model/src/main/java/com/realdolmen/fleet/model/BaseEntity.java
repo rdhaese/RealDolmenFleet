@@ -5,6 +5,8 @@ import javax.persistence.*;
 /**
  * Created on 27/10/2015.
  *
+ * Base Entity for every Entity to extend.
+ * Makes sure every entity has an id and version
  * @author Robin D'Haese
  */
 @MappedSuperclass
