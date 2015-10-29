@@ -11,6 +11,7 @@
         <module>webapp</module>
         <module>model</module>
         <module>persist</module>
+        <module>service</module>
     </modules>
 
     <packaging>pom</packaging>

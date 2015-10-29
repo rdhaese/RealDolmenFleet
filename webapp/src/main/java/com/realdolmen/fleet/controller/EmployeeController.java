@@ -2,6 +2,7 @@ package com.realdolmen.fleet.controller;
 
 import com.realdolmen.fleet.model.Employee;
 import com.realdolmen.fleet.persist.EmployeeRepository;
+import com.realdolmen.fleet.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +20,10 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Employee> employees(){
-        return employeeRepository.findAll();
+        return employeeService.findAll();
     }
 }
