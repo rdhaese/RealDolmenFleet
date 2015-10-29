@@ -1,5 +1,5 @@
-INSERT INTO employee(email, functional_level, name, password, role) VALUES ('jeroen@skynet.be', '2', 'jeroen', '123', 'FLEET');
-INSERT INTO employee(email, functional_level, name, password, role) VALUES ('r.dhaese92@gmail.com', '2', 'robin', 'password', 'FLEET');
+INSERT INTO employee(email, functional_level, name, password, role) VALUES ('jeroen@skynet.be', '2', 'jeroen', '$2a$10$v8Y.TvnxrqZCfIScuzNchesRzpYAAfM1yfHGuW50l/qpWqLd9NERe', 'FLEET');
+INSERT INTO employee(email, functional_level, name, password, role) VALUES ('r.dhaese92@gmail.com', '2', 'robin', '$2a$10$2SfKBifGwHep6e5y79KDJOjfgq3CmLdsyoh44MEmYPiWFvevmbfmq', 'FLEET');
 
 INSERT INTO car_option(description, name) VALUES ('GPS van tomtom', 'GPS');
 INSERT INTO car_option(description, name) VALUES ('achterlichten in LED-techniek', 'LED achterlichten');
