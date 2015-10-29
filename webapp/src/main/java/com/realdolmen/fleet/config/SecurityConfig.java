@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        http.csrf().disable().formLogin()
                 .loginPage("/login").defaultSuccessUrl("/")
                 .usernameParameter("email").passwordParameter("password")
                 .and().rememberMe().tokenValiditySeconds(2419200)
@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static void main(String... args){
         BCryptPasswordEncoder e = new BCryptPasswordEncoder();
         System.out.println(e.matches("password", "$2a$10$jBbMqhA7T.rYHrsblBxk1uyeFhUvONSa7dN4d5.6HotIZC3KShzV."));
-        System.out.println(e.encode("password"));
+        System.out.println(e.encode("123"));
     }
 
 }
