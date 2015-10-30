@@ -50,14 +50,14 @@ public class PackController {
         if( errors.hasErrors()){
             return "createcaroption";
         }
-
+        /*
         List<CarOption> chozenoptions = pack.getCarOptions();
         List<CarOption> attachedOptions = new ArrayList<>();
         for(CarOption car :chozenoptions){
            attachedOptions.add(carOptionsRepository.getOne(car.getId()));
         }
-        pack.setCarOptions(attachedOptions);
-        packRepository.save(pack);
+        pack.setCarOptions(attachedOptions);*/
+        packService.savePackWithExistingCarOptions(pack);
         return "redirect:/packs";
     }
 }
