@@ -3,6 +3,7 @@ package com.realdolmen.fleet.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -29,6 +30,8 @@ public class CarUsage extends BaseEntity {
     private Date initialEndDate;
     @Temporal(TemporalType.DATE)
     private Date endDate;
+    @OneToMany
+    private List<PeriodicUsageUpdate> usageUpdates;
 
     public CarUsage(String licensePlate, Employee employee, OrderedCar orderedCar, Date orderDate, Date startDate, Date initialEndDate, Date endDate) {
         super();
