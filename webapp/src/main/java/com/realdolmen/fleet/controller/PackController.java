@@ -69,7 +69,7 @@ public class PackController {
 
 
     @RequestMapping(value = "/addoptiontopack", method = RequestMethod.GET)
-    public 
+    public
     String processAJAXRequest(@RequestParam("id") String id, Model model) {
         System.out.println("in process");
         CarOption selectedOption = packService.getCarOption(Long.valueOf(id));

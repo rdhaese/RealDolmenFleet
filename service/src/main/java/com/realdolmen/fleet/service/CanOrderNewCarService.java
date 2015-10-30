@@ -11,14 +11,10 @@ import org.springframework.stereotype.Service;
 public class CanOrderNewCarService {
     public boolean canOrderNewCar() {
         return true; //TODO criteria
-        //return ((hasNoCar() || reachedEndDate() || reachedMaxKm() || permissionByFleet()) && noOpenOrder());
+        //return ((hasNoCar() || reachedEndDate() || reachedMaxKm()) && noOpenOrder());
     }
 
     private boolean noOpenOrder() {
-        return false;
-    }
-
-    private boolean permissionByFleet() {
         return false;
     }
 
