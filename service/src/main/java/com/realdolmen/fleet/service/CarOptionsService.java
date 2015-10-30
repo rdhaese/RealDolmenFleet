@@ -3,6 +3,9 @@ package com.realdolmen.fleet.service;
 import com.realdolmen.fleet.model.CarOption;
 import com.realdolmen.fleet.persist.CarOptionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,8 @@ import java.util.List;
 @Service
 public class CarOptionsService {
 
+    private static final int PAGE_SIZE = 5;
+
     @Autowired
     private CarOptionsRepository carOptionsRepository;
 
@@ -22,7 +27,16 @@ public class CarOptionsService {
         return carOptionsRepository.findAll();
     }
 
-    public void save(CarOption carOption){
-        carOptionsRepository.save(carOption);
+    public void saveCarOption(CarOption carOption) {carOptionsRepository.save(carOption);}
+
+
+    public Page<CarOption> getCarOptions(Integer pageNumber) {
+        PageRequest request =
+                new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "name");
+        return carOptionsRepository.findAll(request);
+    }
+
+    public CarOption getCarOptionByID(Long id){
+        return carOptionsRepository.findOne(id);
     }
 }

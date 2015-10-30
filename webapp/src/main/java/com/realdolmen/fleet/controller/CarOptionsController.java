@@ -6,8 +6,11 @@ import com.realdolmen.fleet.persist.CarOptionsRepository;
 import com.realdolmen.fleet.persist.EmployeeRepository;
 import com.realdolmen.fleet.service.CarOptionsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -42,7 +45,7 @@ public class CarOptionsController {
             return "createcaroption";
         }
         System.out.println("caroption ready to save");
-        carOptionsService.save(carOption);
+        carOptionsService.saveCarOption(carOption);
         System.out.println("caroption saved");
         return "redirect:/caroptions";
     }
