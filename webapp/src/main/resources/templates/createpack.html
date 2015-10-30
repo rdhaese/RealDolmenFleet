@@ -1,12 +1,14 @@
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:spring="http://www.springframework.org/tags">
-<head>
-
-    <title></title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
 <body>
+<div th:replace="fragments/fragments :: header"></div>
 
-<form method="POST" th:object="${pack}">
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+    <div class="row">
+        <div class="col-lg-12">
+
+<form method="POST" th:object="${pack}" action="/createpack">
     <div th:class="${#fields.hasErrors('name')}? 'has-error'">
         <label th:for="${#ids.next('name')}"> name:</label>
         <input type="text" th:field="*{name}" />
@@ -19,25 +21,100 @@
         <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
     </div>
 
+    <div>
+        <h1> SelectedOptions </h1>
+        <table>
+            <tr th:each="caropt  : ${pack.carOptions}">
+
+                <td th:text="${caropt.name}"></td>
+                <td th:text="${caropt.description}"></td>
+
+            </tr>
+
+        </table>
+    </div>
+    <button type="submit">Save pack </button>
+
+
+
+
+    <table id="possibleoptions">
+        <thead>
+        <tr>
+            <th>Name </th>
+            <th>Description</th>
+            <th> Add to pack </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        </tfoot>
+
+        <tbody>
+
+
+        <tr th:each="caroption  : ${allCarOptions}">
+
+            <td th:text="${caroption.name}"></td>
+
+            <td th:text="${caroption.description}"></td>
+
+
+
+            <td> <a th:href="${#mvc.url('PC#addOption').arg(0, caroption.id).build()}" > Add to pack </a> </td>
+
+
+            <td> <a th:onclick="'javascript:addInPack(\'' + ${caroption.id} + '\');'" > badd </a> </td>
 
 
 
 
 
-        <select id="carOptions" th:field="*{carOptions}"  multiple="multiple">
-            <option th:each="carOption : ${allCarOptions}"
-                    th:value="${{carOption}}"
-                    th:text="${carOption.name}">
-                Cinema
-            </option>
-        </select>
-
+        </tr>
+        </tbody>
+    </table>
+</form>
 
 
 
     <br/>
-    <button type="submit">Add Option </button>
-</form>
 
+
+
+        </div>
+
+        <hr/>
+    </div>
+    </div>
+
+
+    <div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#possibleoptions').dataTable().columnFilter();
+
+    } );
+
+ function addInPack(id){
+     var data = "id=" + encodeURIComponent(id);
+
+     $.ajax({
+         url : "/addoptiontopack",
+         data : data,
+         type : "GET",
+
+         success : function(response) {
+             alert( response );
+         },
+         error : function(xhr, status, error) {
+             alert(xhr.responseText);
+         }
+     });
+ }
+</script>
 </body>
 </html>

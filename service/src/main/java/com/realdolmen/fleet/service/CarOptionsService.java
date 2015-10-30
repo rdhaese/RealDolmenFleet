@@ -35,4 +35,8 @@ public class CarOptionsService {
                 new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "name");
         return carOptionsRepository.findAll(request);
     }
+
+    public CarOption getCarOptionByID(Long id){
+        return carOptionsRepository.findOne(id);
+    }
 }

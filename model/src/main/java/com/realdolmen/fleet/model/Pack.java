@@ -3,6 +3,7 @@ package com.realdolmen.fleet.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
@@ -21,7 +22,7 @@ public class Pack extends BaseEntity {
     @NotNull
     private String name;
 
-    @OneToMany
+    @ManyToMany
     private List<CarOption> carOptions = new ArrayList<>();
 
     @Min(0)

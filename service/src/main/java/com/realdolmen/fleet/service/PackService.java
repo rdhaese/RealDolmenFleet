@@ -26,6 +26,9 @@ public class PackService {
     @Autowired
     private CarOptionsRepository carOptionsRepository;
 
+    @Autowired
+    private CarOptionsService carOptionsService;
+
     public List<Pack> findAll(){
         return packRepository.findAll();
     }
@@ -35,10 +38,16 @@ public class PackService {
     public void savePackWithExistingCarOptions(Pack pack){
         List<CarOption> chozenoptions = pack.getCarOptions();
         List<CarOption> attachedOptions = new ArrayList<>();
+        pack.setCarOptions(attachedOptions);
+        savePack(pack);
         for(CarOption car :chozenoptions){
             attachedOptions.add(carOptionsRepository.getOne(car.getId()));
         }
         pack.setCarOptions(attachedOptions);
         savePack(pack);
+    }
+
+    public CarOption getCarOption(Long id){
+        return carOptionsService.getCarOptionByID(id);
     }
 }

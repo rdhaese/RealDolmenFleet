@@ -6,11 +6,11 @@ import com.realdolmen.fleet.persist.CarOptionsRepository;
 import com.realdolmen.fleet.persist.PackRepository;
 import com.realdolmen.fleet.service.PackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
@@ -29,6 +29,9 @@ public class PackController {
     @Autowired
     private CarOptionsRepository carOptionsRepository;
 
+    private List<CarOption> carOptions = new ArrayList<>();
+    private Pack p = new Pack();
+
     @RequestMapping(value="/packs", method = RequestMethod.GET)
     public List<Pack> packs(){
        return packService.findAll();
@@ -36,10 +39,12 @@ public class PackController {
 
     @RequestMapping(value="/createpack", method = RequestMethod.GET)
     public String showNewPack(Model model) {
-        List<CarOption> carOptions = carOptionsRepository.findAll();
-
-        model.addAttribute("allCarOptions", carOptions);
-        model.addAttribute("pack", new Pack());
+        List<CarOption> allCarOptions = carOptionsRepository.findAll();
+        p = new Pack();
+        carOptions = new ArrayList<>();
+        model.addAttribute("allCarOptions", allCarOptions);
+        model.addAttribute("pack", p);
+        model.addAttribute("selectedOptions", carOptions);
         return "createpack";
     }
 
@@ -50,14 +55,51 @@ public class PackController {
         if( errors.hasErrors()){
             return "createcaroption";
         }
+        System.out.println(pack.getCarOptions().size());
+        System.out.println(carOptions);
         /*
         List<CarOption> chozenoptions = pack.getCarOptions();
         List<CarOption> attachedOptions = new ArrayList<>();
         for(CarOption car :chozenoptions){
            attachedOptions.add(carOptionsRepository.getOne(car.getId()));
-        }
-        pack.setCarOptions(attachedOptions);*/
+        }*/
+        pack.setCarOptions(carOptions);
         packService.savePackWithExistingCarOptions(pack);
         return "redirect:/packs";
     }
+
+
+
+    @RequestMapping(value = "/addoptiontopack", method = RequestMethod.GET)//, params= {"id"})
+    public //@ResponseBody
+    String processAJAXRequest(@RequestParam("id") String id, Model model) {
+        System.out.println("in process");
+        CarOption selectedOption = packService.getCarOption(Long.valueOf(id));
+        carOptions.add(selectedOption);
+        Pack p = new Pack();
+        p.setCarOptions(carOptions);
+        model.addAttribute("allCarOptions", carOptionsRepository.findAll());
+        model.addAttribute("selectedOptions", carOptions);
+        model.addAttribute("pack", p);
+        // Process the request
+        // Prepare the response string
+        return "createpack";
+    }
+
+    @RequestMapping(value = "/addoptiontopack/{id}", method = RequestMethod.GET)//, params= {"id"})
+    public //@ResponseBody
+    String addOption(@RequestParam Long id, Model model) {
+        System.out.println("in process");
+        CarOption selectedOption = packService.getCarOption(id);
+        carOptions.add(selectedOption);
+
+        p.setCarOptions(carOptions);
+
+        model.addAttribute("allCarOptions", carOptionsRepository.findAll());
+        model.addAttribute("selectedOptions", carOptions);
+        model.addAttribute("pack", p);        // Process the request
+        // Prepare the response string
+        return "createpack";
+    }
 }
+
