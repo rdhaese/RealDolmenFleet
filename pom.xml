@@ -12,6 +12,8 @@
         <module>model</module>
         <module>persist</module>
         <module>service</module>
+        <module>untitled</module>
+        <module>util</module>
     </modules>
 
     <packaging>pom</packaging>

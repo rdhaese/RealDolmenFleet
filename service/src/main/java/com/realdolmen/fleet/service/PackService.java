@@ -23,4 +23,8 @@ public class PackService {
     public List<Pack> findAll(){
         return packRepository.findAll();
     }
+
+    public void save(Pack pack){
+        packRepository.save(pack);
+    }
 }

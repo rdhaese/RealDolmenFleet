@@ -57,7 +57,7 @@ public class PackController {
            attachedOptions.add(carOptionsRepository.getOne(car.getId()));
         }
         pack.setCarOptions(attachedOptions);
-        packRepository.save(pack);
+        packService.save(pack);
         return "redirect:/packs";
     }
 }

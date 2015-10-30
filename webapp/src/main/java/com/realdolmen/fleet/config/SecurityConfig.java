@@ -43,16 +43,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .and().authorizeRequests()
                 .antMatchers("/fleet/**").hasRole("FLEET")
-                .antMatchers("/employee/**").hasRole("NORMAL")
-                .antMatchers("/employee/**").hasRole("FLEET")
+                .antMatchers("/employees/**").hasRole("NORMAL")
+                .antMatchers("/employees/**").hasRole("FLEET")
                 .anyRequest().permitAll();
     }
-    
+
     //TODO REMOVE
     public static void main(String... args){
         BCryptPasswordEncoder e = new BCryptPasswordEncoder();
         System.out.println(e.encode("123"));
         System.out.println(e.encode("password"));
+        System.out.println(0 % 3);
     }
 
 }

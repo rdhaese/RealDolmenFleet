@@ -22,4 +22,7 @@ public class CarOptionsService {
         return carOptionsRepository.findAll();
     }
 
+    public void save(CarOption carOption){
+        carOptionsRepository.save(carOption);
+    }
 }

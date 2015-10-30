@@ -1,0 +1,59 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head">
+</head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Select a car from the list:</h2>
+
+            <div>
+                <form method="post" th:action="@{select-car}" th:object="${filterCarsDTO}">
+                    <span style="font-weight:bold;">Brand: </span>
+                    <input id="brand" name="brand" type="text" th:field="*{brand}"/> -
+                    <span style="font-weight:bold;">Model: </span>
+                    <input id="carModel" name="carModel" type="text" th:field="*{model}"/><br/>
+                    <span style="font-weight:bold;">Level: </span>
+                    <input name="level" id="allPossible" type="radio" th:field="*{level}" value="allPossible"/>All
+                    Possible
+                    <input name="level" id="downgrade" type="radio" th:field="*{level}" value="downgrade"/>Downgrade
+                    <input name="level" id="myLevel" type="radio" th:field="*{level}" value="myLevel"/>My Level
+                    <input name="level" id="upgrade" type="radio" th:field="*{level}" value="upgrade"/>Upgrade -
+                    <span style="font-weight:bold;">Free Pool: </span>
+                    <input name="inFreePool" id="doesNotMatter" type="radio" th:field="*{inFreePool}"
+                           value="doesNotMatter"/>Does Not Matter
+                    <input name="inFreePool" id="yes" type="radio" th:field="*{inFreePool}" value="yes"/>Yes
+                    <input name="inFreePool" id="no" type="radio" th:field="*{inFreePool}" value="no"/>No <br/>
+                    <input type="submit" value="Filter"/>
+                </form>
+            </div>
+
+            <hr/>
+
+            <table class="table-bordered table-responsive">
+                <tbody>
+                <tr th:each="carList  : ${dimensionalCarList}">
+                    <td th:each="car : ${carList}">
+                        <span th:text="${car.brand + ' ' + car.model}" style="font-weight: bold;">carTitle</span>
+                        <br/>
+                        <a th:href="${'/employees/selected-car-detail?id=' + car.id}">
+                            <img th:src="${car.pictures[0]}" height="200" width="250" class="img-thumbnail"/>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <hr/>
+</div>
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+</body>
+</html>

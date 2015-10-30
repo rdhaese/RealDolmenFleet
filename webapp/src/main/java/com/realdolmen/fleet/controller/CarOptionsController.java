@@ -42,7 +42,7 @@ public class CarOptionsController {
             return "createcaroption";
         }
         System.out.println("caroption ready to save");
-        carOptionsRepository.save(carOption);
+        carOptionsService.save(carOption);
         System.out.println("caroption saved");
         return "redirect:/caroptions";
     }

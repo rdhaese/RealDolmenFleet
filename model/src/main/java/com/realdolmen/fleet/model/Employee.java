@@ -5,6 +5,7 @@ import com.realdolmen.fleet.model.BaseEntity;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.*;
 
 /**
