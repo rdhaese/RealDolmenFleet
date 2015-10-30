@@ -49,6 +49,4 @@ public class CarOptionsController {
         System.out.println("caroption saved");
         return "redirect:/caroptions";
     }
-
-
 }

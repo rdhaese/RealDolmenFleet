@@ -1,6 +1,7 @@
 package com.realdolmen.fleet.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created on 27/10/2015.
@@ -10,7 +11,7 @@ import javax.persistence.*;
  * @author Robin D'Haese
  */
 @MappedSuperclass
-public class BaseEntity {
+public class BaseEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -61,14 +61,12 @@ public class PackController {
 
             return "createpack";
         }
-        System.out.println(pack.getCarOptions().size());
-        System.out.println(carOptions);
-        /*
+
         List<CarOption> chozenoptions = pack.getCarOptions();
         List<CarOption> attachedOptions = new ArrayList<>();
         for(CarOption car :chozenoptions){
            attachedOptions.add(carOptionsRepository.getOne(car.getId()));
-        }*/
+        }
         pack.setCarOptions(carOptions);
         packService.savePackWithExistingCarOptions(pack);
         return "redirect:/packs";
@@ -76,8 +74,8 @@ public class PackController {
 
 
 
-    @RequestMapping(value = "/addoptiontopack", method = RequestMethod.GET)//, params= {"id"})
-    public //@ResponseBody
+    @RequestMapping(value = "/addoptiontopack", method = RequestMethod.GET)
+    public
     String processAJAXRequest(@RequestParam("id") String id, Model model) {
         System.out.println("in process");
         CarOption selectedOption = packService.getCarOption(Long.valueOf(id));
@@ -92,8 +90,8 @@ public class PackController {
         return "createpack";
     }
 
-    @RequestMapping(value = "/addoptiontopack/{id}", method = RequestMethod.GET)//, params= {"id"})
-    public //@ResponseBody
+    @RequestMapping(value = "/addoptiontopack/{id}", method = RequestMethod.GET)
+    public
     String addOption(@RequestParam Long id, Model model) {
         System.out.println("in process");
         CarOption selectedOption = packService.getCarOption(id);
@@ -125,4 +123,3 @@ public class PackController {
         return "createpack";
     }
 }
-
