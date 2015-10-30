@@ -12,7 +12,7 @@ public class CanOrderNewCarService {
 
     public boolean canOrderNewCar() {
         return true; //TODO criteria
-        //return ((hasNoCar() || reachedEndDate() || reachedMaxKm()) && noOpenOrder());
+        //return (noOpenOrder() && (hasNoCar() || reachedEndDate() || reachedMaxKm()));
     }
 
     private boolean noOpenOrder() {
