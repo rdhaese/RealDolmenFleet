@@ -49,11 +49,17 @@ public class PackController {
     }
 
     @RequestMapping(value="/createpack", method = RequestMethod.POST)
-    @Transactional
-    public String processPack(@Valid Pack pack, Errors errors) {
-
+    public String processPack(@Valid Pack pack, Errors errors, Model model) {
+        System.out.println(errors.hasErrors());
+        System.out.println(errors.getAllErrors());
         if( errors.hasErrors()){
-            return "createcaroption";
+
+            model.addAttribute("allCarOptions", carOptionsRepository.findAll());
+            model.addAttribute("pack", pack);
+            model.addAttribute("selectedOptions", carOptions);
+
+
+            return "createpack";
         }
 
         List<CarOption> chozenoptions = pack.getCarOptions();
@@ -90,6 +96,23 @@ public class PackController {
         System.out.println("in process");
         CarOption selectedOption = packService.getCarOption(id);
         carOptions.add(selectedOption);
+
+        p.setCarOptions(carOptions);
+
+        model.addAttribute("allCarOptions", carOptionsRepository.findAll());
+        model.addAttribute("selectedOptions", carOptions);
+        model.addAttribute("pack", p);        // Process the request
+        // Prepare the response string
+        return "createpack";
+    }
+
+    @RequestMapping(value = "/removeoption²/{id}", method = RequestMethod.GET)//, params= {"id"})
+       public //@ResponseBody
+    String removeOption(@RequestParam int id, Model model) {
+        System.out.println("in delete process");
+        carOptions.remove(id);
+    //    CarOption selectedOption = packService.getCarOption(id);
+      //  carOptions.add(selectedOption);
 
         p.setCarOptions(carOptions);
 

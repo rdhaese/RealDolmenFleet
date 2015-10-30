@@ -24,11 +24,11 @@
     <div>
         <h1> SelectedOptions </h1>
         <table>
-            <tr th:each="caropt  : ${pack.carOptions}">
+            <tr th:each="caropt,idStat  : ${pack.carOptions}">
 
                 <td th:text="${caropt.name}"></td>
                 <td th:text="${caropt.description}"></td>
-
+                <td> <a th:href="${#mvc.url('PC#removeOption').arg(0, idStat.index).build()}" > Remove </a> </td>
             </tr>
 
         </table>
