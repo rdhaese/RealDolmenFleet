@@ -42,10 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
                 .and().authorizeRequests()
-                .antMatchers("/fleet/**").hasRole("FLEET")
-                .antMatchers("/employees/**").hasRole("NORMAL")
-                .antMatchers("/employees/**").hasRole("FLEET")
-                .anyRequest().permitAll();
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/error").permitAll()
+                .antMatchers("/**").hasRole("NORMAL")
+                .antMatchers("/**").hasRole("FLEET")
+                .antMatchers("/fleet/**").hasRole("FLEET");
+
     }
 
     //TODO REMOVE
