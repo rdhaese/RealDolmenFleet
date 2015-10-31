@@ -18,13 +18,13 @@ public class PeriodicUsageUpdate extends BaseEntity {
     @DecimalMin("0")
     private double totalFuelledForPeriod;
     @DecimalMin("0")
-    private double newTotalKm;
+    private int newTotalKm;
     @Temporal(TemporalType.DATE)
     private Date fromDate;
     @Temporal(TemporalType.DATE)
     private Date toDate;
 
-    public PeriodicUsageUpdate(double totalFuelledForPeriod, double newTotalKm, Date fromDate, Date toDate) {
+    public PeriodicUsageUpdate(double totalFuelledForPeriod, int newTotalKm, Date fromDate, Date toDate) {
         this.totalFuelledForPeriod = totalFuelledForPeriod;
         this.newTotalKm = newTotalKm;
         this.fromDate = fromDate;
@@ -69,11 +69,11 @@ public class PeriodicUsageUpdate extends BaseEntity {
         this.totalFuelledForPeriod = totalFuelledForPeriod;
     }
 
-    public double getNewTotalKm() {
+    public int getNewTotalKm() {
         return newTotalKm;
     }
 
-    public void setNewTotalKm(double newTotalKm) {
+    public void setNewTotalKm(int newTotalKm) {
         this.newTotalKm = newTotalKm;
     }
 

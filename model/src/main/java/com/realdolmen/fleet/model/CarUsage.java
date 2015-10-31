@@ -12,7 +12,7 @@ import java.util.List;
  * @author Robin D'Haese
  */
 @Entity
-public class CarUsage extends BaseEntity {
+public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
     @NotNull
     private String licensePlate;
     @OneToOne
@@ -31,6 +31,7 @@ public class CarUsage extends BaseEntity {
     @Temporal(TemporalType.DATE)
     private Date endDate;
     @OneToMany
+    @OrderBy(value = "new_total_km") //TODO test this
     private List<PeriodicUsageUpdate> usageUpdates;
 
     public CarUsage(String licensePlate, Employee employee, OrderedCar orderedCar, Date orderDate, Date startDate, Date initialEndDate, Date endDate) {
@@ -135,5 +136,18 @@ public class CarUsage extends BaseEntity {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public List<PeriodicUsageUpdate> getUsageUpdates() {
+        return usageUpdates;
+    }
+
+    public void setUsageUpdates(List<PeriodicUsageUpdate> usageUpdates) {
+        this.usageUpdates = usageUpdates;
+    }
+
+    @Override
+    public int compareTo(CarUsage o) {
+        return this.initialEndDate.compareTo(o.getInitialEndDate());
     }
 }

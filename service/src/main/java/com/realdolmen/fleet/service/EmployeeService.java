@@ -27,17 +27,20 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    public Employee findUserOnEmail(String email){
+       return employeeRepository.findByEmail(email);
+    }
 
-    public int getFunctionalLevelFor(String email) {
-        return employeeRepository.findByEmail(email).getFunctionalLevel();
+    public Employee getLoggedInUser(){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return findUserOnEmail(user.getUsername());
     }
 
     public int functionalLevelForLoggedInUser(){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return getFunctionalLevelFor(user.getUsername());
+        return getLoggedInUser().getFunctionalLevel();
     }
 
     public boolean loggedInUserCanOrderNewCar() {
-        return canOrderNewCarService.canOrderNewCar();
+        return canOrderNewCarService.loggedInEmployeeCanOrderNewCar();
     }
 }
