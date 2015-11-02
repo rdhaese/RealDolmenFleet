@@ -15,9 +15,9 @@ INSERT INTO car_option(description, name) VALUES ('Enkel Vooraan', 'Verwarmde ze
 INSERT INTO car_option(description, name) VALUES ('Onherkenbaarheid is verzekerd''Getinte ruiten');
 
 
-INSERT INTO pack(name, price) VALUES ('Pack Business @ GPS Discover Media', '299');
-INSERT INTO pack(name, price) VALUES ('Pack Business gps rns315 / pre gsm', '399');
-INSERT INTO pack(name, price) VALUES ('Business Media Pack', '255');
+INSERT INTO pack(name, price, version) VALUES ('Pack Business @ GPS Discover Media', '299', '0');
+INSERT INTO pack(name, price, version) VALUES ('Pack Business gps rns315 / pre gsm', '399', '0');
+INSERT INTO pack(name, price, version) VALUES ('Business Media Pack', '255', '0');
 
 INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('1', '4');
 INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('1', '5');

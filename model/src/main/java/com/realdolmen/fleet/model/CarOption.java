@@ -2,6 +2,7 @@ package com.realdolmen.fleet.model;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by JVDAX31 on 28/10/2015.
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 public class CarOption extends BaseEntity {
 
     @NotNull
+    @Size(min=1, max=255)
     private String name;
     private String description;
 

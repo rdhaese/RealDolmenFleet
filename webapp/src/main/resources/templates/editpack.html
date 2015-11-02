@@ -1,0 +1,147 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+    <div class="row">
+        <div class="col-lg-12">
+
+            <form method="POST" th:object="${pack}" action="/editpack">
+                <div th:class="${#fields.hasErrors('name')}? 'has-error'">
+                    <label th:for="${#ids.next('name')}"> name:</label>
+                    <input type="text" th:field="*{name}" />
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('price')}? 'has-error'">
+                    <label th:for="${#ids.next('price')}"> price:</label>
+                    <input type="text" th:field="*{price}" />
+                    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+                </div>
+
+                <div>
+                    <h1> SelectedOptions </h1>
+                    <table>
+                        <tr th:each="caropt,idStat  : ${pack.carOptions}">
+
+                            <td th:text="${caropt.name}"></td>
+                            <td th:text="${caropt.description}"></td>
+
+
+                            <td>
+                                  <a th:href="${#mvc.url('EPC#removeOptionInEdit').arg(0, idStat.index).build()}" > Remove </a> </td>
+                                <!--     <a th:href="@{/removeoptionedit/${caroption.id}}" > remove from pack </a> </td> -->
+                                  </tr>
+
+                              </table>
+                          </div>
+                          <button type="submit">Save updated pack </button>
+
+
+
+
+                          <table id="possibleoptions">
+                              <thead>
+                              <tr>
+                                  <th>Name </th>
+                                  <th>Description</th>
+                                  <th> </th>
+
+                              </tr>
+                              </thead>
+                              <tfoot>
+                              <tr>
+                                  <th>Name</th>
+                                  <th>Description</th>
+                              </tr>
+                              </tfoot>
+
+                              <tbody>
+
+
+                              <tr th:each="caroption  : ${allCarOptions}">
+
+                                  <td th:text="${caroption.name}"></td>
+
+                                  <td th:text="${caroption.description}"></td>
+
+                                  <!--        <td> <a th:href="@{/addoptioninedit/${caroption.id}}" > Add to pack </a> </td>
+                                                                        <td> <a th:onclick="'javascript:addInPack(\'' + ${caroption.id} + '\');'" > badd </a> </td>  -->
+
+
+
+                                                     <td> <a th:href="${#mvc.url('EPC#addOptionInEdit').arg(0, caroption.id).build()}" > Add to pack </a> </td>
+
+
+
+
+
+
+
+                    </tr>
+                    </tbody>
+                </table>
+
+
+
+            </form>
+
+
+
+            <br/>
+
+            <form method="POST" th:object="${carOption}"  action="/createeditpackoption">
+                <div th:class="${#fields.hasErrors('name')}? 'has-error'">
+                    <label th:for="${#ids.next('name')}"> name:</label>
+                    <input type="text" th:field="*{name}" />
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('description')}? 'has-error'">
+                    <label th:for="${#ids.next('description')}"> description:</label>
+                    <input type="text" th:field="*{description}" />
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                </div>
+
+
+                <br/>
+                <button type="submit">Add new pack Option </button>
+            </form>
+
+        </div>
+
+        <hr/>
+    </div>
+</div>
+
+
+
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#possibleoptions').dataTable().columnFilter();
+
+    } );
+
+    function addInPack(id){
+        var data = "id=" + encodeURIComponent(id);
+
+        $.ajax({
+            url : "/addoptiontopack",
+            data : data,
+            type : "GET",
+
+            success : function(response) {
+                alert( response );
+            },
+            error : function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+    }
+</script>
+</body>
+</html>
