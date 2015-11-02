@@ -31,14 +31,20 @@ public class PackService {
 
     public List<Pack> findAll(){
         return packRepository.findAll();
+
     }
 
-    public void savePack(Pack pack){ packRepository.save(pack);}
+    public void savePack(Pack pack){
+
+        System.out.println("saving pack with id: " + pack.getId());
+        packRepository.save(pack);}
 
     public void savePackWithExistingCarOptions(Pack pack){
+        System.out.println("in save pack with existing car options");
         List<CarOption> chozenoptions = pack.getCarOptions();
         List<CarOption> attachedOptions = new ArrayList<>();
         pack.setCarOptions(attachedOptions);
+
         savePack(pack);
         for(CarOption car :chozenoptions){
             attachedOptions.add(carOptionsRepository.getOne(car.getId()));
@@ -47,7 +53,28 @@ public class PackService {
         savePack(pack);
     }
 
+    public void editPackWithExistingCarOptions(Pack pack){
+        System.out.println("in save pack with existing car options");
+        List<CarOption> chozenoptions = pack.getCarOptions();
+        List<CarOption> attachedOptions = new ArrayList<>();
+        pack.setCarOptions(attachedOptions);
+
+        Pack lookedupPack = findPackById(pack.getId());
+        lookedupPack.setPrice(pack.getPrice());
+        lookedupPack.setName(pack.getName());
+        savePack(lookedupPack);
+        for(CarOption car :chozenoptions){
+            attachedOptions.add(carOptionsRepository.getOne(car.getId()));
+        }
+        lookedupPack.setCarOptions(attachedOptions);
+        savePack(lookedupPack);
+    }
+
     public CarOption getCarOption(Long id){
         return carOptionsService.getCarOptionByID(id);
+    }
+
+    public Pack findPackById(Long id){
+        return packRepository.findOne(id);
     }
 }

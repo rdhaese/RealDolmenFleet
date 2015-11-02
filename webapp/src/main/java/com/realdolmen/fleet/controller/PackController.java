@@ -6,6 +6,7 @@ import com.realdolmen.fleet.persist.CarOptionsRepository;
 import com.realdolmen.fleet.persist.PackRepository;
 import com.realdolmen.fleet.service.PackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ import java.util.List;
  * Created by JVDAX31 on 28/10/2015.
  */
 @Controller
+@Scope("session")
 public class PackController {
     @Autowired
     private PackService packService;
@@ -31,6 +33,14 @@ public class PackController {
 
     private List<CarOption> carOptions = new ArrayList<>();
     private Pack p = new Pack();
+    List<CarOption> allCarOptions = new ArrayList<>();
+
+
+    public void populateModel(Model model){
+        model.addAttribute("allCarOptions", allCarOptions);
+        model.addAttribute("pack", p);
+        model.addAttribute("carOption", new CarOption());
+    }
 
     @RequestMapping(value="/packs", method = RequestMethod.GET)
     public List<Pack> packs(){
@@ -39,34 +49,24 @@ public class PackController {
 
     @RequestMapping(value="/createpack", method = RequestMethod.GET)
     public String showNewPack(Model model) {
-        List<CarOption> allCarOptions = carOptionsRepository.findAll();
+        allCarOptions = carOptionsRepository.findAll();
         p = new Pack();
         carOptions = new ArrayList<>();
-        model.addAttribute("allCarOptions", allCarOptions);
-        model.addAttribute("pack", p);
-        model.addAttribute("selectedOptions", carOptions);
+        populateModel(model);
         return "createpack";
     }
 
     @RequestMapping(value="/createpack", method = RequestMethod.POST)
     public String processPack(@Valid Pack pack, Errors errors, Model model) {
-        System.out.println(errors.hasErrors());
-        System.out.println(errors.getAllErrors());
+        System.out.println("in process create pack: " + pack.getId());
         if( errors.hasErrors()){
-
+            pack.setCarOptions(carOptions);
             model.addAttribute("allCarOptions", carOptionsRepository.findAll());
             model.addAttribute("pack", pack);
-            model.addAttribute("selectedOptions", carOptions);
-
-
+            model.addAttribute("carOption", new CarOption());
             return "createpack";
         }
 
-        List<CarOption> chozenoptions = pack.getCarOptions();
-        List<CarOption> attachedOptions = new ArrayList<>();
-        for(CarOption car :chozenoptions){
-           attachedOptions.add(carOptionsRepository.getOne(car.getId()));
-        }
         pack.setCarOptions(carOptions);
         packService.savePackWithExistingCarOptions(pack);
         return "redirect:/packs";
@@ -74,52 +74,51 @@ public class PackController {
 
 
 
-    @RequestMapping(value = "/addoptiontopack", method = RequestMethod.GET)
-    public
-    String processAJAXRequest(@RequestParam("id") String id, Model model) {
-        System.out.println("in process");
-        CarOption selectedOption = packService.getCarOption(Long.valueOf(id));
-        carOptions.add(selectedOption);
-        Pack p = new Pack();
-        p.setCarOptions(carOptions);
-        model.addAttribute("allCarOptions", carOptionsRepository.findAll());
-        model.addAttribute("selectedOptions", carOptions);
-        model.addAttribute("pack", p);
-        // Process the request
-        // Prepare the response string
-        return "createpack";
-    }
-
     @RequestMapping(value = "/addoptiontopack/{id}", method = RequestMethod.GET)
     public
     String addOption(@RequestParam Long id, Model model) {
-        System.out.println("in process");
+        System.out.println("add option in create");
         CarOption selectedOption = packService.getCarOption(id);
         carOptions.add(selectedOption);
-
-        p.setCarOptions(carOptions);
-
-        model.addAttribute("allCarOptions", carOptionsRepository.findAll());
-        model.addAttribute("selectedOptions", carOptions);
-        model.addAttribute("pack", p);        // Process the request
-        // Prepare the response string
+        p.addCarOption(selectedOption);
+        populateModel(model);
         return "createpack";
     }
 
-    @RequestMapping(value = "/removeoption²/{id}", method = RequestMethod.GET)//, params= {"id"})
+    @RequestMapping(value = "/removeoption/{id}", method = RequestMethod.GET)
        public //@ResponseBody
     String removeOption(@RequestParam int id, Model model) {
-        System.out.println("in delete process");
         carOptions.remove(id);
-    //    CarOption selectedOption = packService.getCarOption(id);
-      //  carOptions.add(selectedOption);
-
-        p.setCarOptions(carOptions);
-
-        model.addAttribute("allCarOptions", carOptionsRepository.findAll());
-        model.addAttribute("selectedOptions", carOptions);
-        model.addAttribute("pack", p);        // Process the request
+        p.removeCarOption(id);
+        populateModel(model);
         // Prepare the response string
         return "createpack";
     }
+
+
+    @RequestMapping(value="/createnewpackoption", method = RequestMethod.POST)
+    public String processCarOption(@Valid CarOption carOption, Errors errors, Model model) {
+        System.out.println("caroption ready to save");
+        if( errors.hasErrors()){
+            System.out.println("errors found");
+            p.setCarOptions(carOptions);
+            populateModel(model);
+            return "createpack";
+        }
+        System.out.println("caroption ready to save");
+        carOptionsRepository.save(carOption);
+        carOptions.add(carOption);
+        p.addCarOption(carOption);
+        populateModel(model);
+        return "createPack";
+    }
+
+
+
+
+
+
+
+
+
 }

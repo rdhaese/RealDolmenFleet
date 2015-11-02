@@ -27,7 +27,7 @@ public class Pack extends BaseEntity {
     @ManyToMany
     private List<CarOption> carOptions = new ArrayList<>();
 
-    @Min(0)
+    @Min(value=1)
     private double price;
 
 
@@ -87,5 +87,13 @@ public class Pack extends BaseEntity {
         temp = Double.doubleToLongBits(getPrice());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    public void addCarOption(CarOption carOption){
+        carOptions.add(carOption);
+    }
+
+    public void removeCarOption(int pos){
+        carOptions.remove(pos);
     }
 }
