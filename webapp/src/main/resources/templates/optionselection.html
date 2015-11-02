@@ -14,26 +14,41 @@
     </div>
 </div>
 
-name:  <p th:text="${car.brand}">Welcome to our grocery store!</p>
-model  <p th:text="${car.model}">Welcome to our grocery store!</p>
+<h2> name:  <p th:text="${car.brand}"/> </h2>
+<h2> model:  <p th:text="${car.model}"/> </h2>
 <div th:if="${car.basePack != null}">
-
-    <p th:text="${car.basePack.name}">Welcome to our grocery store!</p>
+    <h3> Base pack:</h3>
+    <p th:text="${car.basePack.name}"/>
 
 </div>
 
 <div>
     <h3> Optional packs:</h3>
     <table>
-    <tr th:each="expack  : ${car.extraPacks}">
+    <tr th:each="expack, idStat  : ${car.extraPacks}">
 
         <td th:text="${expack.name}">1</td>
+        <td> <a th:href="${#mvc.url('CCC#removeExtraPack').arg(0, idStat.index).build()}" > Remove </a> </td>
 
     </tr>
         </table>
 
 </div>
 
+<div>
+<h3> Extra possible options:</h3>
+<table>
+    <tr th:each="opt, idStat  : ${car.extraOptions}">
+
+        <td th:text="${opt.name}">1</td>
+        <td> <a th:href="${#mvc.url('CCC#removeExtraOption').arg(0, idStat.index).build()}" > Remove </a> </td>
+
+    </tr>
+</table>
+
+</div>
+<div>
+    <h2> All Packs:</h2>
 <table id="allPacks">
     <thead>
     <tr>
@@ -67,6 +82,47 @@ model  <p th:text="${car.model}">Welcome to our grocery store!</p>
     </tr>
     </tbody>
 </table>
+
+    </div>
+
+<div>
+    <h2> All Options: </h2>
+    <table id="allOptions">
+        <thead>
+        <tr>
+            <th>Name </th>
+            <th>Description </th>
+            <th></th>
+
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        </tfoot>
+
+        <tbody>
+
+
+        <tr th:each="option  : ${optionList}">
+
+            <td th:text="${option.name}"></td>
+
+            <td th:text="${option.description}"></td>
+
+            <td> <a th:href="${#mvc.url('CCC#addExtraOption').arg(0, option.id).build()}" > Add Option </a> </td>
+
+
+
+
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
 <h4> <a th:href="${#mvc.url('CCC#saveCar').arg(0, car.id).build()}" > Save New Car </a> </h4>
 
 
@@ -74,6 +130,11 @@ model  <p th:text="${car.model}">Welcome to our grocery store!</p>
 <script type="text/javascript" charset="utf-8">
     $(document).ready( function () {
         $('#allPacks').dataTable().columnFilter();
+
+    } );
+
+    $(document).ready( function () {
+        $('#allOptions').dataTable().columnFilter();
 
     } );
 

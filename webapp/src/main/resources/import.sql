@@ -1,18 +1,18 @@
 INSERT INTO employee(version, email, functional_level, name, password, role, permission_to_order_new_car) VALUES ('1','jeroen@skynet.be', '2', 'jeroen', '$2a$10$v8Y.TvnxrqZCfIScuzNchesRzpYAAfM1yfHGuW50l/qpWqLd9NERe', 'ROLE_FLEET', false);
 INSERT INTO employee(version, email, functional_level, name, password, role, permission_to_order_new_car) VALUES ('1','r.dhaese92@gmail.com', '4', 'robin', '$2a$10$2SfKBifGwHep6e5y79KDJOjfgq3CmLdsyoh44MEmYPiWFvevmbfmq', 'ROLE_FLEET', false);
 
-INSERT INTO car_option(description, name) VALUES ('GPS van tomtom', 'GPS');
-INSERT INTO car_option(description, name) VALUES ('achterlichten in LED-techniek', 'LED achterlichten');
-INSERT INTO car_option(name) VALUES ('Cruise control');
-INSERT INTO car_option(description, name) VALUES ('Stevige rails op het dak', 'Dakrails');
-INSERT INTO car_option(description, name) VALUES ('Robuust en onmisbaar', 'Trekhaak');
-INSERT INTO car_option(name) VALUES ('Automaat');
-INSERT INTO car_option(name) VALUES ('7-zits');
-INSERT INTO car_option(description, name) VALUES ('indien mogelijkheid voorzien door constructeur', 'Volwaardig reservewiel');
-INSERT INTO car_option(name) VALUES ('Parkeersensoren');
-INSERT INTO car_option(description, name) VALUES ('100 procent het beste leer', 'lederen intereur');
-INSERT INTO car_option(description, name) VALUES ('Enkel Vooraan', 'Verwarmde zetels');
-INSERT INTO car_option(description, name) VALUES ('Onherkenbaarheid is verzekerd''Getinte ruiten');
+INSERT INTO car_option(description, name, version) VALUES ('GPS van tomtom', 'GPS','0');
+INSERT INTO car_option(description, name, version) VALUES ('achterlichten in LED-techniek', 'LED achterlichten','0');
+INSERT INTO car_option(name, version) VALUES ('Cruise control','0');
+INSERT INTO car_option(description, name, version) VALUES ('Stevige rails op het dak', 'Dakrails','0');
+INSERT INTO car_option(description, name, version) VALUES ('Robuust en onmisbaar', 'Trekhaak','0');
+INSERT INTO car_option(name, version) VALUES ('Automaat','0');
+INSERT INTO car_option(name, version) VALUES ('7-zits','0');
+INSERT INTO car_option(description, name, version) VALUES ('indien mogelijkheid voorzien door constructeur', 'Volwaardig reservewiel','0');
+INSERT INTO car_option(name, version) VALUES ('Parkeersensoren','0');
+INSERT INTO car_option(description, name, version) VALUES ('100 procent het beste leer', 'lederen intereur','0');
+INSERT INTO car_option(description, name, version) VALUES ('Enkel Vooraan', 'Verwarmde zetels','0');
+INSERT INTO car_option(description, name, version) VALUES ('Onherkenbaarheid is verzekerd','Getinte ruiten','0');
 
 
 INSERT INTO pack(name, price, version) VALUES ('Pack Business @ GPS Discover Media', '299', '0');

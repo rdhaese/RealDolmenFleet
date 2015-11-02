@@ -311,4 +311,8 @@ public class Car extends BaseEntity{
     public void addExtraPack(Pack p){
         extraPacks.add(p);
     }
+
+    public void addExtraOption(CarOption c){
+       extraOptions.add(c);
+    }
 }

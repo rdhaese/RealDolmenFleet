@@ -3,6 +3,7 @@ package com.realdolmen.fleet.controller;
 import com.realdolmen.fleet.model.Car;
 import com.realdolmen.fleet.model.CarOption;
 import com.realdolmen.fleet.model.Pack;
+import com.realdolmen.fleet.service.CarOptionsService;
 import com.realdolmen.fleet.service.CarService;
 import com.realdolmen.fleet.service.PackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class CreateCarController {
 
     @Autowired
     private PackService packService;
+
+    @Autowired
+    private CarOptionsService carOptionsService;
 
     private Car createdCar;
 
@@ -63,6 +67,7 @@ public class CreateCarController {
         createdCar = car;
         m.addAttribute("packList", packService.findAll());
         m.addAttribute("car", createdCar);
+        m.addAttribute("optionList", carOptionsService.findAll());
         return "optionselection";
     }
 
@@ -81,6 +86,7 @@ public class CreateCarController {
         createdCar.setBasePack(p);
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
+        model.addAttribute("optionList", carOptionsService.findAll());
         return "optionselection";
     }
 
@@ -92,6 +98,43 @@ public class CreateCarController {
         createdCar.addExtraPack(p);
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
+        model.addAttribute("optionList", carOptionsService.findAll());
+        return "optionselection";
+    }
+
+    @RequestMapping(value = "/addExtraOption/{id}", method = RequestMethod.GET)
+    public
+    String addExtraOption(@RequestParam Long id, Model model) {
+
+        CarOption carOption = carOptionsService.getCarOptionByID(id);
+        createdCar.addExtraOption(carOption);
+        System.out.println(carOption.getId());
+        model.addAttribute("car", createdCar);
+        model.addAttribute("packList", packService.findAll());
+        model.addAttribute("optionList", carOptionsService.findAll());
+        return "optionselection";
+    }
+
+
+    @RequestMapping(value = "/removeextrapack/{id}", method = RequestMethod.GET)
+    public //@ResponseBody
+    String removeExtraPack(@RequestParam int id, Model model) {
+        createdCar.getExtraPacks().remove(id);
+        model.addAttribute("car", createdCar);
+        model.addAttribute("packList", packService.findAll());
+        model.addAttribute("optionList", carOptionsService.findAll());
+        // Prepare the response string
+        return "optionselection";
+    }
+
+    @RequestMapping(value = "/removeextraoption/{id}", method = RequestMethod.GET)
+    public //@ResponseBody
+    String removeExtraOption(@RequestParam int id, Model model) {
+        createdCar.getExtraOptions().remove(id);
+        model.addAttribute("car", createdCar);
+        model.addAttribute("packList", packService.findAll());
+        model.addAttribute("optionList", carOptionsService.findAll());
+        // Prepare the response string
         return "optionselection";
     }
 
