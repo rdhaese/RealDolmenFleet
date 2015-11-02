@@ -1,0 +1,82 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+    <div class="row">
+        <div class="col-lg-12">
+
+        </div>
+
+        <hr/>
+    </div>
+</div>
+
+name:  <p th:text="${car.brand}">Welcome to our grocery store!</p>
+model  <p th:text="${car.model}">Welcome to our grocery store!</p>
+<div th:if="${car.basePack != null}">
+
+    <p th:text="${car.basePack.name}">Welcome to our grocery store!</p>
+
+</div>
+
+<div>
+    <h3> Optional packs:</h3>
+    <table>
+    <tr th:each="expack  : ${car.extraPacks}">
+
+        <td th:text="${expack.name}">1</td>
+
+    </tr>
+        </table>
+
+</div>
+
+<table id="allPacks">
+    <thead>
+    <tr>
+        <th>Name </th>
+        <th>Price </th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    </tfoot>
+
+    <tbody>
+
+
+    <tr th:each="pack  : ${packList}">
+
+        <td th:text="${pack.name}"></td>
+
+        <td th:text="${pack.price}"></td>
+
+        <td> <a th:href="${#mvc.url('CCC#setBasicPack').arg(0, pack.id).build()}" > Set as basic pack </a> </td>
+
+        <td> <a th:href="${#mvc.url('CCC#addExtraPack').arg(0, pack.id).build()}" > Add as extra  pack </a> </td>
+
+
+    </tr>
+    </tbody>
+</table>
+<h4> <a th:href="${#mvc.url('CCC#saveCar').arg(0, car.id).build()}" > Save New Car </a> </h4>
+
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#allPacks').dataTable().columnFilter();
+
+    } );
+
+    </script>
+</body>
+</html>

@@ -54,9 +54,9 @@ public class Car extends BaseEntity{
     private List<String> pictures = new ArrayList<>();
     @ManyToOne
     private Pack basePack;
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Pack> extraPacks = new ArrayList<>();
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<CarOption> extraOptions = new ArrayList<>();
 
 
@@ -306,5 +306,9 @@ public class Car extends BaseEntity{
         result = 31 * result + (getExtraPacks() != null ? getExtraPacks().hashCode() : 0);
         result = 31 * result + (getExtraOptions() != null ? getExtraOptions().hashCode() : 0);
         return result;
+    }
+
+    public void addExtraPack(Pack p){
+        extraPacks.add(p);
     }
 }

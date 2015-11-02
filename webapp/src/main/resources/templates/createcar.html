@@ -1,0 +1,132 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+    <div class="row">
+        <div class="col-lg-12">
+
+
+
+            <form method="POST" th:object="${car}">
+                <div th:class="${#fields.hasErrors('brand')}? 'has-error'">
+                    <label th:for="${#ids.next('brand')}"> Brand:</label>
+                    <input type="text" th:field="*{brand}" />
+                    <span th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('model')}? 'has-error'">
+                    <label th:for="${#ids.next('model')}"> Model:</label>
+                    <input type="text" th:field="*{model}" />
+                    <span th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></span>
+                </div>
+
+
+                <div th:class="${#fields.hasErrors('category')}? 'has-error'">
+                    <label th:for="${#ids.next('category')}"> Category:</label>
+                    <input type="text" th:field="*{category}" />
+                    <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('pk')}? 'has-error'">
+                    <label th:for="${#ids.next('pk')}"> PK:</label>
+                    <input type="text" th:field="*{pk}" />
+                    <span th:if="${#fields.hasErrors('pk')}" th:errors="*{pk}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('emission')}? 'has-error'">
+                    <label th:for="${#ids.next('emission')}"> Emission:</label>
+                    <input type="text" th:field="*{emission}" />
+                    <span th:if="${#fields.hasErrors('emission')}" th:errors="*{emission}"></span>
+                </div>
+
+
+                <div th:class="${#fields.hasErrors('fuelType')}? 'has-error'">
+                    <label th:for="${#ids.next('fuelType')}"> FuelType:</label>
+
+                    <select name="fuel-selector" th:field="*{fuelType}">
+                        <option th:each="fuel : ${T(com.realdolmen.fleet.model.FuelType).values()}" th:value="${fuel}" th:text="${fuel}"  ></option>
+                    </select>
+                  <!--   <input type="text" th:field="*{fuelType}" /> -->
+                    <span th:if="${#fields.hasErrors('fuelType')}" th:errors="*{fuelType}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('carType')}? 'has-error'">
+                    <label th:for="${#ids.next('carType')}"> CarType:</label>
+                    <select name="cartype-selector" th:field="*{carType}" >
+                        <option th:each="fuel : ${T(com.realdolmen.fleet.model.CarType).values()}" th:value="${fuel}" th:text="${fuel}" ></option>
+                    </select>
+
+                    <span th:if="${#fields.hasErrors('carType')}" th:errors="*{carType}"></span>
+                </div>
+
+
+                <div th:class="${#fields.hasErrors('fiscalHP')}? 'has-error'">
+                    <label th:for="${#ids.next('fiscalHP')}"> FiscalHP:</label>
+                    <input type="text" th:field="*{fiscalHP}" />
+                    <span th:if="${#fields.hasErrors('fiscalHP')}" th:errors="*{fiscalHP}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('deliveryTime')}? 'has-error'">
+                    <label th:for="${#ids.next('deliveryTime')}"> DeliveryTime in Months:</label>
+                    <input type="text" th:field="*{deliveryTime}" />
+                    <span th:if="${#fields.hasErrors('deliveryTime')}" th:errors="*{deliveryTime}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('idealKm')}? 'has-error'">
+                    <label th:for="${#ids.next('idealKm')}"> IdealKM:</label>
+                    <input type="text" th:field="*{idealKm}" />
+                    <span th:if="${#fields.hasErrors('idealKm')}" th:errors="*{idealKm}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('maxKm')}? 'has-error'">
+                    <label th:for="${#ids.next('maxKm')}"> Max KM:</label>
+                    <input type="text" th:field="*{maxKm}" />
+                    <span th:if="${#fields.hasErrors('maxKm')}" th:errors="*{maxKm}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('listPrice')}? 'has-error'">
+                    <label th:for="${#ids.next('listPrice')}"> ListPrice:</label>
+                    <input type="text" th:field="*{listPrice}" />
+                    <span th:if="${#fields.hasErrors('listPrice')}" th:errors="*{listPrice}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('benefit')}? 'has-error'">
+                    <label th:for="${#ids.next('benefit')}"> Benefit:</label>
+                    <input type="text" th:field="*{benefit}" />
+                    <span th:if="${#fields.hasErrors('benefit')}" th:errors="*{benefit}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('amountUpgrade')}? 'has-error'">
+                    <label th:for="${#ids.next('amountUpgrade')}"> amountUpgrade:</label>
+                    <input type="text" th:field="*{amountUpgrade}" />
+                    <span th:if="${#fields.hasErrors('amountUpgrade')}" th:errors="*{amountUpgrade}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('amountDowngrade')}? 'has-error'">
+                    <label th:for="${#ids.next('amountDowngrade')}"> amountDowngrade:</label>
+                    <input type="text" th:field="*{amountDowngrade}" />
+                    <span th:if="${#fields.hasErrors('amountDowngrade')}" th:errors="*{amountDowngrade}"></span>
+                </div>
+
+
+                <br/>
+                <button type="submit">Go to options selection </button>
+            </form>
+
+
+        </div>
+
+        <hr/>
+    </div>
+</div>
+
+
+
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+
+</body>
+</html>

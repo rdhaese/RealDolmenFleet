@@ -93,4 +93,11 @@ public class CarService {
     public Car findById(long id) {
         return carRepository.findOne(id);
     }
+
+
+    public void saveCar(Car car){
+        carRepository.save(car);
+    }
+
+
 }
