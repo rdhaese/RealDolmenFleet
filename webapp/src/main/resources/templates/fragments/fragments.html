@@ -18,7 +18,14 @@
         <a class="navbar-brand" href="http://portal.realdolmen.com">Portal</a>
 
         <ul class="nav navbar-nav">
-            <li><a th:href="@{/}">Home</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/}">Personal Overview</a></li>
+            <li class="dropdown" sec:authorize="hasRole('ROLE_FLEET')">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fleet <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a th:href="@{/fleet/allow-order}">Allow Orders</a></li>
+                    <li><a href="#">Confirm Orders</a></li>
+                </ul>
+            </li>
             <li th:if="${session.loggedInUserCanOrderNewCar}"><a th:href="@{/employees/select-car}">Ordering Car Available!</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

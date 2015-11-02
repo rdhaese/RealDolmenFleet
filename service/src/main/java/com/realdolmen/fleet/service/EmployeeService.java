@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,5 +43,21 @@ public class EmployeeService {
 
     public boolean loggedInUserCanOrderNewCar() {
         return canOrderNewCarService.loggedInEmployeeCanOrderNewCar();
+    }
+
+    public void save(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+    public List<Employee> getUsersThatNeedOrderPermission() {
+        List<Employee> employeesWithoutPermission = employeeRepository.findEmployeesWithoutPermissionTOrderNewCar();
+        List<Employee> employeesThatNeedPermission = new ArrayList<>();
+        employeesWithoutPermission.forEach(employee ->{
+                    if (canOrderNewCarService.needsPermission(employee)){
+                        employeesThatNeedPermission.add(employee);
+                    }
+                }
+        );
+        return employeesThatNeedPermission;
     }
 }

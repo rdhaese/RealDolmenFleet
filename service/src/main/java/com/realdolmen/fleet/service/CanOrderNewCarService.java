@@ -26,15 +26,9 @@ public class CanOrderNewCarService {
 
     //TODO test all this
     public boolean loggedInEmployeeCanOrderNewCar() {
-        CarUsage carUsage = getLastCarUsageForLoggedInUser();
-        return (hasPermission() || ((!hasOpenOrder(carUsage) && (!hasACar(carUsage)) || reachedEndDate(carUsage) || reachedIdealKm(carUsage))));
+        return employeeService.getLoggedInUser().isPermissionToOrderNewCar();
     }
 
-
-    private boolean hasPermission() {
-        //TODO Criteria
-        return true;
-    }
     private boolean hasOpenOrder( CarUsage carUsage) {
         if (carUsage == null){
             return false;
@@ -78,12 +72,16 @@ public class CanOrderNewCarService {
         return true;
     }
 
-    private CarUsage getLastCarUsageForLoggedInUser(){
-        Employee loggedInUser = employeeService.getLoggedInUser();
-        TreeSet<CarUsage> carUsages = new TreeSet<>(carUsageRepository.findByEmployee(loggedInUser.getEmail()));
+    private CarUsage getLastCarUsageEmployee(Employee employee){
+        TreeSet<CarUsage> carUsages = new TreeSet<>(carUsageRepository.findByEmployee(employee.getEmail()));
         if (carUsages.isEmpty()){
             return null;
         }
         return carUsages.last();
+    }
+
+    public boolean needsPermission(Employee employee) {
+        CarUsage carUsage = getLastCarUsageEmployee(employee);
+        return ((!hasOpenOrder(carUsage) && (!hasACar(carUsage)) || reachedEndDate(carUsage) || reachedIdealKm(carUsage)));
     }
 }

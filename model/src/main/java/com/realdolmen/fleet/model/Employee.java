@@ -2,10 +2,7 @@ package com.realdolmen.fleet.model;
 
 import com.realdolmen.fleet.model.BaseEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 /**
@@ -30,6 +27,7 @@ public class Employee extends BaseEntity {
     @DecimalMin(value = "0")
     @DecimalMax(value = "8")
     private int functionalLevel;
+    private boolean permissionToOrderNewCar = false;
 
     public Employee(String name, String email, String password, EmployeeType role, int functionalLevel) {
         this.name = name;
@@ -79,6 +77,14 @@ public class Employee extends BaseEntity {
 
     public void setFunctionalLevel(int functionalLevel) {
         this.functionalLevel = functionalLevel;
+    }
+
+    public boolean isPermissionToOrderNewCar() {
+        return permissionToOrderNewCar;
+    }
+
+    public void setPermissionToOrderNewCar(boolean permissionToOrderNewCar) {
+        this.permissionToOrderNewCar = permissionToOrderNewCar;
     }
 
     @Override

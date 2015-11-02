@@ -2,11 +2,9 @@ package com.realdolmen.fleet.service;
 
 import com.realdolmen.fleet.model.CarOption;
 import com.realdolmen.fleet.model.CarUsage;
+import com.realdolmen.fleet.model.Employee;
 import com.realdolmen.fleet.model.Pack;
-import com.realdolmen.fleet.persist.CarOptionsRepository;
-import com.realdolmen.fleet.persist.CarUsageRepository;
-import com.realdolmen.fleet.persist.OrderedCarRepository;
-import com.realdolmen.fleet.persist.PackRepository;
+import com.realdolmen.fleet.persist.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +26,8 @@ public class OrderedCarService {
     private CarUsageRepository carUsageRepository;
     @Autowired
     private OrderedCarRepository orderedCarRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     public Pack getPackOnId(Long packId) {
         return  packRepository.findOne(packId);
@@ -39,6 +39,9 @@ public class OrderedCarService {
 
     //TODO @Transactional
     public void placeOrder(CarUsage carUsage) {
+        Employee employee = carUsage.getEmployee();
+        employee.setPermissionToOrderNewCar(false);
+        employeeRepository.save(employee);
         orderedCarRepository.save(carUsage.getOrderedCar());
         carUsageRepository.save(carUsage);
     }

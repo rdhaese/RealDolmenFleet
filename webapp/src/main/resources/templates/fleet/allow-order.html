@@ -1,0 +1,50 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="allowByEmail">
+                <h2>Allow Ordering Car</h2>
+                <form method="post" th:action="@{allow-order}">
+                    Give in email:
+                    <input type="text" id="email" name="email" class="form-control"/>
+                    <input type="submit" class="form-control" value="Allow Order"/>
+                </form>
+            </div>
+            <div id="allowUsersThatMeetCriteria">
+                <h2>Employees That Need New Car</h2>
+                These employees meet one or more criteria and need to order a new car.
+               <table class="table">
+                   <thead>
+                   <th>Name</th>
+                   <th>Email</th>
+                   <th>Allow</th>
+                   </thead>
+                   <tbody>
+                    <tr th:each="employee : ${usersThatNeedPermission}">
+                        <td th:text="${employee.name}">employeeName</td>
+                        <td th:text="${employee.email}">employeeEmail</td>
+                        <td>
+                            <form method="post" th:action="@{allow-order}">
+                                <input type="hidden" name="email" th:value="${employee.email}"/>
+                                <input type="submit" class="form-control" value="Allow Order"/>
+                            </form>
+                        </td>
+                    </tr>
+                   </tbody>
+               </table>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+</div>
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+</body>
+</html>
