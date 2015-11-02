@@ -22,19 +22,19 @@
                     Possible
                     <input name="level" id="downgrade" type="radio" th:field="*{level}" value="downgrade"/>Downgrade
                     <input name="level" id="myLevel" type="radio" th:field="*{level}" value="myLevel"/>My Level
-                    <input name="level" id="upgrade" type="radio" th:field="*{level}" value="upgrade"/>Upgrade -
+                    <input name="level" id="upgrade" type="radio" th:field="*{level}" value="upgrade"/>Upgrade <br/>
                     <span style="font-weight:bold;">Free Pool: </span>
                     <input name="inFreePool" id="doesNotMatter" type="radio" th:field="*{inFreePool}"
                            value="doesNotMatter"/>Does Not Matter
                     <input name="inFreePool" id="yes" type="radio" th:field="*{inFreePool}" value="yes"/>Yes
                     <input name="inFreePool" id="no" type="radio" th:field="*{inFreePool}" value="no"/>No <br/>
-                    <input type="submit" value="Filter"/>
+                    <input type="submit" value="Filter" class="form-control"/>
                 </form>
             </div>
 
             <hr/>
 
-            <table class="table-bordered table-responsive">
+            <table class="table-bordered">
                 <tbody>
                 <tr th:each="carList  : ${dimensionalCarList}">
                     <td th:each="car : ${carList}">
@@ -43,6 +43,11 @@
                         <a th:href="${'/employees/selected-car-detail?id=' + car.id}">
                             <img th:src="${car.pictures[0]}" height="200" width="250" class="img-thumbnail"/>
                         </a>
+                        <ul>
+                        <li th:if="${car.category &lt; functionalLevelForLoggedInUser}">Upgrade</li>
+                        <li th:if="${car.category &gt; functionalLevelForLoggedInUser}">Downgrade</li>
+                        <li th:if="${car.inFreePool}">In Free Pool</li>
+                        </ul>
                     </td>
                 </tr>
                 </tbody>

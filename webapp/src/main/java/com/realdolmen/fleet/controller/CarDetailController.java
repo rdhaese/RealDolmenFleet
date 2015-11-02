@@ -26,15 +26,21 @@ public class CarDetailController {
     private EmployeeService employeeService;
 
     @RequestMapping(value="/employees/selected-car-detail", method = RequestMethod.GET)
-    public String carDetail(@RequestParam("id") long id, Model model){
+    public String carDetail(@RequestParam(value = "id", required = false) Long id, Model model){
+        if (id == null){
+            return "employees/overview";
+        }
         if (!employeeService.loggedInUserCanOrderNewCar()){
-            return "index";
+            return "employees/overview";
         }
         Car car = carService.findById(id);
         if (car == null){
-            return "index";
+            return "employees/overview";
         }
         model.addAttribute(car);
+        model.addAttribute("functionalLevelForLoggedInUser", employeeService.functionalLevelForLoggedInUser());
         return "employees/selected-car-detail";
     }
+
+
 }

@@ -8,7 +8,63 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <p th:text="${car.model}">model</p>
+            <div id="orderControl" style="width: 100%; float: left; text-align: center;">
+                <a th:href="${'/employees/order-car?id=' + car.id}" class="form-control">Order Car</a>
+            </div>
+            <div id="carDetails" style="width: 50%; float: left">
+                <h2>Car details</h2>
+
+                <p>Brand: <span th:text="${car.brand}">brand</span></p>
+
+                <p>Model: <span th:text="${car.model}">model</span></p>
+
+                <p>Category: <span th:text="${car.category}">category</span></p>
+
+                <p th:if="${car.category &lt; functionalLevelForLoggedInUser}">Upgrade amount: €<span th:text="${car.amountUpgrade}">amountUpgrade</span></p>
+
+                <p th:if="${car.category &gt; functionalLevelForLoggedInUser}">Downgrade amount: €<span th:text="${car.amountDowngrade}">amountDowngrade</span></p>
+
+                <p>Horse Power: <span th:text="${car.pk}">pk</span></p>
+
+                <p>Fiscal Horse Power: <span th:text="${car.fiscalHP}">fiscalHp</span></p>
+
+                <p>Emission: <span th:text="${car.emission}">emission</span></p>
+
+                <p>Fuel type: <span th:text="${car.fuelType}">fuelType</span></p>
+
+                <p>Car type: <span th:text="${car.carType}">carType</span></p>
+
+                <p>Delivery time: <span th:text="${car.deliveryTime}">carType</span> months</p>
+
+                <p>Ideal km: <span th:text="${car.idealKm}">idealKm</span></p>
+
+                <p>Max km: <span th:text="${car.maxKm}">maxKm</span></p>
+
+                <p>List price: €<span th:text="${car.listPrice}">listPrice</span></p>
+
+                <p>Benefit: €<span th:text="${car.benefit}">benefit</span></p>
+
+                <p>From free pool: <span th:text="${car.inFreePool}">inFreePool</span></p>
+            </div>
+            <div id="basePackDetails" style="width: 50%; float: right">
+                <h2> </h2>
+                <h3>Base Pack</h3>
+                <h4 th:text="${car.basePack.name}">basePackName</h4>
+                <p>price: €<span th:text="${car.basePack.price}">basePackPrice</span></p>
+                <h5>Options:</h5>
+                <ul>
+                <li th:each="option : ${car.basePack.carOptions}">
+                    <h6 th:text="${option.name}"></h6>
+                    <p th:text="${option.description}"></p>
+                </li>
+                </ul>
+            </div>
+            <div id="pictures" style="width: 100%; float: left">
+                <h3>Pictures</h3>
+                <a th:each="imgLink : ${car.pictures}" th:href="${imgLink}">
+                    <img th:src="${imgLink}" height="400" width="500" class="img-thumbnail"/>
+                </a>
+            </div>
         </div>
     </div>
 

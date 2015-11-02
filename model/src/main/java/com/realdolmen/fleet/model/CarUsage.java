@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Entity
 public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
-    @NotNull
+
     private String licensePlate;
     @OneToOne
     private Employee employee;

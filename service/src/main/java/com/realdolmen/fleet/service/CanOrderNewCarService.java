@@ -27,9 +27,14 @@ public class CanOrderNewCarService {
     //TODO test all this
     public boolean loggedInEmployeeCanOrderNewCar() {
         CarUsage carUsage = getLastCarUsageForLoggedInUser();
-        return (!hasOpenOrder(carUsage) && (!hasACar(carUsage) || reachedEndDate(carUsage) || reachedIdealKm(carUsage)));
+        return (hasPermission() || ((!hasOpenOrder(carUsage) && (!hasACar(carUsage)) || reachedEndDate(carUsage) || reachedIdealKm(carUsage))));
     }
 
+
+    private boolean hasPermission() {
+        //TODO Criteria
+        return true;
+    }
     private boolean hasOpenOrder( CarUsage carUsage) {
         if (carUsage == null){
             return false;

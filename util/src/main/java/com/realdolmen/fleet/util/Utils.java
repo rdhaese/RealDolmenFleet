@@ -1,6 +1,8 @@
 package com.realdolmen.fleet.util;
 
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -39,5 +41,13 @@ public final class Utils {
             twoDimensionalList.get(listIndex).add(oneDimensionalList.get(index));
         }
         return twoDimensionalList;
+    }
+
+
+    public static Date addDaysToDate(Date date, Double daysToAdd){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, daysToAdd.intValue());
+        return cal.getTime();
     }
 }

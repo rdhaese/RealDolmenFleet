@@ -6,15 +6,12 @@ import com.realdolmen.fleet.service.CarService;
 import com.realdolmen.fleet.service.EmployeeService;
 import com.realdolmen.fleet.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.security.core.userdetails.User;
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**
@@ -31,33 +28,38 @@ public class SelectCarController {
     @Autowired
     private EmployeeService employeeService;
 
-    @RequestMapping(value="/employees/select-car", method = RequestMethod.GET)
-    public String cars( Model model){
-        if (!employeeService.loggedInUserCanOrderNewCar()){
-            return "index";
+    @RequestMapping(value = "/employees/select-car", method = RequestMethod.GET)
+    public String cars(Model model) {
+        if (!employeeService.loggedInUserCanOrderNewCar()) {
+            return "employees/overview";
         }
         List<Car> cars = carService.findAll(employeeService.functionalLevelForLoggedInUser());
-        model.addAttribute("dimensionalCarList", Utils.toTwoDimensionalList(cars, DIMENSIONAL_LIST_BOUNDARY));
-        model.addAttribute(new FilterCarsDTO());
+        setModelAttributes(model, cars, new FilterCarsDTO());
         return "employees/select-car";
     }
 
-    @RequestMapping(value="/employees/select-car", method = RequestMethod.POST)
-    public String filterCars(@ModelAttribute FilterCarsDTO filterCarsDTO, Model model){
-        if (!employeeService.loggedInUserCanOrderNewCar()){
-            return "index";
+    @RequestMapping(value = "/employees/select-car", method = RequestMethod.POST)
+    public String filterCars(@ModelAttribute FilterCarsDTO filterCarsDTO, Model model) {
+        if (!employeeService.loggedInUserCanOrderNewCar()) {
+            return "employees/overview";
         }
         List<Car> cars = carService.findAll(employeeService.functionalLevelForLoggedInUser());
         cars = filterOnBrand(filterCarsDTO, cars);
         cars = filterOnModel(filterCarsDTO, cars);
-        cars = filterOnLevel(filterCarsDTO, cars);
         cars = filterOnInFreePool(filterCarsDTO, cars);
-        model.addAttribute("dimensionalCarList", Utils.toTwoDimensionalList(cars, DIMENSIONAL_LIST_BOUNDARY));
+        cars = filterOnLevel(filterCarsDTO, cars);
+        setModelAttributes(model, cars, filterCarsDTO);
         return "employees/select-car";
     }
 
+    private void setModelAttributes(Model model, List<Car> cars, FilterCarsDTO filterCarsDTO) {
+        model.addAttribute("dimensionalCarList", Utils.toTwoDimensionalList(cars, DIMENSIONAL_LIST_BOUNDARY));
+        model.addAttribute("functionalLevelForLoggedInUser", employeeService.functionalLevelForLoggedInUser());
+        model.addAttribute(filterCarsDTO);
+    }
+
     private List<Car> filterOnInFreePool(FilterCarsDTO filterCarsDTO, List<Car> cars) {
-        switch (filterCarsDTO.getInFreePool()){
+        switch (filterCarsDTO.getInFreePool()) {
             case "yes":
                 cars = carService.filterInFreePool(cars);
                 break;
@@ -69,7 +71,7 @@ public class SelectCarController {
     }
 
     private List<Car> filterOnLevel(FilterCarsDTO filterCarsDTO, List<Car> cars) {
-        switch (filterCarsDTO.getLevel()){
+        switch (filterCarsDTO.getLevel()) {
             case "downgrade":
                 cars = carService.filterDowngrade(cars, employeeService.functionalLevelForLoggedInUser());
                 break;
@@ -85,7 +87,7 @@ public class SelectCarController {
 
     private List<Car> filterOnModel(@ModelAttribute FilterCarsDTO filterCarsDTO, List<Car> cars) {
         String carModel = filterCarsDTO.getModel();
-        if (carModel != null && !carModel.isEmpty()){
+        if (carModel != null && !carModel.isEmpty()) {
             cars = carService.filterOnModel(cars, carModel);
         }
         return cars;
@@ -93,7 +95,7 @@ public class SelectCarController {
 
     private List<Car> filterOnBrand(@ModelAttribute FilterCarsDTO filterCarsDTO, List<Car> cars) {
         String brand = filterCarsDTO.getBrand();
-        if (brand != null && !brand.isEmpty()){
+        if (brand != null && !brand.isEmpty()) {
             cars = carService.filterOnBrand(cars, brand);
         }
         return cars;

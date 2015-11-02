@@ -18,7 +18,7 @@
         <a class="navbar-brand" href="http://portal.realdolmen.com">Portal</a>
 
         <ul class="nav navbar-nav">
-            <li><a th:href="@{/index}">Home</a></li>
+            <li><a th:href="@{/}">Home</a></li>
             <li th:if="${session.loggedInUserCanOrderNewCar}"><a th:href="@{/employees/select-car}">Ordering Car Available!</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
