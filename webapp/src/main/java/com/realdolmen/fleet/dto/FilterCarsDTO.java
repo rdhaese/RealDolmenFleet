@@ -12,7 +12,6 @@ public class FilterCarsDTO implements Serializable {
     private String model;
     private String brand;
     private String level = "allPossible";
-    private String inFreePool = "doesNotMatter";
 
     @Override
     public boolean equals(Object o) {
@@ -23,8 +22,7 @@ public class FilterCarsDTO implements Serializable {
 
         if (getModel() != null ? !getModel().equals(that.getModel()) : that.getModel() != null) return false;
         if (getBrand() != null ? !getBrand().equals(that.getBrand()) : that.getBrand() != null) return false;
-        if (getLevel() != null ? !getLevel().equals(that.getLevel()) : that.getLevel() != null) return false;
-        return !(getInFreePool() != null ? !getInFreePool().equals(that.getInFreePool()) : that.getInFreePool() != null);
+        return !(getLevel() != null ? !getLevel().equals(that.getLevel()) : that.getLevel() != null);
 
     }
 
@@ -33,7 +31,6 @@ public class FilterCarsDTO implements Serializable {
         int result = getModel() != null ? getModel().hashCode() : 0;
         result = 31 * result + (getBrand() != null ? getBrand().hashCode() : 0);
         result = 31 * result + (getLevel() != null ? getLevel().hashCode() : 0);
-        result = 31 * result + (getInFreePool() != null ? getInFreePool().hashCode() : 0);
         return result;
     }
 
@@ -61,11 +58,4 @@ public class FilterCarsDTO implements Serializable {
         this.level = level;
     }
 
-    public String getInFreePool() {
-        return inFreePool;
-    }
-
-    public void setInFreePool(String inFreePool) {
-        this.inFreePool = inFreePool;
-    }
 }

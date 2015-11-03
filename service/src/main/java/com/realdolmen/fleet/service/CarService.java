@@ -1,7 +1,10 @@
 package com.realdolmen.fleet.service;
 
 import com.realdolmen.fleet.model.Car;
+import com.realdolmen.fleet.model.CarUsage;
+import com.realdolmen.fleet.model.Employee;
 import com.realdolmen.fleet.persist.CarRepository;
+import com.realdolmen.fleet.persist.CarUsageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,9 @@ public class CarService {
 
     @Autowired
     private CarRepository carRepository;
+
+    @Autowired
+    private CarUsageRepository carUsageRepository;
 
     public List<Car> findAll() {
         return carRepository.findAll();
@@ -68,29 +74,36 @@ public class CarService {
         return filteredList;
     }
 
-    public List<Car> filterInFreePool(List<Car> cars){
-        List<Car> filteredList = new ArrayList<>();
-        cars.forEach(car -> {
-                    if (car.getInFreePool() == true) {
-                        filteredList.add(car);
-                    }
-                }
-        );
-        return filteredList;
-    }
 
-    public List<Car> filterNotInFreePool(List<Car> cars){
-        List<Car> filteredList = new ArrayList<>();
-        cars.forEach(car -> {
-                    if (car.getInFreePool() == false) {
-                        filteredList.add(car);
-                    }
-                }
-        );
-        return filteredList;
-    }
 
     public Car findById(long id) {
         return carRepository.findOne(id);
+    }
+
+
+    public List<CarUsage> findAllFromFreePool() {
+        return carUsageRepository.findAllFromFreePool();
+    }
+
+    public CarUsage findCarUsageById(Long id){
+        return carUsageRepository.findOne(id);
+    }
+
+    public void save(CarUsage carUsage) {
+        carUsageRepository.save(carUsage);
+    }
+
+    public List<CarUsage> findOpenOrdersFor(Employee employee) {
+        return carUsageRepository.findOpenOrdersFor(employee.getId());
+    }
+
+    public void removeOpenOrder(CarUsage previousOpenOrder) {
+        carUsageRepository.delete(previousOpenOrder);
+    }
+
+    public void backToFreePool(CarUsage carUsage) {
+        carUsage.setLicensePlate(null);
+        carUsage.setEmployee(null);
+        carUsageRepository.save(carUsage);
     }
 }

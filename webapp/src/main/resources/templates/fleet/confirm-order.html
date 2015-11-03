@@ -18,10 +18,10 @@
                 </thead>
                 <tbody>
                 <tr th:each="carUsage : ${ordersToConfirm}">
-                    <td th:text="${carUsage.employee.name}">employeeName</td>
+                    <td th:text="${carUsage.employeeName}">employeeName</td>
                     <td th:text="${carUsage.orderDate}">orderDate</td>
                     <td style="text-align: center;">
-                        <a th:href="${'/fleet/confirm-order-detail?id=' + carUsage.id}" class="form-control">Confirm Order</a>
+                        <a th:href="${'/fleet/confirm-order-detail?id=' + carUsage.orderId}" class="form-control">Confirm Order</a>
                     </td>
                 </tr>
                 </tbody>

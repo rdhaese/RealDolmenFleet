@@ -1,6 +1,7 @@
 package com.realdolmen.fleet.controller;
 
 import com.realdolmen.fleet.model.Car;
+import com.realdolmen.fleet.model.CarUsage;
 import com.realdolmen.fleet.service.CarService;
 import com.realdolmen.fleet.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class CarDetailController {
     @Autowired
     private EmployeeService employeeService;
 
+
     @RequestMapping(value="/employees/selected-car-detail", method = RequestMethod.GET)
     public String carDetail(@RequestParam(value = "id", required = false) Long id, Model model){
         if (id == null){
@@ -42,5 +44,20 @@ public class CarDetailController {
         return "employees/selected-car-detail";
     }
 
+    @RequestMapping(value="/employees/selected-free-pool-car-detail", method = RequestMethod.GET)
+    public String freePoolCarDetail(@RequestParam(value = "id", required = false) Long id, Model model){
+        if (id == null){
+            return "employees/overview";
+        }
+        if (!employeeService.loggedInUserCanOrderNewCar()){
+            return "employees/overview";
+        }
+        CarUsage carUsage = carService.findCarUsageById(id);
+        if (carUsage == null){
+            return "employees/overview";
+        }
+        model.addAttribute(carUsage);
+        return "employees/selected-free-pool-car-detail";
+    }
 
 }

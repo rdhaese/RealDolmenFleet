@@ -11,6 +11,9 @@
             <div id="allowByEmail">
                 <h2>Allow Ordering Car</h2>
                 <form method="post" th:action="@{allow-order}">
+                    <p th:if="${emailNotFound}">
+                        No employee found for the given email.
+                    </p>
                     Give in email:
                     <input type="text" id="email" name="email" class="form-control"/>
                     <input type="submit" class="form-control" value="Allow Order"/>

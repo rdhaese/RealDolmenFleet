@@ -34,4 +34,8 @@ public class ConfirmOrderService {
     public void confirmOrder(CarUsage order) {
         carUsageRepository.save(order);
     }
+
+    public boolean isFromFreePool(CarUsage order) {
+        return (!order.getUsageUpdates().isEmpty()) && (order.getUsageUpdates().get(order.getUsageUpdates().size() - 1).getNewTotalKm() > 0);
+    }
 }

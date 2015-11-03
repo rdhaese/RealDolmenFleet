@@ -9,9 +9,9 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <H2>Confirm Order</H2>
+            <H2>Confirm Order From Free Pool</H2>
 
-            <form method="post" action="#" th:action="@{/fleet/confirm-order-detail}" th:object="${confirmedOrderDTO}">
+            <form method="post" action="#" th:action="@{/fleet/confirm-order-from-free-pool-detail}" th:object="${confirmedOrderDTO}">
                 <div id="control">
                     <input type="hidden" th:field="*{orderId}"/>
                     <input type="submit" value="Save Changes And Confirm" class="form-control"/>
@@ -24,12 +24,6 @@
                     <p>Model: <span th:text="${order.orderedCar.car.model}">model</span></p>
 
                     <p>Category: <span th:text="${order.orderedCar.car.category}">category</span></p>
-
-                    <p th:if="${order.orderedCar.car.category &lt; order.employee.functionalLevel}">Upgrade amount:
-                        €<span th:text="${order.orderedCar.car.amountUpgrade}">amountUpgrade</span></p>
-
-                    <p th:if="${order.orderedCar.car.category &gt; order.employee.functionalLevel}">Downgrade amount:
-                        €<span th:text="${order.orderedCar.car.amountDowngrade}">amountDowngrade</span></p>
 
                     <p>Horse Power: <span th:text="${order.orderedCar.car.pk}">pk</span></p>
 
@@ -70,23 +64,10 @@
                 <div id="orderDetails" style="width: 49%; float: right;">
                     <h3>Order Specific Details</h3>
 
-                    <p>Order date: <span th:text="*{orderedDate}">orderDate</span></p>
-
-                    <p>Start Date: <input type="text" id="datepicker" th:field="*{startDate}"/>
-                        <span th:if="${startDateError}"><br/>Make sure the start date is in the correct format.</span>
-                    </p>
-
-                    <p>Initial End Date: <input type="text" id="datepicker2" th:field="*{initialEndDate}"/>
-                        <span th:if="${initialEndDateError}"><br/>Make sure the initial end date is in the correct format.</span>
-                    </p>
-
                     <p>License Plate: <input type="text" th:field="*{licensePlate}"/>
                         <span th:if="${licensePlateError}"><br/>Make sure the license plate is filled in.</span>
                     </p>
 
-                    <p>Price: <input type="text" th:field="*{price}"/>
-                        <span th:if="${priceError}"><br/>Make sure the price is filled in. (>0)</span>
-                    </p>
                 </div>
                 <div style="width: 100%; float: left;">
                     <div id="extraPacks" style="width: 49%; float: left;">

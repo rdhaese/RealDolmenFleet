@@ -2,6 +2,7 @@ package com.realdolmen.fleet.controller;
 
 import com.realdolmen.fleet.dto.FilterCarsDTO;
 import com.realdolmen.fleet.model.Car;
+import com.realdolmen.fleet.model.CarUsage;
 import com.realdolmen.fleet.service.CarService;
 import com.realdolmen.fleet.service.EmployeeService;
 import com.realdolmen.fleet.util.Utils;
@@ -34,7 +35,8 @@ public class SelectCarController {
             return "employees/overview";
         }
         List<Car> cars = carService.findAll(employeeService.functionalLevelForLoggedInUser());
-        setModelAttributes(model, cars, new FilterCarsDTO());
+        List<CarUsage> carsInFreePool = carService.findAllFromFreePool();
+        setModelAttributes(model, cars, carsInFreePool, new FilterCarsDTO());
         return "employees/select-car";
     }
 
@@ -46,28 +48,16 @@ public class SelectCarController {
         List<Car> cars = carService.findAll(employeeService.functionalLevelForLoggedInUser());
         cars = filterOnBrand(filterCarsDTO, cars);
         cars = filterOnModel(filterCarsDTO, cars);
-        cars = filterOnInFreePool(filterCarsDTO, cars);
         cars = filterOnLevel(filterCarsDTO, cars);
-        setModelAttributes(model, cars, filterCarsDTO);
+        setModelAttributes(model, cars, carService.findAllFromFreePool(), filterCarsDTO);
         return "employees/select-car";
     }
 
-    private void setModelAttributes(Model model, List<Car> cars, FilterCarsDTO filterCarsDTO) {
+    private void setModelAttributes(Model model, List<Car> cars, List<CarUsage> carsInFreePool, FilterCarsDTO filterCarsDTO) {
         model.addAttribute("dimensionalCarList", Utils.toTwoDimensionalList(cars, DIMENSIONAL_LIST_BOUNDARY));
+        model.addAttribute("dimensionalFreePoolCarList", Utils.toTwoDimensionalList(carsInFreePool, DIMENSIONAL_LIST_BOUNDARY));
         model.addAttribute("functionalLevelForLoggedInUser", employeeService.functionalLevelForLoggedInUser());
         model.addAttribute(filterCarsDTO);
-    }
-
-    private List<Car> filterOnInFreePool(FilterCarsDTO filterCarsDTO, List<Car> cars) {
-        switch (filterCarsDTO.getInFreePool()) {
-            case "yes":
-                cars = carService.filterInFreePool(cars);
-                break;
-            case "no":
-                cars = carService.filterNotInFreePool(cars);
-                break;
-        }
-        return cars;
     }
 
     private List<Car> filterOnLevel(FilterCarsDTO filterCarsDTO, List<Car> cars) {

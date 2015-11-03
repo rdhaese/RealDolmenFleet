@@ -11,6 +11,15 @@
 
     <artifactId>service</artifactId>
 <dependencies>
+
+    <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>mail</artifactId>
+        <version>1.4.7</version>
+    </dependency>
+
+
+
     <dependency>
         <groupId>com.realdolmen.fleet</groupId>
         <artifactId>persist</artifactId>
