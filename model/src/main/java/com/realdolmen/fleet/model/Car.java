@@ -52,9 +52,9 @@ public class Car extends BaseEntity{
     private List<String> pictures = new ArrayList<>();
     @ManyToOne
     private Pack basePack;
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Pack> extraPacks = new ArrayList<>();
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<CarOption> extraOptions = new ArrayList<>();
 
 
@@ -297,4 +297,36 @@ public class Car extends BaseEntity{
         result = 31 * result + (getExtraOptions() != null ? getExtraOptions().hashCode() : 0);
         return result;
     }
+
+    public void addExtraPack(Pack p){
+        extraPacks.add(p);
+    }
+
+    public void addExtraOption(CarOption c){
+       extraOptions.add(c);
+    }
+
+    public void CopyCar(Car source){
+            this.brand = source.brand;
+            this.model = source.model;
+            this.category = source.category;
+            this.pk = source.pk;
+            this.emission = source.emission;
+            this.fuelType = source.fuelType;
+            this.carType = source.carType;
+            this.fiscalHP = source.fiscalHP;
+            this.deliveryTime = source.deliveryTime;
+            this.idealKm = source.idealKm;
+            this.maxKm = source.maxKm;
+            this.listPrice = source.listPrice;
+            this.benefit = source.benefit;
+            this.amountUpgrade = source.amountUpgrade;
+            this.amountDowngrade = source.amountDowngrade;
+            this.basePack = source.basePack;
+            this.extraPacks = source.extraPacks;
+            this.extraOptions = source.extraOptions;
+
+        }
+
+
 }

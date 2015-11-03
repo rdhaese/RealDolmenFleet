@@ -34,9 +34,6 @@ public class EditPackController {
     private Pack p = new Pack();
 
 
-
-
-
     public void populateModel(Model model){
         model.addAttribute("allCarOptions", allCarOptions);
         model.addAttribute("pack", p);

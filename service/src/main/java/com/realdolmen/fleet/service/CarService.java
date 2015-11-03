@@ -106,4 +106,12 @@ public class CarService {
         carUsage.setEmployee(null);
         carUsageRepository.save(carUsage);
     }
+
+
+    public void saveCar(Car car){
+        System.out.println("Save car with id: "+ car.getId());
+        carRepository.save(car);
+    }
+
+
 }

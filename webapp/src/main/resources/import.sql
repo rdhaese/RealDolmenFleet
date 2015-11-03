@@ -35,6 +35,8 @@ INSERT INTO car_pictures(car_id, pictures) VALUES ('2', 'http://www.larevueautom
 INSERT INTO car_pictures(car_id, pictures) VALUES ('3', 'http://www.garagethoen.be/media/126610/passat-berline.jpg');
 
 INSERT INTO car_extra_packs(car_id, extra_packs_id) VALUES ('1','2');
+INSERT INTO car_extra_packs(car_id, extra_packs_id) VALUES ('2','3');
+INSERT INTO car_extra_packs(car_id, extra_packs_id) VALUES ('2','1');
 
 INSERT INTO car_extra_options(car_id, extra_options_id) VALUES ('1','10');
 INSERT INTO car_extra_options(car_id, extra_options_id) VALUES ('1','11');
