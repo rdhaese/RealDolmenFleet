@@ -33,7 +33,7 @@
 
                     <td th:text="${car.model}"></td>
 
-
+                    <td> <a th:href="${#mvc.url('ECC#editCar').arg(0,car.id).build()}" > Edit Car </a> </td>
 
 
 

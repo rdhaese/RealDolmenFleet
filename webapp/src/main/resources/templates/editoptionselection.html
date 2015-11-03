@@ -28,7 +28,7 @@
         <tr th:each="expack, idStat  : ${car.extraPacks}">
 
             <td th:text="${expack.name}">1</td>
-            <td> <a th:href="${#mvc.url('CCC#removeExtraPack').arg(0, idStat.index).build()}" > Remove </a> </td>
+            <td> <a th:href="${#mvc.url('ECC#removeEditExtraPack').arg(0, idStat.index).build()}" > Remove </a> </td>
 
         </tr>
     </table>
@@ -41,7 +41,7 @@
         <tr th:each="opt, idStat  : ${car.extraOptions}">
 
             <td th:text="${opt.name}">1</td>
-            <td> <a th:href="${#mvc.url('CCC#removeExtraOption').arg(0, idStat.index).build()}" > Remove </a> </td>
+            <td> <a th:href="${#mvc.url('ECC#removeEditExtraOption').arg(0, idStat.index).build()}" > Remove </a> </td>
 
         </tr>
     </table>
@@ -74,9 +74,9 @@
 
             <td th:text="${pack.price}"></td>
 
-            <td> <a th:href="${#mvc.url('CCC#setBasicPack').arg(0, pack.id).build()}" > Set as basic pack </a> </td>
+            <td> <a th:href="${#mvc.url('ECC#setEditBasicPack').arg(0, pack.id).build()}" > Set as basic pack </a> </td>
 
-            <td> <a th:href="${#mvc.url('CCC#addExtraPack').arg(0, pack.id).build()}" > Add as extra  pack </a> </td>
+            <td> <a th:href="${#mvc.url('ECC#addEditExtraPack').arg(0, pack.id).build()}" > Add as extra  pack </a> </td>
 
 
         </tr>
@@ -112,7 +112,7 @@
 
             <td th:text="${option.description}"></td>
 
-            <td> <a th:href="${#mvc.url('CCC#addExtraOption').arg(0, option.id).build()}" > Add Option </a> </td>
+            <td> <a th:href="${#mvc.url('ECC#addEditExtraOption').arg(0, option.id).build()}" > Add Option </a> </td>
 
 
 
@@ -123,7 +123,7 @@
 
 
 </div>
-<h4> <a th:href="${#mvc.url('CCC#saveCar').arg(0, car.id).build()}" > Save New Car </a> </h4>
+<h4> <a th:href="${#mvc.url('ECC#updateCar').arg(0, car.id).build()}" > Save New Car </a> </h4>
 
 
 <div th:replace="fragments/fragments :: div.scripts"></div>

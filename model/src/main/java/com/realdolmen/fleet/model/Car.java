@@ -315,4 +315,28 @@ public class Car extends BaseEntity{
     public void addExtraOption(CarOption c){
        extraOptions.add(c);
     }
+
+    public void CopyCar(Car source){
+            this.brand = source.brand;
+            this.model = source.model;
+            this.category = source.category;
+            this.pk = source.pk;
+            this.emission = source.emission;
+            this.fuelType = source.fuelType;
+            this.carType = source.carType;
+            this.fiscalHP = source.fiscalHP;
+            this.deliveryTime = source.deliveryTime;
+            this.idealKm = source.idealKm;
+            this.maxKm = source.maxKm;
+            this.listPrice = source.listPrice;
+            this.benefit = source.benefit;
+            this.amountUpgrade = source.amountUpgrade;
+            this.amountDowngrade = source.amountDowngrade;
+            this.basePack = source.basePack;
+            this.extraPacks = source.extraPacks;
+            this.extraOptions = source.extraOptions;
+
+        }
+
+
 }
