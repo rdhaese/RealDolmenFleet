@@ -9,17 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>service</artifactId>
-<dependencies>
+    <artifactId>comparator</artifactId>
+
     <dependency>
         <groupId>com.realdolmen.fleet</groupId>
-        <artifactId>persist</artifactId>
+        <artifactId>model</artifactId>
         <version>1.0-SNAPSHOT</version>
     </dependency>
-    <dependency>
-        <groupId>com.realdolmen.fleet</groupId>
-        <artifactId>comparator</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </dependency>
-</dependencies>
 </project>

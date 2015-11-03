@@ -23,7 +23,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Fleet <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a th:href="@{/fleet/allow-order}">Allow Orders</a></li>
-                    <li><a href="#">Confirm Orders</a></li>
+                    <li><a th:href="@{/fleet/confirm-order}">Confirm Orders</a></li>
                 </ul>
             </li>
             <li th:if="${session.loggedInUserCanOrderNewCar}"><a th:href="@{/employees/select-car}">Ordering Car Available!</a></li>

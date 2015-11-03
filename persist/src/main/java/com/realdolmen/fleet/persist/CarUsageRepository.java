@@ -18,4 +18,6 @@ public interface CarUsageRepository extends JpaRepository<CarUsage, Long> {
     @Query(value = "select c from CarUsage c where c.employee.email = ?1")
     List<CarUsage> findByEmployee(String employeeEmail);
 
+    @Query("select c from CarUsage c where c.licensePlate is null")
+    List<CarUsage> findCarUsagesWithoutLicensePlate();
 }

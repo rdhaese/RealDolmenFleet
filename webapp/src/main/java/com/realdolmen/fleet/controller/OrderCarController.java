@@ -1,5 +1,6 @@
 package com.realdolmen.fleet.controller;
 
+import com.realdolmen.fleet.listener.LoginListener;
 import com.realdolmen.fleet.model.Car;
 import com.realdolmen.fleet.model.CarUsage;
 import com.realdolmen.fleet.model.OrderedCar;
@@ -25,12 +26,17 @@ import java.util.Date;
 @Controller
 public class OrderCarController {
 
+    private static final int DAYS_IN_YEAR = 365;
+    private static final int DAYS_IN_MONTH = 31;
+    private static final int CHANGE_REQUIRED_AFTER_YEARS = 4;
     @Autowired
     private EmployeeService employeeService;
     @Autowired
     private CarService carService;
     @Autowired
     private OrderedCarService orderedCarService;
+    @Autowired
+    private LoginListener loginListener;
 
     @RequestMapping(value="/employees/order-car", method = RequestMethod.GET)
     public String orderCar(@RequestParam(value = "id", required = false) Long id, Model model){
@@ -67,9 +73,10 @@ public class OrderCarController {
         carUsage.setOrderedCar(oCar);
         Date now = new Date();
         carUsage.setOrderDate(new Date());
-        carUsage.setStartDate(Utils.addDaysToDate(now, 365 * 4D));
-        carUsage.setInitialEndDate(Utils.addDaysToDate(now, car.getDeliveryTime() * 31));
+        carUsage.setStartDate(Utils.addDaysToDate(now, car.getDeliveryTime() * DAYS_IN_MONTH));
+        carUsage.setInitialEndDate(Utils.addDaysToDate(now, new Double(DAYS_IN_YEAR * CHANGE_REQUIRED_AFTER_YEARS)));
         orderedCarService.placeOrder(carUsage);
-        return "employees/overview";
+        loginListener.updateLoggedInUserCanOrderNewCar();
+        return "employees/order-confirmed";
     }
 }

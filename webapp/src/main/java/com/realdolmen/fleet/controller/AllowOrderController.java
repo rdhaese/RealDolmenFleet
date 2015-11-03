@@ -1,5 +1,6 @@
 package com.realdolmen.fleet.controller;
 
+import com.realdolmen.fleet.listener.LoginListener;
 import com.realdolmen.fleet.model.Employee;
 import com.realdolmen.fleet.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class AllowOrderController {
 
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private LoginListener loginListener;
 
     @RequestMapping(value="/fleet/allow-order", method = RequestMethod.GET)
     public String allowOrder(Model model){
@@ -31,10 +34,11 @@ public class AllowOrderController {
         Employee employee = employeeService.findUserOnEmail(email);
         if (employee == null){
             //TODO ERROR MESSAGE?
-            return "fleet/allow-order";
+            return "redirect:/fleet/allow-order";
         }
         employee.setPermissionToOrderNewCar(true);
         employeeService.save(employee);
+        loginListener.updateLoggedInUserCanOrderNewCar();
         return "redirect:/fleet/allow-order";
     }
 
