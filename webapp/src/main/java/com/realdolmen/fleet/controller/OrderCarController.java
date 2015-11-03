@@ -100,7 +100,6 @@ public class OrderCarController {
         for (CarUsage openOrder: previousOpenOrders){
             if (confirmOrderService.isFromFreePool(openOrder)){
                 carService.backToFreePool(openOrder);
-
             } else {
                 carService.removeOpenOrder(openOrder);
             }

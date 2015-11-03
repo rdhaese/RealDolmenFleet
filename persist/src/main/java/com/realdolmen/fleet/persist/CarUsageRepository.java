@@ -26,4 +26,7 @@ public interface CarUsageRepository extends JpaRepository<CarUsage, Long> {
 
     @Query("select c from CarUsage c where c.licensePlate is null and c.employee.id = ?1")
     List<CarUsage> findOpenOrdersFor(long employeeId);
+
+    @Query("select c from CarUsage c where c.licensePlate is not null")
+    List<CarUsage> findAllWithLicensePlateSet();
 }

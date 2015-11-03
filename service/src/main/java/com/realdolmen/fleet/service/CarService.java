@@ -109,9 +109,12 @@ public class CarService {
 
 
     public void saveCar(Car car){
-        System.out.println("Save car with id: "+ car.getId());
+        System.out.println("Save car with id: " + car.getId());
         carRepository.save(car);
     }
 
 
+    public List<CarUsage> findAllOurCarsInUse() {
+        return carUsageRepository.findAllWithLicensePlateSet();
+    }
 }
