@@ -23,9 +23,11 @@
                     <span th:if="${employee.role.toString() == 'ROLE_FLEET'}">Fleet</span>
                     <span th:if="${employee.role.toString() == 'ROLE_NORMAL'}">Normal</span>
                 </p>
+
+                <p>Date in service: <span th:text="${#dates.format(employee.inServiceDate, #messages.msg('app.dateformat'))}"></span></p>
             </div>
 
-            <p th:if="${carUsage == null}">
+            <p th:if="${carUsage == null}" style="font-style: italic; font-weight: bold;">
                 You have no car or open order.
             </p>
 
@@ -140,11 +142,11 @@
 
                     <p>License Plate: <span th:text="${carUsage.licensePlate}"></span></p>
 
-                    <p>Order date: <span th:text="${carUsage.orderDate}"></span></p>
+                    <p>Order date: <span th:text="${#dates.format(carUsage.orderDate, #messages.msg('app.dateformat'))}"></span></p>
 
-                    <p>Start date: <span th:text="${carUsage.startDate}"></span></p>
+                    <p>Start date: <span th:text="${#dates.format(carUsage.startDate, #messages.msg('app.dateformat'))}"></span></p>
 
-                    <p>Initial end date: <span th:text="${carUsage.initialEndDate}"></span></p>
+                    <p>Initial end date: <span th:text="${#dates.format(carUsage.initialEndDate, #messages.msg('app.dateformat'))}"></span></p>
 
                     <div id="usageUpdates" th:with="updates=${carUsage.usageUpdates}">
                         <h4>Usage Updates</h4>

@@ -24,8 +24,6 @@ import static junit.framework.TestCase.assertNotNull;
 
 public class CarOptionPersistenceTest extends AbstractPersistenceTest{
 
-
-
     @Test
     public void canCarOptionBePersisted(){
         CarOption carOption= new CarOption("description", "name");
@@ -43,6 +41,30 @@ public class CarOptionPersistenceTest extends AbstractPersistenceTest{
     @Test (expected = ConstraintViolationException.class)
     public void carOptionCannotBePersistedWithoutName(){
         CarOption carOption= new CarOption("description", null);
+        em.persist(carOption);
+    }
+
+    @Test (expected = ConstraintViolationException.class)
+    public void carOptionCannotBePersistedWithEmptyName(){
+        CarOption carOption= new CarOption("description", "");
+        em.persist(carOption);
+    }
+
+    @Test (expected = ConstraintViolationException.class)
+    public void carOptionCannotBePersistedWithNameLongerThan255Chars(){
+        CarOption carOption= new CarOption("description", getStringOfXCharacters(256));
+        em.persist(carOption);
+    }
+
+    @Test (expected = ConstraintViolationException.class)
+    public void carOptionCannotBePersistedWithEmptyDescription(){
+        CarOption carOption= new CarOption("", "name");
+        em.persist(carOption);
+    }
+
+    @Test
+    public void carOptionWithVeryLongDescriptionCanBePersisted(){
+        CarOption carOption= new CarOption(getStringOfXCharacters(10000), "name");
         em.persist(carOption);
     }
 }

@@ -1,5 +1,5 @@
-INSERT INTO employee(version, email, functional_level, name, password, role, permission_to_order_new_car) VALUES ('1','jeroen@skynet.be', '2', 'jeroen', '$2a$10$v8Y.TvnxrqZCfIScuzNchesRzpYAAfM1yfHGuW50l/qpWqLd9NERe', 'ROLE_FLEET', false);
-INSERT INTO employee(version, email, functional_level, name, password, role, permission_to_order_new_car) VALUES ('1','r.dhaese92@gmail.com', '4', 'robin', '$2a$10$2SfKBifGwHep6e5y79KDJOjfgq3CmLdsyoh44MEmYPiWFvevmbfmq', 'ROLE_FLEET', false);
+INSERT INTO employee(version, email, functional_level, name, password, role, permission_to_order_new_car, in_service_date) VALUES ('1','jeroen@skynet.be', '2', 'Jeroen Van Den Haute', '$2a$10$v8Y.TvnxrqZCfIScuzNchesRzpYAAfM1yfHGuW50l/qpWqLd9NERe', 'ROLE_FLEET', false, '2015-09-01');
+INSERT INTO employee(version, email, functional_level, name, password, role, permission_to_order_new_car, in_service_date) VALUES ('1','r.dhaese92@gmail.com', '4', 'Robin D''Haese', '$2a$10$2SfKBifGwHep6e5y79KDJOjfgq3CmLdsyoh44MEmYPiWFvevmbfmq', 'ROLE_FLEET', false, '2015-09-01');
 
 INSERT INTO car_option(description, name) VALUES ('GPS van tomtom', 'GPS');
 INSERT INTO car_option(description, name) VALUES ('achterlichten in LED-techniek', 'LED achterlichten');
@@ -50,7 +50,7 @@ INSERT INTO ordered_car_packs (ordered_car_id, packs_id) VALUES ('1', '1');
 
 INSERT INTO car_usage(id,version,initial_end_date,order_date,start_date,ordered_car_id) VALUES ('1', '0', '2019-11-02', '2015-11-03', '2016-02-04', '1')
 
-INSERT INTO periodic_usage_update (id,version,update_date,new_total_km,total_fuelled_for_period, total_fuel_price)VALUES('1', '0', '2016-02-04', '0', 0, 0);
+INSERT INTO periodic_usage_update (id,version,update_date,new_total_km,total_fuelled_for_period, total_fuel_price)VALUES('1', '0', '2016-02-04', '1', 0, 0);
 INSERT INTO periodic_usage_update (id,version,update_date,new_total_km,total_fuelled_for_period, total_fuel_price)VALUES('2', '0', '2016-02-11', '10', 0, 0);
 
 INSERT INTO car_usage_usage_updates (car_usage_id, usage_updates_id) VALUES ('1', '1');

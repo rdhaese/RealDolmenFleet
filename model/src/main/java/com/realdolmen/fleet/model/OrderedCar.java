@@ -5,6 +5,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,16 +16,18 @@ import java.util.List;
  */
 @Entity
 public class OrderedCar extends BaseEntity{
+    @NotNull
     @OneToOne
     private Car car;
     @NotNull
+    @Size(min=1, max=255)
     private String color;
     @ManyToMany
     private List<Pack> packs = new ArrayList<>();
     @ManyToMany
     private List<CarOption> options = new ArrayList<>();
     @DecimalMin("0")
-    private double price;
+    private double price = 0D;
 
     public OrderedCar(Car car, String color, List<Pack> packs, List<CarOption> options, double price) {
         this.car = car;

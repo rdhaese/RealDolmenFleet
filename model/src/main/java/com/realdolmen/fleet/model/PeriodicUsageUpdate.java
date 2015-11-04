@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
@@ -23,6 +24,7 @@ public class PeriodicUsageUpdate extends BaseEntity {
     @DecimalMin("0")
     private int newTotalKm;
     @Temporal(TemporalType.DATE)
+    @NotNull
     private Date updateDate;
 
 

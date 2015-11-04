@@ -1,7 +1,6 @@
 package com.realdolmen.fleet.model;
 
-import com.realdolmen.fleet.model.BaseEntity;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.realdolmen.fleet.enums.EmployeeType;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -17,11 +16,13 @@ import java.util.Date;
 public class Employee extends BaseEntity {
 
     @NotNull
+    @Size(min=1, max=255)
     private String name;
     @NotNull
+    @Size(min=1, max=255)
     private String email;
     @NotNull
-    @Size(min=6)
+    @Size(min=6, max=255)
     private String password;
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -30,9 +31,8 @@ public class Employee extends BaseEntity {
     @DecimalMax(value = "8")
     private int functionalLevel;
     private boolean permissionToOrderNewCar = false;
-    //@Temporal(TemporalType.DATE)
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern="dd/MM/yyyy")
+    @NotNull
     private Date inServiceDate;
 
     public Employee(String name, String email, String password, EmployeeType role, int functionalLevel) {
@@ -41,16 +41,11 @@ public class Employee extends BaseEntity {
         this.password = password;
         this.role = role;
         this.functionalLevel = functionalLevel;
-
     }
 
 
     public Employee(String name, String email, String password, EmployeeType role, int functionalLevel, Date inServiceDate) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.functionalLevel = functionalLevel;
+        this(name,email,password,role,functionalLevel);
         this.inServiceDate = inServiceDate;
     }
 

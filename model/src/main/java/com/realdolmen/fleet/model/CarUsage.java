@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -16,10 +17,12 @@ import java.util.List;
 @Entity
 public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
 
+    @Size(min=1, max=255)
     private String licensePlate;
     @OneToOne
     private Employee employee;
     @OneToOne
+    @NotNull
     private OrderedCar orderedCar;
     @Temporal(TemporalType.DATE)
     @NotNull

@@ -43,4 +43,15 @@ public class PackPersistenceTest extends AbstractPersistenceTest {
         Pack pack = new Pack("packname", -1, options);
         em.persist(pack);
     }
+
+    @Test (expected = ConstraintViolationException.class)
+    public void packCannotBePersistedWithEmptyName(){
+        Pack pack = new Pack("", 500, options);
+        em.persist(pack);
+    }
+    @Test (expected = ConstraintViolationException.class)
+    public void packCannotBePersistedWithNameLargerThan255Characters(){
+        Pack pack = new Pack(getStringOfXCharacters(256), 500, options);
+        em.persist(pack);
+    }
 }
