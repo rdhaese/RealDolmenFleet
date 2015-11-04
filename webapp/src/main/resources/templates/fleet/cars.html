@@ -11,7 +11,8 @@
             <H2>Our Cars</H2>
 
             <h3>In Use</h3>
-            <table class="table">
+            <p th:if="${ourCarsInUse.isEmpty()}">No cars in use.</p>
+            <table class="table" th:if="${!ourCarsInUse.isEmpty()}">
                 <thead>
                 <th>Car</th>
                 <th>Employee</th>
@@ -21,7 +22,7 @@
                 <tr th:each="carUsage : ${ourCarsInUse}">
                     <td th:with="car =${carUsage.orderedCar.car}">
                         <img th:src="${car.pictures[0]}" height="200" width="250"
-                             class="img-thumbnail" style="float: left;"/>
+                             class="img-thumbnail" style="float: left; margin-right: 1%"/>
                         <span th:text="${car.brand + ' ' + car.model}"></span>
                     </td>
                     <td><span th:text="${carUsage.employee.name}"></span><small>(<a href="#">edit</a>)</small></td>
@@ -33,7 +34,8 @@
                 </tbody>
             </table>
             <h3>In Free Pool</h3>
-            <table class="table">
+            <p th:if="${ourCarsInFreePool.isEmpty()}">No cars in our free pool.</p>
+            <table class="table" th:if="${!ourCarsInFreePool.isEmpty()}">
                 <thead>
                 <th>Car</th>
                 <th>Action</th>
@@ -42,7 +44,7 @@
                 <tr th:each="carUsage : ${ourCarsInFreePool}">
                     <td th:with="car =${carUsage.orderedCar.car}">
                         <img th:src="${car.pictures[0]}" height="200" width="250"
-                             class="img-thumbnail" style="float: left;"/>
+                             class="img-thumbnail" style="float: left; margin-right: 1%;"/>
                         <span th:text="${car.brand + ' ' + car.model}"></span>
                     </td>
                     <td>
