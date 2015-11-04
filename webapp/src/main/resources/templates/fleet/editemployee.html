@@ -10,7 +10,7 @@
 
 
 
-            <form method="POST" th:object="${employee}">
+            <form method="POST" th:object="${employee}"  action="/fleet/editemployee">
                 <div th:class="${#fields.hasErrors('name')}? 'has-error'">
                     <label th:for="${#ids.next('name')}"> Name:</label>
                     <input type="text" th:field="*{name}" />
@@ -46,17 +46,13 @@
                     <span th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></span>
                 </div>
 
+                <input type="hidden" th:field="*{id}" />
 
-                <div th:class="${#fields.hasErrors('password')}? 'has-error'">
-                    <label th:for="${#ids.next('password')}"> password:</label>
-                    <input type="text" th:field="*{password}" />
-                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-                </div>
-
+                <input type="hidden" th:field="*{password}" />
 
 
                 <br/>
-                <button type="submit">Save new employee </button>
+                <button type="submit">Save edited employee </button>
             </form>
 
 

@@ -34,7 +34,7 @@ public class Employee extends BaseEntity {
 
     //@Temporal(TemporalType.DATE)
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern="dd/MM/yyyy")
+    @DateTimeFormat(pattern="MM/dd/yyyy")
     private Date inServiceDate;
 
     public Employee(String name, String email, String password, EmployeeType role, int functionalLevel) {
@@ -139,5 +139,13 @@ public class Employee extends BaseEntity {
         return result;
     }
 
+
+    public void CopyEditedEmployee(Employee e){
+        this.name = e.getName();
+        this.email = e.getEmail();
+        this.role = e.getRole();
+        this.functionalLevel = e.getFunctionalLevel();
+        this.inServiceDate = e.getInServiceDate();
+    }
 
 }

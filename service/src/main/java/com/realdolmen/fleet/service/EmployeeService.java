@@ -56,12 +56,18 @@ public class EmployeeService {
     public List<Employee> getUsersThatNeedOrderPermission() {
         List<Employee> employeesWithoutPermission = employeeRepository.findEmployeesWithoutPermissionTOrderNewCar();
         List<Employee> employeesThatNeedPermission = new ArrayList<>();
-        employeesWithoutPermission.forEach(employee ->{
-                    if (canOrderNewCarService.needsPermission(employee)){
+        employeesWithoutPermission.forEach(employee -> {
+                    if (canOrderNewCarService.needsPermission(employee)) {
                         employeesThatNeedPermission.add(employee);
                     }
                 }
         );
         return employeesThatNeedPermission;
+    }
+
+    public void saveEditedEmployee(Long id, Employee e){
+        Employee stored = findUserById(id);
+        stored.CopyEditedEmployee(e);
+        save(stored);
     }
 }
