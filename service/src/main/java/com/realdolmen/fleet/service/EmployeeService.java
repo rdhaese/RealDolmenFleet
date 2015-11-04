@@ -32,6 +32,10 @@ public class EmployeeService {
        return employeeRepository.findByEmail(email);
     }
 
+    public Employee findUserById(Long id){
+        return employeeRepository.findOne(id);
+    }
+
     public Employee getLoggedInUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return findUserOnEmail(user.getUsername());

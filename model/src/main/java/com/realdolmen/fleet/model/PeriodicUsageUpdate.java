@@ -18,22 +18,26 @@ public class PeriodicUsageUpdate extends BaseEntity {
     @DecimalMin("0")
     private double totalFuelledForPeriod;
     @DecimalMin("0")
+    private double totalFuelPrice;
+
+    @DecimalMin("0")
     private int newTotalKm;
     @Temporal(TemporalType.DATE)
-    private Date fromDate;
-    @Temporal(TemporalType.DATE)
-    private Date toDate;
+    private Date updateDate;
 
-    public PeriodicUsageUpdate(double totalFuelledForPeriod, int newTotalKm, Date fromDate, Date toDate) {
-        this.totalFuelledForPeriod = totalFuelledForPeriod;
+
+    public PeriodicUsageUpdate(Date updateDate, int newTotalKm, double totalFuelledForPeriod, double totalFuelPrice) {
+        this.updateDate = updateDate;
         this.newTotalKm = newTotalKm;
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.totalFuelledForPeriod = totalFuelledForPeriod;
+        this.totalFuelPrice = totalFuelPrice;
     }
 
     public PeriodicUsageUpdate() {
     }
 
+
+    /*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,12 +65,23 @@ public class PeriodicUsageUpdate extends BaseEntity {
         return result;
     }
 
+    */
+
+
     public double getTotalFuelledForPeriod() {
         return totalFuelledForPeriod;
     }
 
     public void setTotalFuelledForPeriod(double totalFuelledForPeriod) {
         this.totalFuelledForPeriod = totalFuelledForPeriod;
+    }
+
+    public double getTotalFuelPrice() {
+        return totalFuelPrice;
+    }
+
+    public void setTotalFuelPrice(double totalFuelPrice) {
+        this.totalFuelPrice = totalFuelPrice;
     }
 
     public int getNewTotalKm() {
@@ -77,19 +92,11 @@ public class PeriodicUsageUpdate extends BaseEntity {
         this.newTotalKm = newTotalKm;
     }
 
-    public Date getFromDate() {
-        return fromDate;
+    public Date getUpdateDate() {
+        return updateDate;
     }
 
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
-    }
-
-    public Date getToDate() {
-        return toDate;
-    }
-
-    public void setToDate(Date toDate) {
-        this.toDate = toDate;
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 }

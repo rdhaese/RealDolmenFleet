@@ -1,0 +1,59 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+    <div class="row">
+        <div class="col-lg-12">
+
+
+
+            <form method="POST" th:object="${employee}">
+                <div th:class="${#fields.hasErrors('name')}? 'has-error'">
+                    <label th:for="${#ids.next('name')}"> Name:</label>
+                    <input type="text" th:field="*{name}" />
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('email')}? 'has-error'">
+                    <label th:for="${#ids.next('email')}"> Email:</label>
+                    <input type="text" th:field="*{email}" />
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{emal}"></span>
+                </div>
+
+
+                <div th:class="${#fields.hasErrors('functionalLevel')}? 'has-error'">
+                    <label th:for="${#ids.next('functionalLevel')}"> Functional level:</label>
+                    <input type="text" th:field="*{functionalLevel}" />
+                    <span th:if="${#fields.hasErrors('functionalLevel')}" th:errors="*{functionalLevel}"></span>
+                </div>
+
+                <div th:class="${#fields.hasErrors('inServiceDate')}? 'has-error'">
+                    <label th:for="${#ids.next('inServiceDate')}"> In service date:</label>
+                    <input type="date" th:field="*{inServiceDate}" />
+                    <span th:if="${#fields.hasErrors('inServiceDate')}" th:errors="*{inServiceDate}"></span>
+                </div>
+
+
+
+
+                <br/>
+                <button type="submit">Save new option </button>
+            </form>
+
+
+        </div>
+
+        <hr/>
+    </div>
+</div>
+
+
+
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+
+</body>
+</html>
