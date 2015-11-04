@@ -34,6 +34,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/employees/editpassword}">Edit password </a></li>
             <li sec:authorize="isAuthenticated()"><p class="nav navbar-text" sec:authentication="name">loggedInUserName</p></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Log Out</a></li>
         </ul>

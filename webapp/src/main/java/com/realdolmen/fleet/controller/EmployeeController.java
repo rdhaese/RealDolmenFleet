@@ -1,20 +1,22 @@
 package com.realdolmen.fleet.controller;
 
+import com.realdolmen.fleet.dto.EditPasswordDTO;
 import com.realdolmen.fleet.model.Car;
 import com.realdolmen.fleet.model.Employee;
 import com.realdolmen.fleet.persist.EmployeeRepository;
 import com.realdolmen.fleet.service.EmployeeService;
+import com.realdolmen.fleet.validator.PasswordValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import sun.security.util.Password;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -42,41 +44,97 @@ public class EmployeeController {
     }
 
 
+    @RequestMapping(value="/employees/editpassword", method = RequestMethod.GET)
+    public String editPass(Model model){
+        model.addAttribute("editPassword", new EditPasswordDTO());
+        return "employees/editpassword";
+    }
+    ////(Model model, @ModelAttribute("user") User user, BindingResult result
+
+    @RequestMapping(value="/employees/editpassword", method = RequestMethod.POST)
+    public String saveEditPass(@ModelAttribute("editPassword") EditPasswordDTO editPasswordDTO, BindingResult errors, Model model){
+        PasswordValidator passwordValidator = new PasswordValidator();
+        editPasswordDTO.setEmployeeService(employeeService);
+        passwordValidator.validate(editPasswordDTO, errors);
+
+        if( errors.hasErrors()){
+            System.out.println("password has errors");
+            return "employees/editpassword";
+        }
+
+
+         //   employeeService.saveEditedEmployee(employeeService.getLoggedInUser(), editPasswordDTO.getExistingPassword(), editPasswordDTO.getNewPassword());
+        employeeService.saveNewPassword(editPasswordDTO.getNewPassword());
+
+
+
+        return "redirect:/index";
+    }
+
+
+
     @RequestMapping(value = "/fleet/editemployee/{id}", method = RequestMethod.GET)
-    public String editEmployee(@RequestParam Long id, Model model) {
-       employee =  employeeService.findUserById(id);
+        public String editEmployee(@RequestParam Long id, Model model) {
+        employee =  employeeService.findUserById(id);
+        employee.setPassword("******");
         model.addAttribute("employee", employee);
-        return "editemployee";
+        return "fleet/editemployee";
+    }
+
+
+    @RequestMapping(value = "/fleet/editemployee", method = RequestMethod.POST)
+    public String editUpdatedEmployee(@Valid Employee employee, Errors errors, Model model) {
+        System.out.println("in process edit employee");
+        System.out.println(employee.getId());
+        if( errors.hasErrors()){
+            System.out.println("employee has errors");
+            return "fleet/editemployee";
+        }
+
+
+
+        employeeService.saveEditedEmployee(employee.getId(), employee);
+
+        return "redirect:/fleet/rdemployee";
     }
 
     @RequestMapping(value = "/fleet/createemployee", method = RequestMethod.GET)
-    public String editEmployee(Model model) {
+    public String crEmployee(Model model) {
         Employee e = new Employee();
-       // e.setInServiceDate(new Date());
+        e.setInServiceDate(new Date());
         model.addAttribute("employee", e);
         return "fleet/createemployee";
     }
 
     @RequestMapping(value = "/fleet/createemployee", method = RequestMethod.POST)
-    public String processCar(@Valid Employee employee, Errors errors, Model m) {
+    public String createEmpl(@Valid Employee employee, Errors errors, Model m) {
+        System.out.println("in process employee");
+
         if( errors.hasErrors()){
+            System.out.println("employee has errors");
             return "fleet/createemployee";
         }
-        employeeService.save(employee);
+        String originalPassword = employee.getPassword();
+        BCryptPasswordEncoder e = new BCryptPasswordEncoder();
+        employee.setPassword(e.encode(employee.getPassword()));
+    //    System.out.println(e.encode("123"));
+        employeeService.saveNewEmployee(employee, originalPassword);
 
         return "redirect:/fleet/rdemployee";
     }
 
+    /*
     @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        sdf.setLenient(true);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-
-      ///     binder.registerCustomEditor(Date.class, new CustomDateEditor(
-        //            new SimpleDateFormat("dd/MM/yyyy"), false));
-
+    public void initBinder(WebDataBinder binder)
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(
+                dateFormat, true));
     }
+
+    */
+
 
 
 
