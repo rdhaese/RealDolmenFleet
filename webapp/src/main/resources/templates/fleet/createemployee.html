@@ -2,6 +2,12 @@
 <head th:replace="fragments/fragments :: head"></head>
 <body>
 <div th:replace="fragments/fragments :: header"></div>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script>
+    $(function() {
+        $( "#datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+</script>
 
 <div class="container">
     <div th:replace="fragments/fragments :: div#page-header"></div>
@@ -33,7 +39,7 @@
                 <div th:class="${#fields.hasErrors('inServiceDate')}? 'has-error'">
                     <label th:for="${#ids.next('inServiceDate')}"> In service date:</label>
 
-                    <input type="text" th:field="*{inServiceDate}" placeholder="MM/DD/YYYY" />
+                    <input type="text"  id="datepicker" th:field="*{inServiceDate}" placeholder="MM/DD/YYYY" />
                     <span th:if="${#fields.hasErrors('inServiceDate')}" th:errors="*{inServiceDate}"></span>
                 </div>
 
@@ -69,7 +75,6 @@
 
 
 
-<div th:replace="fragments/fragments :: div.scripts"></div>
 
 </body>
 </html>

@@ -34,7 +34,7 @@ public class Employee extends BaseEntity {
 
     //@Temporal(TemporalType.DATE)
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern="MM/dd/yyyy")
+    @DateTimeFormat(pattern="dd/MM/yyyy")
     private Date inServiceDate;
 
     public Employee(String name, String email, String password, EmployeeType role, int functionalLevel) {

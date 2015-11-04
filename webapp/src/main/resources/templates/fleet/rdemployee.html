@@ -3,6 +3,14 @@
 <body>
 <div th:replace="fragments/fragments :: header"></div>
 
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#allCars').dataTable().columnFilter();
+
+    } );
+</script>
+
 <div class="container">
     <div th:replace="fragments/fragments :: div#page-header"></div>
     <div class="row">
@@ -28,7 +36,7 @@
                     <th>Permission to order new Car</th>
 
                     <th>In service date</th>
-                    <th></th>
+
                 </tr>
                 </tfoot>
 
@@ -67,12 +75,6 @@
 
 
 
-<div th:replace="fragments/fragments :: div.scripts"></div>
-<script type="text/javascript" charset="utf-8">
-    $(document).ready( function () {
-        $('#allCars').dataTable().columnFilter();
 
-    } );
-</script>
 </body>
 </html>

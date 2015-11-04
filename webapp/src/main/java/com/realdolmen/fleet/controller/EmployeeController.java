@@ -1,26 +1,18 @@
 package com.realdolmen.fleet.controller;
 
-import com.realdolmen.fleet.dto.EditPasswordDTO;
-import com.realdolmen.fleet.model.Car;
+import com.realdolmen.fleet.dto.EditPasswordDTOO;
 import com.realdolmen.fleet.model.Employee;
-import com.realdolmen.fleet.persist.EmployeeRepository;
 import com.realdolmen.fleet.service.EmployeeService;
 import com.realdolmen.fleet.validator.PasswordValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import sun.security.util.Password;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -46,13 +38,13 @@ public class EmployeeController {
 
     @RequestMapping(value="/employees/editpassword", method = RequestMethod.GET)
     public String editPass(Model model){
-        model.addAttribute("editPassword", new EditPasswordDTO());
+        model.addAttribute("editPassword", new EditPasswordDTOO());
         return "employees/editpassword";
     }
     ////(Model model, @ModelAttribute("user") User user, BindingResult result
 
     @RequestMapping(value="/employees/editpassword", method = RequestMethod.POST)
-    public String saveEditPass(@ModelAttribute("editPassword") EditPasswordDTO editPasswordDTO, BindingResult errors, Model model){
+    public String saveEditPass(@ModelAttribute("editPassword") EditPasswordDTOO editPasswordDTO, BindingResult errors, Model model){
         PasswordValidator passwordValidator = new PasswordValidator();
         editPasswordDTO.setEmployeeService(employeeService);
         passwordValidator.validate(editPasswordDTO, errors);
