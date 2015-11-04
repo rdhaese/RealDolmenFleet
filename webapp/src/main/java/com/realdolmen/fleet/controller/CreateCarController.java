@@ -36,7 +36,7 @@ public class CreateCarController {
 
     private Car createdCar;
 
-    @RequestMapping(value="/createcar", method = RequestMethod.GET)
+    @RequestMapping(value="/fleet/createcar", method = RequestMethod.GET)
     public Car createNewCar(){
     //    System.out.println("caroption initialized");
         return new Car();

@@ -42,21 +42,21 @@ public class PackController {
         model.addAttribute("carOption", new CarOption());
     }
 
-    @RequestMapping(value="/packs", method = RequestMethod.GET)
+    @RequestMapping(value="/fleet/packs", method = RequestMethod.GET)
     public List<Pack> packs(){
        return packService.findAll();
     }
 
-    @RequestMapping(value="/createpack", method = RequestMethod.GET)
+    @RequestMapping(value="/fleet/createpack", method = RequestMethod.GET)
     public String showNewPack(Model model) {
         allCarOptions = carOptionsRepository.findAll();
         p = new Pack();
         carOptions = new ArrayList<>();
         populateModel(model);
-        return "createpack";
+        return "/fleet/createpack";
     }
 
-    @RequestMapping(value="/createpack", method = RequestMethod.POST)
+    @RequestMapping(value="/fleet/createpack", method = RequestMethod.POST)
     public String processPack(@Valid Pack pack, Errors errors, Model model) {
         System.out.println("in process create pack: " + pack.getId());
         if( errors.hasErrors()){
@@ -64,17 +64,17 @@ public class PackController {
             model.addAttribute("allCarOptions", carOptionsRepository.findAll());
             model.addAttribute("pack", pack);
             model.addAttribute("carOption", new CarOption());
-            return "createpack";
+            return "/fleet/createpack";
         }
 
         pack.setCarOptions(carOptions);
         packService.savePackWithExistingCarOptions(pack);
-        return "redirect:/packs";
+        return "redirect:/fleet/packs";
     }
 
 
 
-    @RequestMapping(value = "/addoptiontopack/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/fleet/addoptiontopack/{id}", method = RequestMethod.GET)
     public
     String addOption(@RequestParam Long id, Model model) {
         System.out.println("add option in create");
@@ -82,35 +82,35 @@ public class PackController {
         carOptions.add(selectedOption);
         p.addCarOption(selectedOption);
         populateModel(model);
-        return "createpack";
+        return "fleet/createpack";
     }
 
-    @RequestMapping(value = "/removeoption/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/fleet/removeoption/{id}", method = RequestMethod.GET)
        public //@ResponseBody
     String removeOption(@RequestParam int id, Model model) {
         carOptions.remove(id);
         p.removeCarOption(id);
         populateModel(model);
         // Prepare the response string
-        return "createpack";
+        return "/fleet/createpack";
     }
 
 
-    @RequestMapping(value="/createnewpackoption", method = RequestMethod.POST)
+    @RequestMapping(value="/fleet/createnewpackoption", method = RequestMethod.POST)
     public String processCarOption(@Valid CarOption carOption, Errors errors, Model model) {
         System.out.println("caroption ready to save");
         if( errors.hasErrors()){
             System.out.println("errors found");
             p.setCarOptions(carOptions);
             populateModel(model);
-            return "createpack";
+            return "/fleet/createpack";
         }
         System.out.println("caroption ready to save");
         carOptionsRepository.save(carOption);
         carOptions.add(carOption);
         p.addCarOption(carOption);
         populateModel(model);
-        return "createPack";
+        return "/fleet/createPack";
     }
 
 
