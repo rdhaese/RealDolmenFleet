@@ -1,9 +1,11 @@
 package com.realdolmen.fleet.model;
 
 import com.realdolmen.fleet.model.BaseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Date;
 
 /**
  * Created on 27/10/2015.
@@ -29,12 +31,29 @@ public class Employee extends BaseEntity {
     private int functionalLevel;
     private boolean permissionToOrderNewCar = false;
 
+
+    //@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern="dd/MM/yyyy")
+    private Date inServiceDate;
+
     public Employee(String name, String email, String password, EmployeeType role, int functionalLevel) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
         this.functionalLevel = functionalLevel;
+
+    }
+
+
+    public Employee(String name, String email, String password, EmployeeType role, int functionalLevel, Date inServiceDate) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.functionalLevel = functionalLevel;
+        this.inServiceDate = inServiceDate;
     }
 
     public Employee(){}
@@ -87,6 +106,14 @@ public class Employee extends BaseEntity {
         this.permissionToOrderNewCar = permissionToOrderNewCar;
     }
 
+    public Date getInServiceDate() {
+        return inServiceDate;
+    }
+
+    public void setInServiceDate(Date inServiceDate) {
+        this.inServiceDate = inServiceDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -111,4 +138,6 @@ public class Employee extends BaseEntity {
         result = 31 * result + getFunctionalLevel();
         return result;
     }
+
+
 }

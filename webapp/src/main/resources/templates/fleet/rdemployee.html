@@ -1,0 +1,77 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+    <div class="row">
+        <div class="col-lg-12">
+
+            <table id="allCars">
+                <thead>
+                <tr>
+                    <th>Name </th>
+                    <th>E-mail</th>
+                    <th>Functional level </th>
+                    <th>Permission to order new Car</th>
+                    <th>Name </th>
+                    <th>In service date</th>
+
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>Name </th>
+                    <th>E-mail</th>
+                    <th>Functional level </th>
+                    <th>Permission to order new Car</th>
+                    <th>Name </th>
+                    <th>In service date</th>
+                </tr>
+                </tfoot>
+
+                <tbody>
+
+
+                <tr th:each="employee  : ${employeeList}">
+
+                    <td th:text="${employee.name}"></td>
+
+                    <td th:text="${employee.email}"></td>
+                    <td th:text="${employee.functionalLevel}"></td>
+                    <td th:text="${employee.permissionToOrderNewCar}"></td>
+                    <td th:text="${employee.inServiceDate}"></td>
+
+                    <td> <a th:href="${#mvc.url('EC#editEmployee').arg(0,employee.id).build()}" > Edit Employee </a> </td>
+
+
+
+
+                </tr>
+                </tbody>
+            </table>
+
+
+
+
+
+        </div>
+
+        <hr/>
+    </div>
+</div>
+
+
+
+
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#allCars').dataTable().columnFilter();
+
+    } );
+</script>
+</body>
+</html>
