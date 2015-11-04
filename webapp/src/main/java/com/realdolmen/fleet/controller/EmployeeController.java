@@ -1,6 +1,6 @@
 package com.realdolmen.fleet.controller;
 
-import com.realdolmen.fleet.dto.EditPasswordDTOO;
+import com.realdolmen.fleet.dto.EditPasswordDTO;
 import com.realdolmen.fleet.model.Employee;
 import com.realdolmen.fleet.service.EmployeeService;
 import com.realdolmen.fleet.validator.PasswordValidator;
@@ -38,13 +38,13 @@ public class EmployeeController {
 
     @RequestMapping(value="/employees/editpassword", method = RequestMethod.GET)
     public String editPass(Model model){
-        model.addAttribute("editPassword", new EditPasswordDTOO());
+        model.addAttribute("editPassword", new EditPasswordDTO());
         return "employees/editpassword";
     }
     ////(Model model, @ModelAttribute("user") User user, BindingResult result
 
     @RequestMapping(value="/employees/editpassword", method = RequestMethod.POST)
-    public String saveEditPass(@ModelAttribute("editPassword") EditPasswordDTOO editPasswordDTO, BindingResult errors, Model model){
+    public String saveEditPass(@ModelAttribute("editPassword") EditPasswordDTO editPasswordDTO, BindingResult errors, Model model){
         PasswordValidator passwordValidator = new PasswordValidator();
         editPasswordDTO.setEmployeeService(employeeService);
         passwordValidator.validate(editPasswordDTO, errors);

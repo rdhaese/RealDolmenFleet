@@ -1,6 +1,6 @@
 package com.realdolmen.fleet.validator;
 
-import com.realdolmen.fleet.dto.EditPasswordDTOO;
+import com.realdolmen.fleet.dto.EditPasswordDTO;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -13,12 +13,12 @@ public class PasswordValidator implements Validator {
 
     @Override
     public boolean supports(Class clazz) {
-        return EditPasswordDTOO.class.equals(clazz);
+        return EditPasswordDTO.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-       EditPasswordDTOO editPasswordDTO = (EditPasswordDTOO) target;
+       EditPasswordDTO editPasswordDTO = (EditPasswordDTO) target;
 
         if (! editPasswordDTO.getNewPassword().equals(editPasswordDTO.getConfirmedPassword())) {
             errors.rejectValue("confirmedPassword", "password.confirmdifferent");

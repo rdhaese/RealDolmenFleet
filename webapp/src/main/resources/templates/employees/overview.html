@@ -159,7 +159,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="update : ${updates}">
-                                <td th:text="${update.updateDate}"></td>
+                                <td th:text="${#dates.format(update.updateDate, #messages.msg('app.dateformat'))}"></td>
                                 <td th:text="${update.newTotalKm}"></td>
                                 <td th:text="${update.totalFuelledForPeriod}"></td>
                                 <td>€ <span th:text="${update.totalFuelPrice}"></span></td>

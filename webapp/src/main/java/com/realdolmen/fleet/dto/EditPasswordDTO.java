@@ -5,7 +5,7 @@ import com.realdolmen.fleet.service.EmployeeService;
 /**
  * Created by JVDAX31 on 4/11/2015.
  */
-public class EditPasswordDTOO {
+public class EditPasswordDTO {
     private String existingPassword;
     private String newPassword;
     private String confirmedPassword;
@@ -14,7 +14,7 @@ public class EditPasswordDTOO {
 
     private EmployeeService employeeService;
 
-    public EditPasswordDTOO(String confirmedPassword, String newPassword, String existingPassword, String username) {
+    public EditPasswordDTO(String confirmedPassword, String newPassword, String existingPassword, String username) {
         this.confirmedPassword = confirmedPassword;
         this.newPassword = newPassword;
         this.existingPassword = existingPassword;
@@ -22,7 +22,7 @@ public class EditPasswordDTOO {
         this.username = username;
     }
  // sdfsdf
-    public EditPasswordDTOO(){
+    public EditPasswordDTO(){
 
     }
 
