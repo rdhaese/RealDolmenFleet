@@ -1,14 +1,11 @@
 package com.realdolmen.fleet.model;
 
+import com.realdolmen.fleet.enums.CarType;
+import com.realdolmen.fleet.enums.FuelType;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.ConstraintViolationException;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +55,6 @@ public class CarPersistenceTest extends AbstractPersistenceTest {
         carOptions.add(new CarOption(null, "name4"));
         return carOptions;
     }
-    //TODO test persisting and constraints
 
     @Test
     public void canCarBePersisted(){
@@ -74,8 +70,32 @@ public class CarPersistenceTest extends AbstractPersistenceTest {
     }
 
     @Test (expected = ConstraintViolationException.class)
+    public void carCannotBePersistedWithEmptyBrand(){
+        Car car = new Car("", "A1", 1, 95, 90, FuelType.DIESEL, CarType.NORMAL, 8, 2.5,80000,120000,15000,120,2000,2000, basePack, extraPacks, extraOptions);
+        em.persist(car);
+    }
+
+    @Test (expected = ConstraintViolationException.class)
+    public void carCannotBePersistedWithBrandLargerThan255Characters(){
+        Car car = new Car(getStringOfXCharacters(256), "A1", 1, 95, 90, FuelType.DIESEL, CarType.NORMAL, 8, 2.5,80000,120000,15000,120,2000,2000, basePack, extraPacks, extraOptions);
+        em.persist(car);
+    }
+
+    @Test (expected = ConstraintViolationException.class)
     public void carCannotBePersistedWithoutModel(){
         Car car = new Car("Audi", null, 1, 95, 90, FuelType.DIESEL, CarType.NORMAL, 8, 2.5,80000,120000,15000,120,2000,2000, basePack, extraPacks, extraOptions);
+        em.persist(car);
+    }
+
+    @Test (expected = ConstraintViolationException.class)
+    public void carCannotBePersistedWithEmptyModel(){
+        Car car = new Car("Audi", "", 1, 95, 90, FuelType.DIESEL, CarType.NORMAL, 8, 2.5,80000,120000,15000,120,2000,2000, basePack, extraPacks, extraOptions);
+        em.persist(car);
+    }
+
+    @Test (expected = ConstraintViolationException.class)
+    public void carCannotBePersistedWithModelLargerThan255Characters(){
+        Car car = new Car("Audi", getStringOfXCharacters(256), 1, 95, 90, FuelType.DIESEL, CarType.NORMAL, 8, 2.5,80000,120000,15000,120,2000,2000, basePack, extraPacks, extraOptions);
         em.persist(car);
     }
 

@@ -1,13 +1,13 @@
 package com.realdolmen.fleet.util;
 
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created on 29/10/2015.
- *
+ * Utility class. Contains static methods for various purposes.
  * @author Robin D'Haese
  */
 public final class Utils {
@@ -44,7 +44,16 @@ public final class Utils {
     }
 
 
-    public static Date addDaysToDate(Date date, Double daysToAdd){
+    /**
+     * Adds the given days to the given date.
+     * It is also possible to subtract days by giving a negative value in daysToAdd.
+     * The method takes a Double as argument for the daysToAdd, this will be converted to an int using Double.intValue() before adding it to the date.
+     *
+     * @param date      to add days to
+     * @param daysToAdd amount of days to add to date
+     * @return a new date = date + daysToAdd
+     */
+    public static Date addDaysToDate(Date date, Double daysToAdd) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.add(Calendar.DATE, daysToAdd.intValue());

@@ -1,9 +1,13 @@
 package com.realdolmen.fleet.model;
 
+import com.realdolmen.fleet.enums.CarType;
+import com.realdolmen.fleet.enums.FuelType;
+
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +20,10 @@ import java.util.List;
 public class Car extends BaseEntity{
 
     @NotNull
+    @Size(min=1, max=255)
     private String brand;
     @NotNull
+    @Size(min=1, max=255)
     private String model;
     @DecimalMin(value = "0")
     @DecimalMax(value = "8")
@@ -258,6 +264,7 @@ public class Car extends BaseEntity{
         if (getModel() != null ? !getModel().equals(car.getModel()) : car.getModel() != null) return false;
         if (getFuelType() != car.getFuelType()) return false;
         if (getCarType() != car.getCarType()) return false;
+        if (getPictures() != null ? !getPictures().equals(car.getPictures()) : car.getPictures() != null) return false;
         if (getBasePack() != null ? !getBasePack().equals(car.getBasePack()) : car.getBasePack() != null) return false;
         if (getExtraPacks() != null ? !getExtraPacks().equals(car.getExtraPacks()) : car.getExtraPacks() != null)
             return false;
@@ -292,6 +299,7 @@ public class Car extends BaseEntity{
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(getAmountDowngrade());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (getPictures() != null ? getPictures().hashCode() : 0);
         result = 31 * result + (getBasePack() != null ? getBasePack().hashCode() : 0);
         result = 31 * result + (getExtraPacks() != null ? getExtraPacks().hashCode() : 0);
         result = 31 * result + (getExtraOptions() != null ? getExtraOptions().hashCode() : 0);

@@ -1,4 +1,4 @@
-package com.realdolmen.fleet.model;
+package com.realdolmen.fleet.enums;
 
 /**
  * Created on 28/10/2015.
