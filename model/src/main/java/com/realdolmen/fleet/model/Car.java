@@ -48,8 +48,6 @@ public class Car extends BaseEntity{
     private double amountUpgrade;
     @DecimalMin(value = "0")
     private double amountDowngrade;
-    @NotNull
-    private boolean inFreePool = false;
     @ElementCollection
     private List<String> pictures = new ArrayList<>();
     @ManyToOne
@@ -236,14 +234,6 @@ public class Car extends BaseEntity{
 
     public void setPictures(List<String> pictures) {
         this.pictures = pictures;
-    }
-
-    public boolean getInFreePool() {
-        return inFreePool;
-    }
-
-    public void setInFreePool(boolean inFreePool) {
-        this.inFreePool = inFreePool;
     }
 
     @Override

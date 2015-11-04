@@ -1,0 +1,133 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head">
+</head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <H2>Confirm Order From Free Pool</H2>
+
+            <form method="post" action="#" th:action="@{/fleet/confirm-order-from-free-pool-detail}" th:object="${confirmedOrderDTO}">
+                <div id="control">
+                    <input type="hidden" th:field="*{orderId}"/>
+                    <input type="submit" value="Save Changes And Confirm" class="form-control"/>
+                </div>
+                <div id="carDetails" style="width: 49%; float:left;">
+                    <h3>Car Details</h3>
+
+                    <p>Brand: <span th:text="${order.orderedCar.car.brand}">brand</span></p>
+
+                    <p>Model: <span th:text="${order.orderedCar.car.model}">model</span></p>
+
+                    <p>Category: <span th:text="${order.orderedCar.car.category}">category</span></p>
+
+                    <p>Horse Power: <span th:text="${order.orderedCar.car.pk}">pk</span></p>
+
+                    <p>Fiscal Horse Power: <span th:text="${order.orderedCar.car.fiscalHP}">fiscalHp</span></p>
+
+                    <p>Emission: <span th:text="${order.orderedCar.car.emission}">emission</span></p>
+
+                    <p>Fuel type: <span th:text="${order.orderedCar.car.fuelType}">fuelType</span></p>
+
+                    <p>Car type: <span th:text="${order.orderedCar.car.carType}">carType</span></p>
+
+                    <p>Delivery time: <span th:text="${order.orderedCar.car.deliveryTime}">carType</span> months</p>
+
+                    <p>Ideal km: <span th:text="${order.orderedCar.car.idealKm}">idealKm</span></p>
+
+                    <p>Max km: <span th:text="${order.orderedCar.car.maxKm}">maxKm</span></p>
+
+                    <p>List price: €<span th:text="${order.orderedCar.car.listPrice}">listPrice</span></p>
+
+                    <p>Benefit: €<span th:text="${order.orderedCar.car.benefit}">benefit</span></p>
+
+                </div>
+                <div id="employeeDetails" style="width: 49%; float: right;">
+                    <h3>Employee Details</h3>
+
+                    <p>Name: <span th:text="${order.employee.name}">employeeName</span></p>
+
+                    <p>Email: <span th:text="${order.employee.email}">employeeEmail</span></p>
+
+                    <p>Functional level: <span
+                            th:text="${order.employee.functionalLevel}">employeeFunctionalLevel</span></p>
+                </div>
+                <div id="orderSpecificDetails" style="width: 49%; float: right;">
+                    <h3>Order Specific Car Details</h3>
+
+                    <p>Color: <span th:text="${order.orderedCar.color}">carColor</span></p>
+                </div>
+                <div id="orderDetails" style="width: 49%; float: right;">
+                    <h3>Order Specific Details</h3>
+
+                    <p>License Plate: <input type="text" th:field="*{licensePlate}"/>
+                        <span th:if="${licensePlateError}"><br/>Make sure the license plate is filled in.</span>
+                    </p>
+
+                </div>
+                <div style="width: 100%; float: left;">
+                    <div id="extraPacks" style="width: 49%; float: left;">
+                        <h3>Extra Packs</h3>
+
+                        <p th:if="${order.orderedCar.packs.isEmpty()}">No extra packs ordered.</p>
+                        <table class="table" th:if="${!order.orderedCar.packs.isEmpty()}">
+                            <thead>
+                            <th>Name</th>
+                            <th>Options</th>
+                            </thead>
+                            <tbody>
+                            <tr th:each="pack : ${order.orderedCar.packs}">
+                                <td th:text="${pack.name}"></td>
+                                <td>
+                                    <ul>
+                                        <li th:each="option : ${pack.carOptions}">
+                                            <h4 th:text="${option.name}">optionName</h4>
+
+                                            <p th:text="${option.description}">optionDescription</p>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="extraOptions" style="width: 49%; float: right;">
+                        <h3>Extra Options</h3>
+
+                        <p th:if="${order.orderedCar.options.isEmpty()}">No extra options ordered.</p>
+                        <table class="table" th:if="${!order.orderedCar.options.isEmpty()}">
+                            <thead>
+                            <th>Name</th>
+                            <th>Description</th>
+                            </thead>
+                            <tbody>
+                            <tr th:each="option : ${order.orderedCar.options}">
+                                <td th:text="${option.name}">optionName</td>
+                                <td th:text="${option.description}">optionDescription</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <hr/>
+</div>
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript">
+    $(function() {
+        $( "#datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+    $(function() {
+        $( "#datepicker2" ).datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+</script>
+</body>
+</html>

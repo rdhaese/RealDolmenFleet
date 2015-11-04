@@ -1,0 +1,37 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <H2>Orders To Confirm</H2>
+            <p th:if="${ordersToConfirm.isEmpty()}">No orders to confirm.</p>
+            <table class="table" th:if="${!ordersToConfirm.isEmpty()}">
+                <thead>
+                <th>Employee</th>
+                <th>Ordered On</th>
+                <th>Confirm Order</th>
+                </thead>
+                <tbody>
+                <tr th:each="carUsage : ${ordersToConfirm}">
+                    <td th:text="${carUsage.employeeName}">employeeName</td>
+                    <td th:text="${carUsage.orderDate}">orderDate</td>
+                    <td style="text-align: center;">
+                        <a th:href="${'/fleet/confirm-order-detail?id=' + carUsage.orderId}" class="form-control">Confirm Order</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <hr/>
+</div>
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+</body>
+</html>

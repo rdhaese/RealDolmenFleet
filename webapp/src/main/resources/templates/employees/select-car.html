@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h2>Select a car from the list:</h2>
+            <h2>Order From Catalog:</h2>
 
             <div>
                 <form method="post" th:action="@{select-car}" th:object="${filterCarsDTO}">
@@ -23,11 +23,6 @@
                     <input name="level" id="downgrade" type="radio" th:field="*{level}" value="downgrade"/>Downgrade
                     <input name="level" id="myLevel" type="radio" th:field="*{level}" value="myLevel"/>My Level
                     <input name="level" id="upgrade" type="radio" th:field="*{level}" value="upgrade"/>Upgrade <br/>
-                    <span style="font-weight:bold;">Free Pool: </span>
-                    <input name="inFreePool" id="doesNotMatter" type="radio" th:field="*{inFreePool}"
-                           value="doesNotMatter"/>Does Not Matter
-                    <input name="inFreePool" id="yes" type="radio" th:field="*{inFreePool}" value="yes"/>Yes
-                    <input name="inFreePool" id="no" type="radio" th:field="*{inFreePool}" value="no"/>No <br/>
                     <input type="submit" value="Filter" class="form-control"/>
                 </form>
             </div>
@@ -44,14 +39,41 @@
                             <img th:src="${car.pictures[0]}" height="200" width="250" class="img-thumbnail"/>
                         </a>
                         <ul>
-                        <li th:if="${car.category &lt; functionalLevelForLoggedInUser}">Upgrade</li>
-                        <li th:if="${car.category &gt; functionalLevelForLoggedInUser}">Downgrade</li>
-                        <li th:if="${car.inFreePool}">In Free Pool</li>
+                            <li th:if="${car.category &lt; functionalLevelForLoggedInUser}">Upgrade</li>
+                            <li th:if="${car.category &gt; functionalLevelForLoggedInUser}">Downgrade</li>
                         </ul>
                     </td>
                 </tr>
                 </tbody>
             </table>
+
+            <hr/>
+
+            <h3>Order From Free Pool</h3>
+
+            <table class="table-bordered">
+                <tbody>
+                <tr th:each="carList  : ${dimensionalFreePoolCarList}">
+                    <td th:each="carUsage : ${carList}">
+                        <span th:text="${carUsage.orderedCar.car.brand + ' ' + carUsage.orderedCar.car.model}"
+                              style="font-weight: bold;">carTitle</span>
+                        <br/>
+                        <a th:href="${'/employees/selected-free-pool-car-detail?id=' + carUsage.id}">
+                        <img th:src="${carUsage.orderedCar.car.pictures[0]}" height="200" width="250"
+                             class="img-thumbnail"/></a>
+                        <ul>
+                            <li>
+                                Color: <span th:text="${carUsage.orderedCar.color}">carColor</span>
+                            </li>
+                            <li>
+                                Current km: <span th:text="${carUsage.usageUpdates[0].newTotalKm}">carColor</span>
+                            </li>
+                            </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
 
         </div>
     </div>

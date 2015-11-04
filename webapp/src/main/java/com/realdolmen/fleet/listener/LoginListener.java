@@ -26,6 +26,10 @@ public class LoginListener implements ApplicationListener<InteractiveAuthenticat
     @Override
     public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event)
     {
+        updateLoggedInUserCanOrderNewCar();
+    }
+
+    public void updateLoggedInUserCanOrderNewCar(){
         httpSession.setAttribute("loggedInUserCanOrderNewCar", employeeService.loggedInUserCanOrderNewCar());
     }
 }

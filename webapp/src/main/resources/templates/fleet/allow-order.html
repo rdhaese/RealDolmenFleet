@@ -11,13 +11,17 @@
             <div id="allowByEmail">
                 <h2>Allow Ordering Car</h2>
                 <form method="post" th:action="@{allow-order}">
+                    <p th:if="${emailNotFound}">
+                        No employee found for the given email.
+                    </p>
                     Give in email:
                     <input type="text" id="email" name="email" class="form-control"/>
                     <input type="submit" class="form-control" value="Allow Order"/>
                 </form>
             </div>
-            <div id="allowUsersThatMeetCriteria">
-                <h2>Employees That Need New Car</h2>
+            <h2>Employees That Need New Car</h2>
+            <p th:if="${usersThatNeedPermission.isEmpty()}">No employees that meet the criteria to order a new car.</p>
+            <div id="allowUsersThatMeetCriteria" th:if="${!usersThatNeedPermission.isEmpty()}">
                 These employees meet one or more criteria and need to order a new car.
                <table class="table">
                    <thead>
