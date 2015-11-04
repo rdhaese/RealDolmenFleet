@@ -36,8 +36,6 @@ public class PeriodicUsageUpdate extends BaseEntity {
     public PeriodicUsageUpdate() {
     }
 
-
-    /*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,10 +43,10 @@ public class PeriodicUsageUpdate extends BaseEntity {
 
         PeriodicUsageUpdate that = (PeriodicUsageUpdate) o;
 
-        if (Double.compare(that.totalFuelledForPeriod, totalFuelledForPeriod) != 0) return false;
-        if (Double.compare(that.newTotalKm, newTotalKm) != 0) return false;
-        if (fromDate != null ? !fromDate.equals(that.fromDate) : that.fromDate != null) return false;
-        return !(toDate != null ? !toDate.equals(that.toDate) : that.toDate != null);
+        if (Double.compare(that.getTotalFuelledForPeriod(), getTotalFuelledForPeriod()) != 0) return false;
+        if (Double.compare(that.getTotalFuelPrice(), getTotalFuelPrice()) != 0) return false;
+        if (getNewTotalKm() != that.getNewTotalKm()) return false;
+        return !(getUpdateDate() != null ? !getUpdateDate().equals(that.getUpdateDate()) : that.getUpdateDate() != null);
 
     }
 
@@ -56,17 +54,14 @@ public class PeriodicUsageUpdate extends BaseEntity {
     public int hashCode() {
         int result;
         long temp;
-        temp = Double.doubleToLongBits(totalFuelledForPeriod);
+        temp = Double.doubleToLongBits(getTotalFuelledForPeriod());
         result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(newTotalKm);
+        temp = Double.doubleToLongBits(getTotalFuelPrice());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (fromDate != null ? fromDate.hashCode() : 0);
-        result = 31 * result + (toDate != null ? toDate.hashCode() : 0);
+        result = 31 * result + getNewTotalKm();
+        result = 31 * result + (getUpdateDate() != null ? getUpdateDate().hashCode() : 0);
         return result;
     }
-
-    */
-
 
     public double getTotalFuelledForPeriod() {
         return totalFuelledForPeriod;

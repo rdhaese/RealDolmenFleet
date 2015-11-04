@@ -1,0 +1,82 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#carsInUse').dataTable().columnFilter();
+
+    } );
+    $(document).ready( function () {
+        $('#carsInFreePool').dataTable().columnFilter();
+
+    } );
+</script>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <H2>Our Cars</H2>
+
+            <h3>In Use</h3>
+            <p th:if="${ourCarsInUse.isEmpty()}">No cars in use.</p>
+            <table class="table" th:if="${!ourCarsInUse.isEmpty()}" id="carsInUse">
+                <thead>
+                <th>Car</th>
+                <th>Employee</th>
+                <th>Action</th>
+                </thead>
+                <tbody>
+                <tr th:each="carUsage : ${ourCarsInUse}">
+                    <td th:with="car =${carUsage.orderedCar.car}">
+                        <img th:src="${car.pictures[0]}" height="200" width="250"
+                             class="img-thumbnail" style="float: left; margin-right: 1%"/>
+                        <span th:text="${car.brand + ' ' + car.model}"></span>
+                    </td>
+                    <td><span th:text="${carUsage.employee.name}"></span><small>(<a href="#">edit</a>)</small></td>
+                    <td>
+                        <a class="form-control" th:href="${'cars/detail/' + carUsage.id }">Details</a>
+                        <form method="post" th:action="${'cars/to-free-pool'}">
+                            <input type="hidden" name="carUsageId" th:value="${carUsage.id}" />
+                            <input type="submit" class="form-control" value="To Free Pool" />
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h3>In Free Pool</h3>
+            <p th:if="${ourCarsInFreePool.isEmpty()}">No cars in our free pool.</p>
+            <table class="table" th:if="${!ourCarsInFreePool.isEmpty()}" id="carsInFreePool">
+                <thead>
+                <th>Car</th>
+                <th>Action</th>
+                </thead>
+                <tbody>
+                <tr th:each="carUsage : ${ourCarsInFreePool}">
+                    <td th:with="car =${carUsage.orderedCar.car}">
+                        <img th:src="${car.pictures[0]}" height="200" width="250"
+                             class="img-thumbnail" style="float: left; margin-right: 1%;"/>
+                        <span th:text="${car.brand + ' ' + car.model}"></span>
+                    </td>
+                    <td>
+                        <a class="form-control" th:href="${'cars/detail/' + carUsage.id }">Details</a>
+                        <form method="post" th:action="${'cars/remove'}">
+                            <input type="hidden" name="carUsageId" th:value="${carUsage.id}" />
+                            <input type="submit" class="form-control" value="Remove" />
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <hr/>
+</div>
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+
+</body>
+</html>

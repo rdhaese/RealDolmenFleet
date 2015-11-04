@@ -27,6 +27,7 @@
                 <ul class="dropdown-menu">
                     <li><a th:href="@{/fleet/allow-order}">Allow Orders</a></li>
                     <li><a th:href="@{/fleet/confirm-order}">Confirm Orders</a></li>
+                    <li><a th:href="@{/fleet/cars}">Our Cars</a></li>
                 </ul>
             </li>
             <li th:if="${session.loggedInUserCanOrderNewCar}"><a th:href="@{/employees/select-car}">Ordering Car Available!</a></li>

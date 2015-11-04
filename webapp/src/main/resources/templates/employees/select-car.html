@@ -9,7 +9,9 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h2>Order From Catalog:</h2>
+            <h2>Order Car</h2>
+
+            <h3>From Catalog:</h3>
 
             <div>
                 <form method="post" th:action="@{select-car}" th:object="${filterCarsDTO}">
@@ -29,7 +31,8 @@
 
             <hr/>
 
-            <table class="table-bordered">
+            <p th:if="${dimensionalCarList.isEmpty()}">No cars matching criteria found.</p>
+            <table class="table-bordered" th:if="${!dimensionalCarList.isEmpty()}">
                 <tbody>
                 <tr th:each="carList  : ${dimensionalCarList}">
                     <td th:each="car : ${carList}">
@@ -49,7 +52,7 @@
 
             <hr/>
 
-            <h3>Order From Free Pool</h3>
+            <h3>From Free Pool</h3>
 
             <table class="table-bordered">
                 <tbody>

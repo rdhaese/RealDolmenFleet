@@ -30,8 +30,6 @@ public class Employee extends BaseEntity {
     @DecimalMax(value = "8")
     private int functionalLevel;
     private boolean permissionToOrderNewCar = false;
-
-
     //@Temporal(TemporalType.DATE)
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="dd/MM/yyyy")
