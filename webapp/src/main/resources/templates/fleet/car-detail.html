@@ -8,8 +8,10 @@
 
     <div class="row">
         <div class="col-lg-12">
+            <h2 th:if="${carDetails.employee == null}">From Free Pool</h2>
+            <h2 th:if="${carDetails.employee != null}">In Use</h2>
             <div id="carDetails" style="width: 50%; float: left" th:with="car=${carDetails.orderedCar.car}">
-                <h2>Car details</h2>
+                <h3>Car details</h3>
 
                 <p>Brand: <span th:text="${car.brand}">brand</span></p>
 
@@ -37,6 +39,7 @@
 
                 <p>Benefit: €<span th:text="${car.benefit}">benefit</span></p>
             </div>
+
             <div id="basePackDetails" style="width: 50%; float: right" th:with="car=${carDetails.orderedCar.car}">
                 <h2> </h2>
                 <h3>Base Pack</h3>
@@ -59,10 +62,12 @@
 
             <div id="orderSpecificDetails" th:with="orderDetails=${carDetails.orderedCar}">
                 <h3>Extra Details</h3>
+                <p>Price: <span th:text="${orderDetails.price}"></span></p>
                 <p>Color: <span th:text="${orderDetails.color}"></span></p>
-                <p>Order date: <span th:text="${orderDetails.orderDate}"></span></p>
-                <p>Start date: <span th:text="${orderDetails.startDate}"></span></p>
-                <p>Initial end date: <span th:text="${orderDetails.initialEndDate}"></span></p>
+                <p>Order date: <span th:text="${carDetails.orderDate}"></span></p>
+                <p>Start date: <span th:text="${carDetails.startDate}"></span></p>
+                <p>Initial end date: <span th:text="${carDetails.initialEndDate}"></span></p>
+
                 <div id="extraPacks" th:with="packs=${orderDetails.packs}">
                     <h4>Extra Packs</h4>
                     <p th:if="${packs.isEmpty()}">None</p>
@@ -86,6 +91,7 @@
                         </tbody>
                     </table>
                 </div>
+
                 <div id="extraOptions" th:with="options=${orderDetails.options}">
                     <h4>Extra Options</h4>
                     <p th:if="${options.isEmpty()}">None</p>
@@ -104,22 +110,39 @@
                 </div>
             </div>
 
-            <div id="usageUpdates" th:with="updates=${orderDetails.usageUpdates}">
+            <div id="usageUpdates" th:with="updates=${carDetails.usageUpdates}">
                 <h3>Usage</h3>
                 <p th:if="${updates.isEmpty()}">Nothing to report.</p>
                 <table class="table" th:if="${!updates.isEmpty()}">
                     <thead>
-                        <th></th>
+                        <th>Date Received Update</th>
+                        <th>New Amount of Km</th>
+                        <th>Amount Fuelled Since Last Update (liter)</th>
+                        <th>Total paid For Fuel</th>
                     </thead>
                     <tbody>
-
+                        <tr th:each="update : ${updates}">
+                            <td th:text="${update.updateDate}"></td>
+                            <td th:text="${update.newTotalKm}"></td>
+                            <td th:text="${update.totalFuelledForPeriod}"></td>
+                            <td>€ <span th:text="${update.totalFuelPrice}"></span></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div id="employeeDetails">
+            <div id="employeeDetails" th:with="employee=${carDetails.employee}" th:if="${carDetails.employee != null}">
                 <h3>Current User Details</h3>
+                <p>Name: <span th:text="${employee.name}"></span></p>
+                <p>Email: <span th:text="${employee.email}"></span></p>
+                <p th:with="role=${employee.role.toString()}">Role:
+                    <span th:if="${role == 'ROLE_FLEET'}">Fleet</span>
+                    <span th:if="${role == 'ROLE_NORMAL'}">Normal</span>
+                </p>
+                <p>Functional level: <span th:text="${employee.functionalLevel}"></span> </p>
+                <p>License Plate: <span th:text="${carDetails.licensePlate}"></span> </p>
             </div>
+
         </div>
     </div>
 

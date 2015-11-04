@@ -1,6 +1,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/fragments :: head"></head>
 <body>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#employeesTable').dataTable().columnFilter();
+    } );
+</script>
 <div th:replace="fragments/fragments :: header"></div>
 
 <div class="container">
@@ -23,7 +28,7 @@
             <p th:if="${usersThatNeedPermission.isEmpty()}">No employees that meet the criteria to order a new car.</p>
             <div id="allowUsersThatMeetCriteria" th:if="${!usersThatNeedPermission.isEmpty()}">
                 These employees meet one or more criteria and need to order a new car.
-               <table class="table">
+               <table class="table" id="employeesTable">
                    <thead>
                    <th>Name</th>
                    <th>Email</th>

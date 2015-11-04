@@ -98,7 +98,7 @@ public class CarService {
     }
 
     public void removeOpenOrder(CarUsage previousOpenOrder) {
-        carUsageRepository.delete(previousOpenOrder);
+        removeCarUsage(previousOpenOrder);
     }
 
     public void backToFreePool(CarUsage carUsage) {
@@ -116,5 +116,21 @@ public class CarService {
 
     public List<CarUsage> findAllOurCarsInUse() {
         return carUsageRepository.findAllWithLicensePlateSet();
+    }
+
+    public void removeFromFreePool(CarUsage carUsage) {
+        removeCarUsage(carUsage);
+    }
+
+    public void removeCarUsage(CarUsage carUsage){
+        carUsageRepository.delete(carUsage);
+    }
+
+    public CarUsage findCarUsageForEmployee(String email) {
+        List<CarUsage> carUsagesForEmployee = carUsageRepository.findByEmployee(email);
+        if (carUsagesForEmployee.isEmpty()){
+            return null;
+        }
+        return carUsagesForEmployee.get(carUsagesForEmployee.size() - 1);
     }
 }

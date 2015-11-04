@@ -56,6 +56,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static void main(String... args){
         BCryptPasswordEncoder e = new BCryptPasswordEncoder();
         System.out.println(e.encode("123"));
+        System.out.println(e.encode("123"));
+        System.out.println(e.matches("123", "$2a$10$DrWVeZWQVSiyc5hZXoD5Z.vYB9zsCcIcn4jrilfbkPUiXwFozVGk6"));
+        System.out.println(e.matches("123", "$2a$10$kTX.dLlc/TZB4NzmpHpS5ei.THZYkROs/Ri1/TzcjxwswKjwm/3QS"));
+        System.out.println(e.encode("123"));
+        System.out.println(e.encode("123"));
+        System.out.println(e.encode("123"));
         System.out.println(e.encode("password"));
         System.out.println(0 % 3);
     }

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -34,5 +35,16 @@ public class ManageCarsController {
         return "fleet/car-detail";
     }
 
+    @RequestMapping(value="/fleet/cars/to-free-pool", method = RequestMethod.POST)
+    public String carToFreePool(@RequestParam("carUsageId") Long carUsageId){
+        carService.backToFreePool(carService.findCarUsageById(carUsageId));
+        return "redirect:/fleet/cars";
+    }
+
+    @RequestMapping(value="/fleet/cars/remove", method = RequestMethod.POST)
+    public String removeCar(@RequestParam("carUsageId") Long carUsageId){
+        carService.removeFromFreePool(carService.findCarUsageById(carUsageId));
+        return "redirect:/fleet/cars";
+    }
 
 }

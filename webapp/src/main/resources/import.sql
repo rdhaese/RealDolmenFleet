@@ -50,8 +50,8 @@ INSERT INTO ordered_car_packs (ordered_car_id, packs_id) VALUES ('1', '1');
 
 INSERT INTO car_usage(id,version,initial_end_date,order_date,start_date,ordered_car_id) VALUES ('1', '0', '2019-11-02', '2015-11-03', '2016-02-04', '1')
 
-INSERT INTO periodic_usage_update (id,version,from_date,new_total_km,to_date,total_fuelled_for_period)VALUES('1', '0', '2016-02-04', '0', '2016,02,11', 0);
-INSERT INTO periodic_usage_update (id,version,from_date,new_total_km,to_date,total_fuelled_for_period)VALUES('2', '0', '2016-02-11', '10', '2016,02,18', 0);
+INSERT INTO periodic_usage_update (id,version,update_date,new_total_km,total_fuelled_for_period, total_fuel_price)VALUES('1', '0', '2016-02-04', '0', 0, 0);
+INSERT INTO periodic_usage_update (id,version,update_date,new_total_km,total_fuelled_for_period, total_fuel_price)VALUES('2', '0', '2016-02-11', '10', 0, 0);
 
 INSERT INTO car_usage_usage_updates (car_usage_id, usage_updates_id) VALUES ('1', '1');
 INSERT INTO car_usage_usage_updates (car_usage_id, usage_updates_id) VALUES ('1', '2');

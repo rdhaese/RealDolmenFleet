@@ -1,6 +1,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/fragments :: head"></head>
 <body>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#orderTable').dataTable().columnFilter();
+
+    } );
+</script>
 <div th:replace="fragments/fragments :: header"></div>
 
 <div class="container">
@@ -10,7 +16,7 @@
         <div class="col-lg-12">
             <H2>Orders To Confirm</H2>
             <p th:if="${ordersToConfirm.isEmpty()}">No orders to confirm.</p>
-            <table class="table" th:if="${!ordersToConfirm.isEmpty()}">
+            <table class="table" th:if="${!ordersToConfirm.isEmpty()}" id="orderTable">
                 <thead>
                 <th>Employee</th>
                 <th>Ordered On</th>
