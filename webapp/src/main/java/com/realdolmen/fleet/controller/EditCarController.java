@@ -44,7 +44,7 @@ public class EditCarController {
     }
 
 
-    @RequestMapping(value = "/editcar/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/fleet/editcar/{id}", method = RequestMethod.GET)
     public String editCar(@RequestParam Long id, Model model) {
         updatedCar = carService.findById(id);
         original = updatedCar;
@@ -52,10 +52,10 @@ public class EditCarController {
         System.out.println(updatedCar.getBasePack());
         System.out.println(updatedCar.getExtraPacks().size());
         populateModel(model);
-        return "editcar";
+        return "/fleet/editcar";
     }
 
-    @RequestMapping(value="/editcar", method = RequestMethod.POST)
+    @RequestMapping(value="/fleet/editcar", method = RequestMethod.POST)
     public String processEditCar(@Valid Car car, Errors errors, Model m) {
         System.out.println(car.getId());
         System.out.println(car.getBasePack());
@@ -63,16 +63,16 @@ public class EditCarController {
         updatedCar = car;
         populateModel(m);
         if( errors.hasErrors()){
-            return "editcar";
+            return "/fleet/editcar";
         }
         updatedCar.setBasePack(original.getBasePack());
         updatedCar.setExtraOptions(original.getExtraOptions());
         updatedCar.setExtraPacks(original.getExtraPacks());
-        return "editoptionselection";
+        return "/fleet/editoptionselection";
     }
 
 
-    @RequestMapping(value = "/seteditbasicpack/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/fleet/seteditbasicpack/{id}", method = RequestMethod.GET)
     public
     String setEditBasicPack(@RequestParam Long id, Model model) {
 
@@ -80,55 +80,55 @@ public class EditCarController {
 
        updatedCar.setBasePack(p);
        populateModel(model);
-        return "editoptionselection";
+        return "/fleet/editoptionselection";
     }
 
-    @RequestMapping(value = "/addEditExtraPack/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/fleet/addEditExtraPack/{id}", method = RequestMethod.GET)
     public
     String addEditExtraPack(@RequestParam Long id, Model model) {
 
         Pack p = packService.findPackById(id);
         updatedCar.addExtraPack(p);
         populateModel(model);
-        return "editoptionselection";
+        return "/fleet/editoptionselection";
     }
 
-    @RequestMapping(value = "/addEditExtraOption/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/fleet/addEditExtraOption/{id}", method = RequestMethod.GET)
     public
     String addEditExtraOption(@RequestParam Long id, Model model) {
 
         CarOption carOption = carOptionsService.getCarOptionByID(id);
         updatedCar.addExtraOption(carOption);
         populateModel(model);
-        return "editoptionselection";
+        return "/fleet/editoptionselection";
     }
 
 
-    @RequestMapping(value = "/removeeditextrapack/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/fleet/removeeditextrapack/{id}", method = RequestMethod.GET)
     public //@ResponseBody
     String removeEditExtraPack(@RequestParam int id, Model model) {
         updatedCar.getExtraPacks().remove(id);
         populateModel(model);
 
-        return "editoptionselection";
+        return "/fleet/editoptionselection";
     }
 
-    @RequestMapping(value = "/removeeditextraoption/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/fleet/removeeditextraoption/{id}", method = RequestMethod.GET)
     public //@ResponseBody
     String removeEditExtraOption(@RequestParam int id, Model model) {
         updatedCar.getExtraOptions().remove(id);
         populateModel(model);
 
-        return "editoptionselection";
+        return "/fleet/editoptionselection";
     }
 
-    @RequestMapping(value = "/updatecar", method = RequestMethod.GET)
+    @RequestMapping(value = "/fleet/updatecar", method = RequestMethod.GET)
     public
     String updateCar(@RequestParam Long id) {
        // updatedCar.setId(original.getId());
         original.CopyCar(updatedCar);
-        carService.saveCar(original);
-        return "redirect:/caroverview";
+        carService.saveNewCar(original);
+        return "redirect:/fleet/caroverview";
     }
 
 

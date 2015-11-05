@@ -3,30 +3,41 @@
 <body>
 <div th:replace="fragments/fragments :: header"></div>
 
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#allCars').dataTable().columnFilter();
+
+    } );
+</script>
+
+
 <div class="container">
     <div th:replace="fragments/fragments :: div#page-header"></div>
     <div class="row">
         <div class="col-lg-12">
-
             <div>
-                <a th:href="@{/fleet/createcar}">Create New Car </a>
+                <button type="button" class="btn btn-primary" th:href="@{/fleet/createcar}"> Add new Car </button>
+                <br/>
+                <br/>
             </div>
-
-            <table id="allCars">
+            <table id="allCars"  class="display" cellspacing="0" width="100%">
                 <thead>
                 <tr>
                     <th>Brand </th>
                     <th>Model</th>
-
-
+                    <th></th>
                 </tr>
                 </thead>
+
                 <tfoot>
                 <tr>
                     <th>Brand</th>
                     <th>Model</th>
+                    <th></th>
                 </tr>
                 </tfoot>
+
 
                 <tbody>
 
@@ -40,15 +51,9 @@
                     <td> <a th:href="${#mvc.url('ECC#editCar').arg(0,car.id).build()}" > Edit Car </a> </td>
 
 
-
-
                 </tr>
                 </tbody>
             </table>
-
-
-
-
 
         </div>
 
@@ -60,12 +65,6 @@
 
 
 
-<div th:replace="fragments/fragments :: div.scripts"></div>
-<script type="text/javascript" charset="utf-8">
-    $(document).ready( function () {
-        $('#allCars').dataTable().columnFilter();
 
-    } );
-</script>
 </body>
 </html>

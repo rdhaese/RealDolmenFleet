@@ -56,14 +56,9 @@ public class CreateCarController {
 
     @RequestMapping(value="/fleet/createcar", method = RequestMethod.POST)
     public String processCar(@Valid Car car, Errors errors, Model m) {
-        System.out.println("car ready to save");
         if( errors.hasErrors()){
             return "/fleet/createcar";
         }
-        System.out.println("caroption ready to save");
-       // carService.saveCar(car);
-        System.out.println("caroption saved");
-       // return "redirect:/caroverview";
         createdCar = car;
         m.addAttribute("packList", packService.findAll());
         m.addAttribute("car", createdCar);
@@ -73,16 +68,13 @@ public class CreateCarController {
 
     @RequestMapping(value="/fleet/caroverview", method = RequestMethod.GET)
     public List<Car> getAllCars(){
-        //    System.out.println("caroption initialized");
-        return carService.findAll();
+       return carService.findAll();
     }
 
     @RequestMapping(value = "/fleet/setbasicpack/{id}", method = RequestMethod.GET)
     public
     String setBasicPack(@RequestParam Long id, Model model) {
-
         Pack p = packService.findPackById(id);
-        System.out.println(createdCar);
         createdCar.setBasePack(p);
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
@@ -108,7 +100,6 @@ public class CreateCarController {
 
         CarOption carOption = carOptionsService.getCarOptionByID(id);
         createdCar.addExtraOption(carOption);
-        System.out.println(carOption.getId());
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
         model.addAttribute("optionList", carOptionsService.findAll());
@@ -142,7 +133,7 @@ public class CreateCarController {
     public
     String saveCar(@RequestParam Long id) {
 
-       carService.saveCar(createdCar);
+       carService.saveNewCar(createdCar);
         return "redirect:/fleet/caroverview";
     }
 }

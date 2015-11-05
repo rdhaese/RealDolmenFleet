@@ -2,19 +2,27 @@
 <head th:replace="fragments/fragments :: head"></head>
 <body>
 <div th:replace="fragments/fragments :: header"></div>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#allPacks').dataTable().columnFilter();
+
+    } );
+
+    $(document).ready( function () {
+        $('#allOptions').dataTable().columnFilter();
+
+    } );
+
+</script>
 
 <div class="container">
     <div th:replace="fragments/fragments :: div#page-header"></div>
     <div class="row">
         <div class="col-lg-12">
 
-        </div>
 
-        <hr/>
-    </div>
-</div>
-
-<h2> name:  <p th:text="${car.brand}"/> </h2>
+        <h2> name:  <p th:text="${car.brand}"/> </h2>
 <h2> model:  <p th:text="${car.model}"/> </h2>
 <div th:if="${car.basePack != null}">
     <h3> Base pack:</h3>
@@ -126,18 +134,11 @@
 <h4> <a th:href="${#mvc.url('ECC#updateCar').arg(0, car.id).build()}" > Save New Car </a> </h4>
 
 
-<div th:replace="fragments/fragments :: div.scripts"></div>
-<script type="text/javascript" charset="utf-8">
-    $(document).ready( function () {
-        $('#allPacks').dataTable().columnFilter();
+        </div>
 
-    } );
+        <hr/>
+    </div>
+</div>
 
-    $(document).ready( function () {
-        $('#allOptions').dataTable().columnFilter();
-
-    } );
-
-</script>
 </body>
 </html>

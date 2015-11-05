@@ -60,7 +60,7 @@ public class Car extends BaseEntity{
     private Pack basePack;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Pack> extraPacks = new ArrayList<>();
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<CarOption> extraOptions = new ArrayList<>();
 
 
