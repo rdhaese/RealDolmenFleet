@@ -27,6 +27,7 @@
                     <th>Brand </th>
                     <th>Model</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 </thead>
 
@@ -34,6 +35,7 @@
                 <tr>
                     <th>Brand</th>
                     <th>Model</th>
+                    <th></th>
                     <th></th>
                 </tr>
                 </tfoot>
@@ -50,6 +52,7 @@
 
                     <td> <a th:href="${#mvc.url('ECC#editCar').arg(0,car.id).build()}" > Edit Car </a> </td>
 
+                    <td> <a th:href="${#mvc.url('CCC#deleteCarFromCatalog').arg(0,car.id).build()}" > Delete Car From catalog </a> </td>
 
                 </tr>
                 </tbody>

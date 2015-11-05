@@ -154,4 +154,10 @@ public class CarService {
         }
         return carUsagesForEmployee.get(carUsagesForEmployee.size() - 1);
     }
+
+    public void deleteCarSoft(Long id){
+        Car c = findById(id);
+        c.setIsdeleted(true);
+        saveCar(c);
+    }
 }
