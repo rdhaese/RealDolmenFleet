@@ -30,10 +30,16 @@ public class PackService {
     private CarOptionsService carOptionsService;
 
     public List<Pack> findAll(){
-        return packRepository.findAll();
+     //   return packRepository.findAll();
+
+        return packRepository.findByNameNot("RealDolmen General Options");
 
     }
 
+
+    public List<CarOption> findGeneralRDOptions(){
+        return packRepository.findByName("RealDolmen General Options").getCarOptions();
+    }
     public void savePack(Pack pack){
 
         System.out.println("saving pack with id: " + pack.getId());
