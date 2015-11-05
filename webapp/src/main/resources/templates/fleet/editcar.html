@@ -10,7 +10,7 @@
 
 
 
-            <form method="POST" th:object="${car}">
+            <form method="POST" th:object="${car}"  action="/fleet/editcar">
                 <div th:class="${#fields.hasErrors('brand')}? 'has-error'">
                     <label th:for="${#ids.next('brand')}"> Brand:</label>
                     <input type="text" th:field="*{brand}" />
@@ -47,16 +47,16 @@
                     <label th:for="${#ids.next('fuelType')}"> FuelType:</label>
 
                     <select name="fuel-selector" th:field="*{fuelType}">
-                        <option th:each="fuel : ${T(com.realdolmen.fleet.model.FuelType).values()}" th:value="${fuel}" th:text="${fuel}"  ></option>
+                        <option th:each="fuel : ${T(com.realdolmen.fleet.enums.FuelType).values()}" th:value="${fuel}" th:text="${fuel}"  ></option>
                     </select>
-                  <!--   <input type="text" th:field="*{fuelType}" /> -->
+                    <!--   <input type="text" th:field="*{fuelType}" /> -->
                     <span th:if="${#fields.hasErrors('fuelType')}" th:errors="*{fuelType}"></span>
                 </div>
 
                 <div th:class="${#fields.hasErrors('carType')}? 'has-error'">
                     <label th:for="${#ids.next('carType')}"> CarType:</label>
                     <select name="cartype-selector" th:field="*{carType}" >
-                        <option th:each="fuel : ${T(com.realdolmen.fleet.model.CarType).values()}" th:value="${fuel}" th:text="${fuel}" ></option>
+                        <option th:each="fuel : ${T(com.realdolmen.fleet.enums.CarType).values()}" th:value="${fuel}" th:text="${fuel}" ></option>
                     </select>
 
                     <span th:if="${#fields.hasErrors('carType')}" th:errors="*{carType}"></span>

@@ -1,5 +1,6 @@
 package com.realdolmen.fleet;
 
+import com.realdolmen.fleet.webservice.PeriodicUsageEndpoint;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -42,8 +43,8 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
 
 
     public static void main (String[] args){
-    //    Endpoint.publish("http://localhost:8181/RDFleet/PeriodicUsage"
-      //          , new PeriodicUsageEndpoint());
+  //    Endpoint.publish("http://localhost:8181/RDFleet/PeriodicUsage"
+    //           , new PeriodicUsageEndpoint());
         ConfigurableApplicationContext context = new SpringApplicationBuilder(ApplicationConfiguration.class).profiles("production").build().run(args);
     }
 

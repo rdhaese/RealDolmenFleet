@@ -1,0 +1,69 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#caroptions').dataTable().columnFilter();
+
+    } );
+</script>
+
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div>
+                <a th:href="@{/fleet/createcaroption}">Create New option</a>
+            </div>
+
+<table id="caroptions" class="display" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th>Name </th>
+        <th>Description</th>
+
+
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    </tfoot>
+
+    <tbody>
+
+
+    <tr th:each="caroption  : ${carOptionList}">
+
+        <td th:text="${caroption.name}"></td>
+
+        <td th:text="${caroption.description}"></td>
+
+
+
+
+
+
+    </tr>
+    </tbody>
+</table>
+
+        </div>
+
+        <hr/>
+    </div>
+</div>
+
+
+
+
+
+
+</body>
+</html>

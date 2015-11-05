@@ -42,15 +42,15 @@ public class EditPackController {
 
     //Edit pack functions
 
-    @RequestMapping(value = "/editpack/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/fleet/editpack/{id}", method = RequestMethod.GET)
     public String editPack(@RequestParam Long id, Model model) {
         allCarOptions = carOptionsRepository.findAll();
         p = packService.findPackById(id);
         populateModel(model);
-        return "editpack";
+        return "/fleet/editpack";
     }
 
-    @RequestMapping(value="/editpack", method = RequestMethod.POST)
+    @RequestMapping(value="/fleet/editpack", method = RequestMethod.POST)
     public String processEditPack(@Valid Pack pack, Errors errors, Model model) {
         pack.setId(p.getId());
         pack.setCarOptions(p.getCarOptions());
@@ -58,42 +58,42 @@ public class EditPackController {
 
             p = pack;
             populateModel(model);
-            return "editpack";
+            return "/fleet/editpack";
         }
         packService.editPackWithExistingCarOptions(pack);
-        return "redirect:/packs";
+        return "redirect:/fleet/packs";
     }
 
 
-    @RequestMapping(value = "/addoptioninedit", method = RequestMethod.GET, params="id")
+    @RequestMapping(value = "/fleet/addoptioninedit", method = RequestMethod.GET, params="id")
     public
     String addOptionInEdit(@RequestParam Long id, Model model) {
         CarOption selectedOption = packService.getCarOption(id);
         p.addCarOption(selectedOption);
         populateModel(model);
-        return "editpack";
+        return "/fleet/editpack";
     }
 
-    @RequestMapping(value = "/removeoptionedit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/fleet/removeoptionedit/{id}", method = RequestMethod.GET)
     public
     String removeOptionInEdit(@RequestParam int id, Model model) {
         p.removeCarOption(id);
         populateModel(model);
-        return "editpack";
+        return "/fleet/editpack";
     }
 
-    @RequestMapping(value="/createeditpackoption", method = RequestMethod.POST)
+    @RequestMapping(value="/fleet/createeditpackoption", method = RequestMethod.POST)
     public String processCarOptionEdit(@Valid CarOption carOption, Errors errors, Model model) {
         if( errors.hasErrors()){
             model.addAttribute("allCarOptions", allCarOptions);
             model.addAttribute("pack", p);
             model.addAttribute("carOption", carOption);
-            return "editpack";
+            return "/fleet/editpack";
         }
         carOptionsRepository.save(carOption);
         p.addCarOption(carOption);
         populateModel(model);
-        return "editpack";
+        return "/fleet/editpack";
     }
 
 }

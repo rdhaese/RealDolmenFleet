@@ -1,8 +1,10 @@
 package com.realdolmen.fleet.service;
 
 import com.realdolmen.fleet.model.Car;
+import com.realdolmen.fleet.model.CarOption;
 import com.realdolmen.fleet.model.CarUsage;
 import com.realdolmen.fleet.model.Employee;
+import com.realdolmen.fleet.persist.CarOptionsRepository;
 import com.realdolmen.fleet.persist.CarRepository;
 import com.realdolmen.fleet.persist.CarUsageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class CarService {
 
     @Autowired
     private CarUsageRepository carUsageRepository;
+
+    @Autowired
+    private CarOptionsRepository carOptionsRepository;
 
     public List<Car> findAll() {
         return carRepository.findAll();
@@ -105,6 +110,20 @@ public class CarService {
         carUsage.setLicensePlate(null);
         carUsage.setEmployee(null);
         carUsageRepository.save(carUsage);
+    }
+
+    public void saveNewCar(Car car){
+
+        List<CarOption> chozenoptions = car.getExtraOptions();
+        List<CarOption> attachedOptions = new ArrayList<>();
+
+
+        //savePack(pack);
+        for(CarOption caropt :chozenoptions){
+            attachedOptions.add(carOptionsRepository.getOne(caropt.getId()));
+        }
+        car.setExtraOptions(attachedOptions);
+        saveCar(car);
     }
 
 

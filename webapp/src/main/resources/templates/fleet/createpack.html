@@ -2,13 +2,41 @@
 <head th:replace="fragments/fragments :: head"></head>
 <body>
 <div th:replace="fragments/fragments :: header"></div>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#possibleoptions').dataTable().columnFilter();
+
+    } );
+
+    function addInPack(id){
+        var data = "id=" + encodeURIComponent(id);
+
+        $.ajax({
+            url : "/addoptiontopack",
+            data : data,
+            type : "GET",
+
+            success : function(response) {
+                alert( response );
+            },
+            error : function(xhr, status, error) {
+                alert(xhr.responseText);
+            }
+        });
+    }
+
+
+</script>
 
 <div class="container">
     <div th:replace="fragments/fragments :: div#page-header"></div>
     <div class="row">
         <div class="col-lg-12">
+            <div>
 
-<form method="POST" th:object="${pack}" action="/createpack">
+<form method="POST" th:object="${pack}" action="/fleet/createpack">
+    <div >
     <div th:class="${#fields.hasErrors('name')}? 'has-error'">
         <label th:for="${#ids.next('name')}"> name:</label>
         <input type="text" th:field="*{name}" />
@@ -21,7 +49,9 @@
         <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
     </div>
 
+</div>
     <div>
+    <div style="float:left; width: 45%">
         <h1> SelectedOptions </h1>
         <table>
             <tr th:each="caropt,idStat  : ${pack.carOptions}">
@@ -33,12 +63,12 @@
 
         </table>
     </div>
-    <button type="submit">Save pack </button>
 
 
 
 
-    <table id="possibleoptions">
+    <div style="float:left; width: 50%">
+    <table  id="possibleoptions" >
         <thead>
         <tr>
             <th>Name </th>
@@ -77,16 +107,19 @@
         </tr>
         </tbody>
     </table>
+        </div>
+        </div>
 
 
 
+    <button type="submit">Save pack </button>
 </form>
 
-
+</div>
 
     <br/>
-
-            <form method="POST" th:object="${carOption}"  action="/createnewpackoption">
+<div style="clear:both;">
+            <form method="POST" th:object="${carOption}"  action="/fleet/createnewpackoption">
                 <div th:class="${#fields.hasErrors('name')}? 'has-error'">
                     <label th:for="${#ids.next('name')}"> name:</label>
                     <input type="text" th:field="*{name}" />
@@ -104,6 +137,7 @@
                 <button type="submit">Add new pack Option </button>
             </form>
 
+</div>
         </div>
 
         <hr/>
@@ -113,31 +147,6 @@
 
 
 
-    <div th:replace="fragments/fragments :: div.scripts"></div>
-<script type="text/javascript" charset="utf-8">
-    $(document).ready( function () {
-        $('#possibleoptions').dataTable().columnFilter();
 
-    } );
-
- function addInPack(id){
-     var data = "id=" + encodeURIComponent(id);
-
-     $.ajax({
-         url : "/addoptiontopack",
-         data : data,
-         type : "GET",
-
-         success : function(response) {
-             alert( response );
-         },
-         error : function(xhr, status, error) {
-             alert(xhr.responseText);
-         }
-     });
- }
-
-
-</script>
 </body>
 </html>
