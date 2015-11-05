@@ -40,7 +40,7 @@
                 <div th:class="${#fields.hasErrors('role')}? 'has-error'">
                     <label th:for="${#ids.next('role')}"> Role:</label>
                     <select name="role-selector" th:field="*{role}" >
-                        <option th:each="rol : ${T(com.realdolmen.fleet.model.EmployeeType).values()}" th:value="${rol}" th:text="${rol}" ></option>
+                        <option th:each="rol : ${T(com.realdolmen.fleet.enums.EmployeeType).values()}" th:value="${rol}" th:text="${rol}" ></option>
                     </select>
 
                     <span th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></span>

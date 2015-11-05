@@ -42,8 +42,8 @@
                             <img th:src="${car.pictures[0]}" height="200" width="250" class="img-thumbnail"/>
                         </a>
                         <ul>
-                            <li th:if="${car.category &lt; functionalLevelForLoggedInUser}">Upgrade</li>
-                            <li th:if="${car.category &gt; functionalLevelForLoggedInUser}">Downgrade</li>
+                            <li th:if="${car.category &lt; functionalLevelForLoggedInUser}">Downgrade</li>
+                            <li th:if="${car.category &gt; functionalLevelForLoggedInUser}">Upgrade</li>
                         </ul>
                     </td>
                 </tr>
