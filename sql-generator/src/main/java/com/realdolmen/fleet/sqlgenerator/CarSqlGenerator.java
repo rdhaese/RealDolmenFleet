@@ -67,7 +67,7 @@ public class CarSqlGenerator {
     private static void process(String strLine, int id, int carCounter) {
         String[] s = strLine.split(";");
         processPack(carCounter);
-        StringBuilder carQuery = new StringBuilder("INSERT INTO car (id,  version, category, emission, fiscalhp, fuel_type, brand, model, pk, delivery_time, ideal_km, max_km, list_price, benefit, amount_upgrade, amount_downgrade, car_type, base_pack_id) VALUES(");
+        StringBuilder carQuery = new StringBuilder("INSERT INTO car (isdeleted, id,  version, category, emission, fiscalhp, fuel_type, brand, model, pk, delivery_time, ideal_km, max_km, list_price, benefit, amount_upgrade, amount_downgrade, car_type, base_pack_id) VALUES(0,");
         carQuery.append("'").append(id).append("'").append(",").append("'").append(0).append("'");
         for (int index = 0; index < s.length - 1; index++){
             carQuery.append(",");
