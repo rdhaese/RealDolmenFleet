@@ -60,6 +60,7 @@ public class CreateCarController {
             return "/fleet/createcar";
         }
         createdCar = car;
+        createdCar.setExtraOptions(packService.findGeneralRDOptions());
         m.addAttribute("packList", packService.findAll());
         m.addAttribute("car", createdCar);
         m.addAttribute("optionList", carOptionsService.findAll());
@@ -100,6 +101,7 @@ public class CreateCarController {
 
         CarOption carOption = carOptionsService.getCarOptionByID(id);
         createdCar.addExtraOption(carOption);
+
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
         model.addAttribute("optionList", carOptionsService.findAll());
