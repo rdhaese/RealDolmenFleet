@@ -31,7 +31,9 @@ public class CarService {
     private CarOptionsRepository carOptionsRepository;
 
     public List<Car> findAll() {
-        return carRepository.findAll();
+
+        //return carRepository.findAll();
+        return carRepository.findByIsdeletedNot(true);
     }
 
     public List<Car> findAll(int functionalLevel) {

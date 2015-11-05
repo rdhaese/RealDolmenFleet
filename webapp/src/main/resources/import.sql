@@ -55,6 +55,3 @@ INSERT INTO periodic_usage_update (id,version,update_date,new_total_km,total_fue
 
 INSERT INTO car_usage_usage_updates (car_usage_id, usage_updates_id) VALUES ('1', '1');
 INSERT INTO car_usage_usage_updates (car_usage_id, usage_updates_id) VALUES ('1', '2');
-INSERT INTO general_car_options(id, version) VALUES ('1','0');
-INSERT INTO general_car_options_general_options(general_car_options_id, general_options_id) VALUES('1', '2');
-INSERT INTO general_car_options_general_options(general_car_options_id, general_options_id) VALUES('1', '1');

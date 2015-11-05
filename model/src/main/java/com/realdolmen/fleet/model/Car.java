@@ -64,6 +64,10 @@ public class Car extends BaseEntity{
     private List<CarOption> extraOptions = new ArrayList<>();
 
 
+    private Boolean isdeleted = false;
+
+
+
     public Car(String brand, String model, int category, double pk, double emission, FuelType fuelType, CarType carType, double fiscalHP, double deliveryTime, int idealKm, int maxKm, double listPrice, double benefit, double amountUpgrade, double amountDowngrade, Pack basePack, List<Pack> extraPacks, List<CarOption> extraOptions) {
         this.brand = brand;
         this.model = model;
@@ -336,5 +340,11 @@ public class Car extends BaseEntity{
 
         }
 
+    public Boolean getIsdeleted() {
+        return isdeleted;
+    }
 
+    public void setIsdeleted(Boolean isdeleted) {
+        this.isdeleted = isdeleted;
+    }
 }
