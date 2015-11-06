@@ -24,4 +24,8 @@ public class PeriodicUsageService {
     public void savePeriodicUpdate(PeriodicUsageUpdate periodicUsageUpdate){
         periodicUsageUpdateRepository.save(periodicUsageUpdate);
     }
+
+    public void savePeriodicUpdateForUser(PeriodicUsageUpdate periodicUsageUpdate, String licenseplate){
+        periodicUsageUpdateRepository.save(periodicUsageUpdate);
+    }
 }

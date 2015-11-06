@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/error").permitAll()
+                .antMatchers("/ws/**").permitAll()
                 .antMatchers("/**").hasRole("NORMAL")
                 .antMatchers("/**").hasRole("FLEET")
                 .antMatchers("/fleet/**").hasRole("FLEET");

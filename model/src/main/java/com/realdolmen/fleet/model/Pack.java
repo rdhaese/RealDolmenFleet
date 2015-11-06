@@ -22,6 +22,9 @@ public class Pack extends BaseEntity {
     private String name;
 
     @ManyToMany
+    @JoinTable(name="pack_car_options",
+            joinColumns=@JoinColumn(name="pack_id"),
+            inverseJoinColumns=@JoinColumn(name="car_options_id"))
     private List<CarOption> carOptions = new ArrayList<>();
 
     @Min(value=1)

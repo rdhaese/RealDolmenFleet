@@ -2328,7 +2328,7 @@ INSERT INTO ordered_car_options (ordered_car_id, options_id) VALUES ('1', '1');
 
 INSERT INTO ordered_car_packs (ordered_car_id, packs_id) VALUES ('1', '1');
 
-INSERT INTO car_usage(id,version,initial_end_date,order_date,start_date,ordered_car_id) VALUES ('1', '0', '2019-11-02', '2015-11-03', '2016-02-04', '1')
+INSERT INTO car_usage(id,version,initial_end_date,order_date,start_date,ordered_car_id, license_plate) VALUES ('1', '0', '2019-11-02', '2015-11-03', '2016-02-04', '1','1-lcp-170')
 
 INSERT INTO periodic_usage_update (id,version,update_date,new_total_km,total_fuelled_for_period, total_fuel_price)VALUES('1', '0', '2016-02-04', '1', 0, 0);
 INSERT INTO periodic_usage_update (id,version,update_date,new_total_km,total_fuelled_for_period, total_fuel_price)VALUES('2', '0', '2016-02-11', '10', 0, 0);

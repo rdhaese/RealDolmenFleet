@@ -1,8 +1,5 @@
 package com.realdolmen.fleet.model;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,13 +15,20 @@ import java.util.List;
 public class OrderedCar extends BaseEntity{
     @NotNull
     @OneToOne
+    @JoinColumn(name="car_id")
     private Car car;
     @NotNull
     @Size(min=1, max=255)
     private String color;
     @ManyToMany
+    @JoinTable(name="ordered_car_packs",
+            joinColumns=@JoinColumn(name="ordered_car_id"),
+            inverseJoinColumns=@JoinColumn(name="packs_id"))
     private List<Pack> packs = new ArrayList<>();
     @ManyToMany
+    @JoinTable(name="ordered_car_options",
+            joinColumns=@JoinColumn(name="ordered_car_id"),
+            inverseJoinColumns=@JoinColumn(name="options_id"))
     private List<CarOption> options = new ArrayList<>();
     @DecimalMin("0")
     private double price = 0D;

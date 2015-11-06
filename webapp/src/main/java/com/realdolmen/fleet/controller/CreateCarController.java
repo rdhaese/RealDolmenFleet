@@ -138,4 +138,12 @@ public class CreateCarController {
        carService.saveNewCar(createdCar);
         return "redirect:/fleet/caroverview";
     }
+
+
+    @RequestMapping(value = "/fleet/deletecar", method = RequestMethod.GET)
+    public String deleteCarFromCatalog(@RequestParam Long id) {
+
+        carService.deleteCarSoft(id);
+        return "redirect:/fleet/caroverview";
+    }
 }

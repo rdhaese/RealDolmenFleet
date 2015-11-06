@@ -1,4 +1,4 @@
-package com.realdolmen.fleet.config;
+package com.realdolmen.fleet.webservice;
 
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -20,21 +20,22 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 		MessageDispatcherServlet servlet = new MessageDispatcherServlet();
 		servlet.setApplicationContext(applicationContext);
 		servlet.setTransformWsdlLocations(true);
+
 		return new ServletRegistrationBean(servlet, "/ws/*");
 	}
 
-	@Bean(name = "periodicusages")
-	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
+	@Bean(name = "periodicusageupdates")
+	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema periodicusageupdateSchema) {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-		wsdl11Definition.setPortTypeName("PeriodicUsagesPort");
+		wsdl11Definition.setPortTypeName("PeriodicUsagePort");
 		wsdl11Definition.setLocationUri("/ws");
-		wsdl11Definition.setTargetNamespace("http://spring.io/guides/gs-producing-web-service");
-		wsdl11Definition.setSchema(countriesSchema);
+		wsdl11Definition.setTargetNamespace("http://realdolmen.com/fleet/web-service");
+		wsdl11Definition.setSchema(periodicusageupdateSchema);
 		return wsdl11Definition;
 	}
 
 	@Bean
-	public XsdSchema countriesSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("perUsage.xsd"));
+	public XsdSchema periodicusageupdateSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("PeriodicUsage.xsd"));
 	}
 }

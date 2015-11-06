@@ -11,3 +11,14 @@
 .rd-red {
   color: #ED2B29;
 }
+
+.container input {
+
+}
+
+.container label{
+  display:inline-block;
+  width:200px;
+  margin-right:30px;
+  text-align:left;
+}

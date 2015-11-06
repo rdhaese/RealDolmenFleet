@@ -23,6 +23,7 @@ public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
     private Employee employee;
     @OneToOne
     @NotNull
+    @JoinColumn(name="ordered_car_id")
     private OrderedCar orderedCar;
     @Temporal(TemporalType.DATE)
     @NotNull
@@ -35,8 +36,11 @@ public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
     private Date initialEndDate;
     @Temporal(TemporalType.DATE)
     private Date endDate;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @OrderBy("newTotalKm DESC")
+    @JoinTable(name="car_usage_usage_updates",
+            joinColumns=@JoinColumn(name="car_usage_id"),
+            inverseJoinColumns=@JoinColumn(name="usage_updates_id"))
     private List<PeriodicUsageUpdate> usageUpdates;
 
     public CarUsage(String licensePlate, Employee employee, OrderedCar orderedCar, Date orderDate, Date startDate, Date initialEndDate, Date endDate) {
@@ -149,6 +153,10 @@ public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
 
     public void setUsageUpdates(List<PeriodicUsageUpdate> usageUpdates) {
         this.usageUpdates = usageUpdates;
+    }
+
+    public void addUsageUpdate(PeriodicUsageUpdate usageUpdate){
+        usageUpdates.add(usageUpdate);
     }
 
     @Override
