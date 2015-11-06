@@ -1,4 +1,4 @@
-package com.realdolmen.fleet.controller;
+package com.realdolmen.fleet.formatter;
 
 import com.realdolmen.fleet.model.CarOption;
 import org.springframework.format.Formatter;

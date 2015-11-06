@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -110,8 +111,6 @@ public class CarService {
     }
 
     public void backToFreePool(CarUsage carUsage) {
-        carUsage.setLicensePlate(null);
-        carUsage.setEmployee(null);
         carUsageRepository.save(carUsage);
     }
 

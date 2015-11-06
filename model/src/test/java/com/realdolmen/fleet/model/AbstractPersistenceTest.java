@@ -1,6 +1,7 @@
 package com.realdolmen.fleet.model;
 
 import com.realdolmen.fleet.config.TestConfig;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,7 +25,7 @@ import static junit.framework.Assert.assertEquals;
 @ContextConfiguration(classes = TestConfig.class)
 @ActiveProfiles("test")
 @Transactional
-public abstract class AbstractPersistenceTest {
+public abstract class AbstractPersistenceTest extends Assert {
 
     @PersistenceContext
     protected EntityManager em;

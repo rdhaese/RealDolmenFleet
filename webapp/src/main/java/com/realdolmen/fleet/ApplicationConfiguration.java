@@ -1,6 +1,5 @@
 package com.realdolmen.fleet;
 
-import com.realdolmen.fleet.webservice.PeriodicUsageEndpoint;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;

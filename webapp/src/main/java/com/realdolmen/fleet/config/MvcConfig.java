@@ -1,6 +1,6 @@
 package com.realdolmen.fleet.config;
 
-import com.realdolmen.fleet.controller.CarOptionFormatter;
+import com.realdolmen.fleet.formatter.CarOptionFormatter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

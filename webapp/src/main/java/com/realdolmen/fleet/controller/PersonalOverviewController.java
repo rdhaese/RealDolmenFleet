@@ -23,7 +23,7 @@ public class PersonalOverviewController {
     @Autowired
     private EmployeeService employeeService;
 
-    @RequestMapping(value={"", "/", "/index", "/employees", "/fleet", "/employees/overview"}, method = RequestMethod.GET)
+    @RequestMapping(value={"/", "/index", "/employees", "/fleet", "/employees/overview"}, method = RequestMethod.GET)
     public String personalOverview(Model model){
         Employee loggedInUser = employeeService.getLoggedInUser();
         model.addAttribute("employee", loggedInUser);

@@ -1,9 +1,13 @@
 package com.realdolmen.fleet.config;
 
+import com.realdolmen.fleet.persist.CarRepository;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -17,14 +21,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 /**
- * Created on 28/10/2015.
+ * Created on 5/11/2015.
  *
  * @author Robin D'Haese
  */
 @Configuration
 @Profile("test")
-@EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "com.realdolmen.fleet.persist")
 public class TestConfig {
+
 
     @Bean
     public DataSource dataSource() {
