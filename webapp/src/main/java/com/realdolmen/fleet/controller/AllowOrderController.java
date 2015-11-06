@@ -42,7 +42,7 @@ public class AllowOrderController {
         if (employee == null){
             model.addAttribute("emailNotFound", true);
             addUsersThatNeedPermissionsToModel(model);
-            return "/fleet/allow-order";
+            return "fleet/allow-order";
         }
         employee.setPermissionToOrderNewCar(true);
         employeeService.save(employee);

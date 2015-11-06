@@ -1,5 +1,6 @@
 package com.realdolmen.fleet.config;
 
+import com.realdolmen.fleet.listener.LoginListener;
 import com.realdolmen.fleet.model.Car;
 import com.realdolmen.fleet.persist.*;
 import com.realdolmen.fleet.service.CanOrderNewCarService;
@@ -61,6 +62,10 @@ public class TestConfig {
         return mock(MailService.class);
     }
 
+    @Bean
+    public LoginListener loginListener(){
+        return mock(LoginListener.class);
+    }
 
     @Bean
     public PeriodicUsageUpdateRepository periodicUsageUpdateRepository(){

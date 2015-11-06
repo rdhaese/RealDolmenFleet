@@ -14,7 +14,7 @@
             <h3>From Catalog:</h3>
 
             <div>
-                <form method="post" th:action="@{select-car}" th:object="${filterCarsDTO}">
+                <form method="get" th:action="@{/employees/select-car/filter}" th:object="${filterCarsDTO}">
                     <span style="font-weight:bold;">Brand: </span>
                     <input id="brand" name="brand" type="text" th:field="*{brand}"/> -
                     <span style="font-weight:bold;">Model: </span>

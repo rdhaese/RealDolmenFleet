@@ -1,6 +1,7 @@
 package com.realdolmen.fleet.controller;
 
 import com.realdolmen.fleet.config.TestConfig;
+import com.realdolmen.fleet.listener.LoginListener;
 import com.realdolmen.fleet.persist.*;
 import com.realdolmen.fleet.service.CarService;
 import com.realdolmen.fleet.service.EmployeeService;
@@ -35,7 +36,6 @@ public abstract class AbstractControllerTest extends Assert {
 
     @Autowired
     protected EmployeeService employeeService;
-
 
 
 }

@@ -34,13 +34,11 @@ public class SelectCarController {
         if (!employeeService.loggedInUserCanOrderNewCar()) {
             return "employees/overview";
         }
-        List<Car> cars = carService.findAll(employeeService.functionalLevelForLoggedInUser());
-        List<CarUsage> carsInFreePool = carService.findAllFromFreePool();
-        setModelAttributes(model, cars, carsInFreePool, new FilterCarsDTO());
+        setModelAttributes(model, carService.findAll(employeeService.functionalLevelForLoggedInUser()) , carService.findAllFromFreePool(), new FilterCarsDTO());
         return "employees/select-car";
     }
 
-    @RequestMapping(value = "/employees/select-car", method = RequestMethod.POST)
+    @RequestMapping(value = "/employees/select-car/filter", method = RequestMethod.GET)
     public String filterCars(@ModelAttribute FilterCarsDTO filterCarsDTO, Model model) {
         if (!employeeService.loggedInUserCanOrderNewCar()) {
             return "employees/overview";
