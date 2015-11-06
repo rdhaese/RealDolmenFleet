@@ -17,9 +17,6 @@ public class PeriodicUsageService {
     @Autowired
     private PeriodicUsageUpdateRepository periodicUsageUpdateRepository;
 
-
-
-
     List<PeriodicUsageUpdate> findAll(){
        return periodicUsageUpdateRepository.findAll();
     }

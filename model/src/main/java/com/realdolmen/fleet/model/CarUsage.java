@@ -36,7 +36,7 @@ public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
     @Temporal(TemporalType.DATE)
     private Date endDate;
     @OneToMany
-    @OrderBy(value = "new_total_km") //TODO test this
+    @OrderBy("newTotalKm DESC")
     private List<PeriodicUsageUpdate> usageUpdates;
 
     public CarUsage(String licensePlate, Employee employee, OrderedCar orderedCar, Date orderDate, Date startDate, Date initialEndDate, Date endDate) {

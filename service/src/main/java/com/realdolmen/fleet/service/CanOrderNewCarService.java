@@ -24,12 +24,11 @@ public class CanOrderNewCarService {
     @Autowired
     private CarUsageRepository carUsageRepository;
 
-    //TODO test all this
     public boolean loggedInEmployeeCanOrderNewCar() {
         return employeeService.getLoggedInUser().isPermissionToOrderNewCar();
     }
 
-    private boolean hasOpenOrder( CarUsage carUsage) {
+    private boolean hasOpenOrder(CarUsage carUsage) {
         if (carUsage == null){
             return false;
         }

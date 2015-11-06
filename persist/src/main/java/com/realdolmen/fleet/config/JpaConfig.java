@@ -1,4 +1,4 @@
-package config;
+package com.realdolmen.fleet.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
