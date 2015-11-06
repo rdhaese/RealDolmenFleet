@@ -35,7 +35,7 @@ public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
     private Date initialEndDate;
     @Temporal(TemporalType.DATE)
     private Date endDate;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @OrderBy(value = "new_total_km") //TODO test this
     private List<PeriodicUsageUpdate> usageUpdates;
 
@@ -149,6 +149,10 @@ public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
 
     public void setUsageUpdates(List<PeriodicUsageUpdate> usageUpdates) {
         this.usageUpdates = usageUpdates;
+    }
+
+    public void addUsageUpdate(PeriodicUsageUpdate usageUpdate){
+        usageUpdates.add(usageUpdate);
     }
 
     @Override

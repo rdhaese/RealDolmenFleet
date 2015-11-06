@@ -1,12 +1,10 @@
 package com.realdolmen.fleet.service;
 
-import com.realdolmen.fleet.model.Car;
-import com.realdolmen.fleet.model.CarOption;
-import com.realdolmen.fleet.model.CarUsage;
-import com.realdolmen.fleet.model.Employee;
+import com.realdolmen.fleet.model.*;
 import com.realdolmen.fleet.persist.CarOptionsRepository;
 import com.realdolmen.fleet.persist.CarRepository;
 import com.realdolmen.fleet.persist.CarUsageRepository;
+import com.realdolmen.fleet.persist.PeriodicUsageUpdateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +27,9 @@ public class CarService {
 
     @Autowired
     private CarOptionsRepository carOptionsRepository;
+
+    @Autowired
+    private PeriodicUsageUpdateRepository periodicUsageUpdateRepository;
 
     public List<Car> findAll() {
 
@@ -159,5 +160,20 @@ public class CarService {
         Car c = findById(id);
         c.setIsdeleted(true);
         saveCar(c);
+    }
+
+    public String addPeriodUsageUpdateToCar(PeriodicUsageUpdate p, String licenseplate){
+        CarUsage carUsage = carUsageRepository.findCurrentUsageWithLicencePlate(licenseplate);
+        if(carUsage == null)
+            return "This is not a valid licenseplate of RealDolmen employee, please check";
+       // if(carUsage.getUsageUpdates().get(0).getNewTotalKm() >  )
+        if( p.getTotalFuelPrice() < 0 || p.getTotalFuelledForPeriod() < 0)
+            return "Refuel is not correct, please check";
+        periodicUsageUpdateRepository.save(p);
+        System.out.println("update saved");
+        carUsage.addUsageUpdate(p);
+        save(carUsage);
+        return "PeriodUsageUpdate stored successfully!";
+
     }
 }
