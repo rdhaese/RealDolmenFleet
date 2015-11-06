@@ -55,12 +55,20 @@ public class Car extends BaseEntity{
     @DecimalMin(value = "0")
     private double amountDowngrade;
     @ElementCollection
+    @CollectionTable( name="car_pictures",joinColumns = @JoinColumn(name="car_id"))
     private List<String> pictures = new ArrayList<>();
     @ManyToOne
+    @JoinColumn(name="base_pack_id")
     private Pack basePack;
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="car_extra_packs",
+            joinColumns=@JoinColumn(name="car_id"),
+            inverseJoinColumns=@JoinColumn(name="extra_packs_id"))
     private List<Pack> extraPacks = new ArrayList<>();
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="car_extra_options",
+            joinColumns=@JoinColumn(name="car_id"),
+            inverseJoinColumns=@JoinColumn(name="extra_options_id"))
     private List<CarOption> extraOptions = new ArrayList<>();
 
 
