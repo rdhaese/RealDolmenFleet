@@ -20,6 +20,5 @@ public class CarOptionFormatter implements Formatter<CarOption> {
     @Override
     public String print(CarOption carOption, Locale locale) {
         return String.valueOf(carOption.getId());
-
     }
 }
