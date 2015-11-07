@@ -93,7 +93,7 @@ public class EmployeeController {
     @RequestMapping(value = "/fleet/createemployee", method = RequestMethod.GET)
     public String crEmployee(Model model) {
         Employee e = new Employee();
-        e.setInServiceDate(new Date());
+//        e.setInServiceDate(new Date());
         model.addAttribute("employee", e);
         return "fleet/createemployee";
     }
