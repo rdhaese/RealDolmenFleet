@@ -38,7 +38,7 @@
                     <td><span th:text="${carUsage.employee.name}"></span><small>(<a href="#">edit</a>)</small></td>
                     <td>
                         <a class="form-control" th:href="${'cars/detail/' + carUsage.id }">Details</a>
-                        <form method="post" th:action="${'cars/to-free-pool'}">
+                        <form method="post" th:action="${'/fleet/cars/to-free-pool'}">
                             <input type="hidden" name="carUsageId" th:value="${carUsage.id}" />
                             <input type="submit" class="form-control" value="To Free Pool" />
                         </form>
@@ -62,7 +62,7 @@
                     </td>
                     <td>
                         <a class="form-control" th:href="${'cars/detail/' + carUsage.id }">Details</a>
-                        <form method="post" th:action="${'cars/remove'}">
+                        <form method="post" th:action="${'/fleet/cars/remove'}">
                             <input type="hidden" name="carUsageId" th:value="${carUsage.id}" />
                             <input type="submit" class="form-control" value="Remove" />
                         </form>

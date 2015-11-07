@@ -51,7 +51,7 @@
                     <td th:text="${employee.email}"></td>
                     <td th:text="${employee.functionalLevel}"></td>
                     <td th:text="${employee.permissionToOrderNewCar}"></td>
-                    <td th:text="${employee.inServiceDate}"></td>
+                    <td th:text="${#dates.format(employee.inServiceDate, #messages.msg('app.dateformat'))}"></td>
 
                     <td> <a th:href="${#mvc.url('EC#editEmployee').arg(0,employee.id).build()}" > Edit Employee </a> </td>
 

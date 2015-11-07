@@ -1,6 +1,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/fragments :: head"></head>
 <body>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script>
+    $(function() {
+        $( "#inServiceDate" ).datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+</script>
 <div th:replace="fragments/fragments :: header"></div>
 
 <div class="container">
@@ -33,7 +39,7 @@
                 <div th:class="${#fields.hasErrors('inServiceDate')}? 'has-error'">
                     <label th:for="${#ids.next('inServiceDate')}"> In service date:</label>
 
-                    <input type="text" th:field="*{inServiceDate}" placeholder="MM/DD/YYYY" />
+                    <input type="text" th:field="*{inServiceDate}" placeholder="MM/DD/YYYY" class="hasDatePicker"/>
                     <span th:if="${#fields.hasErrors('inServiceDate')}" th:errors="*{inServiceDate}"></span>
                 </div>
 
@@ -61,11 +67,6 @@
         <hr/>
     </div>
 </div>
-
-
-
-
-<div th:replace="fragments/fragments :: div.scripts"></div>
 
 </body>
 </html>

@@ -111,6 +111,8 @@ public class CarService {
     }
 
     public void backToFreePool(CarUsage carUsage) {
+        carUsage.setEmployee(null);
+        carUsage.setLicensePlate(null);
         carUsageRepository.save(carUsage);
     }
 

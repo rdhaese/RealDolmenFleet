@@ -1,6 +1,7 @@
 package com.realdolmen.fleet.model;
 
 import com.realdolmen.fleet.enums.EmployeeType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -33,6 +34,7 @@ public class Employee extends BaseEntity {
     private boolean permissionToOrderNewCar = false;
     @Temporal(TemporalType.DATE)
     @NotNull
+    @DateTimeFormat(pattern="dd/MM/yyyy")
     private Date inServiceDate;
 
     public Employee(String name, String email, String password, EmployeeType role, int functionalLevel) {
