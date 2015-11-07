@@ -17,13 +17,17 @@
 </head>
 <body>
 
-<div class="navbar navbar-default" th:fragment="header">
-    <div class="container">
-        <a class="navbar-brand" href="http://portal.realdolmen.com"><span class="rd-red">R</span><span class="rd-blue">D</span> Portal</a>
+<div class="navbar navbar-default headertop" th:fragment="header">
+    <div class="container rdlogo">
+       <img src="http://www.realdolmen.com/static/images/RealDolmen-Logos/logo.png"
+          />
+    </div>
+      <div class="container">
+        <a class="navbar-brand rdportal" href="http://portal.realdolmen.com"><span class="rd-red">R</span><span class="rd-blue">D</span> Portal</a>
 
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav headertext ">
             <li sec:authorize="isAuthenticated()"><a th:href="@{/}">Personal Overview</a></li>
-            <li class="dropdown" sec:authorize="hasRole('ROLE_FLEET')">
+            <li class="dropdown dropback" sec:authorize="hasRole('ROLE_FLEET')">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">Fleet <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -43,7 +47,7 @@
             <li th:if="${session.loggedInUserCanOrderNewCar}"><a th:href="@{/employees/select-car}">Ordering Car
                 Available!</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right headertext">
             <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/employees/editpassword}">Edit password </a></li>
             <li sec:authorize="isAuthenticated()"><p class="nav navbar-text" sec:authentication="name">
