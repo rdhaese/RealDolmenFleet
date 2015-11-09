@@ -15,7 +15,6 @@ import com.realdolmen.fleet.util.Utils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TreeSet;
 
 import static org.mockito.Mockito.*;
 
