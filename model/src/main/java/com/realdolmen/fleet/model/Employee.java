@@ -28,7 +28,7 @@ public class Employee extends BaseEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     private EmployeeType role;
-    @DecimalMin(value = "0")
+    @DecimalMin(value = "1")
     @DecimalMax(value = "8")
     private int functionalLevel;
     private boolean permissionToOrderNewCar = false;
