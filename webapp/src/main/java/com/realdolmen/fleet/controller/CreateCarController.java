@@ -63,7 +63,7 @@ public class CreateCarController {
         createdCar.setExtraOptions(packService.findGeneralRDOptions());
         m.addAttribute("packList", packService.findAll());
         m.addAttribute("car", createdCar);
-        m.addAttribute("optionList", carOptionsService.findAll());
+        m.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
         return "/fleet/optionselection";
     }
 
@@ -79,7 +79,7 @@ public class CreateCarController {
         createdCar.setBasePack(p);
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
-        model.addAttribute("optionList", carOptionsService.findAll());
+        model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
         return "/fleet/optionselection";
     }
 
@@ -91,7 +91,7 @@ public class CreateCarController {
         createdCar.addExtraPack(p);
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
-        model.addAttribute("optionList", carOptionsService.findAll());
+        model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
         return "/fleet/optionselection";
     }
 
@@ -104,7 +104,7 @@ public class CreateCarController {
 
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
-        model.addAttribute("optionList", carOptionsService.findAll());
+        model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
         return "/fleet/optionselection";
     }
 
@@ -115,7 +115,7 @@ public class CreateCarController {
         createdCar.getExtraPacks().remove(id);
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
-        model.addAttribute("optionList", carOptionsService.findAll());
+        model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
         // Prepare the response string
         return "/fleet/optionselection";
     }
@@ -126,7 +126,8 @@ public class CreateCarController {
         createdCar.getExtraOptions().remove(id);
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
-        model.addAttribute("optionList", carOptionsService.findAll());
+        model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
+        //model.addAttribute("optionList", carOptionsService.findAll());
         // Prepare the response string
         return "/fleet/optionselection";
     }
