@@ -45,7 +45,7 @@ public class CanOrderNewCarServiceTest extends AbstractServiceTest {
     private EmployeeService employeeService;
     @Autowired
     private CarUsageRepository carUsageRepository;
-    //TODO Create tests like PeriodicUsageServiceTest
+
     private Employee employee;
 
     @Before

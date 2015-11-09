@@ -32,15 +32,15 @@ public class PackService {
     private CarOptionsService carOptionsService;
 
     public List<Pack> findAll(){
-     //   return packRepository.findAll();
-
         return packRepository.findByNameNot("RealDolmen General Options");
-
     }
 
-
     public List<CarOption> findGeneralRDOptions(){
-        return packRepository.findByName("RealDolmen General Options").getCarOptions();
+        Pack pack =  packRepository.findByName("RealDolmen General Options");
+        if (pack == null){
+            return new ArrayList<>();
+        }
+        return pack.getCarOptions();
     }
 
     public List<CarOption> findMissingGeneralRDOptions(List<CarOption> lst){
@@ -51,17 +51,15 @@ public class PackService {
         List<CarOption> res = new ArrayList<CarOption>(setall);
         return res;
     }
-    public void savePack(Pack pack){
 
-        System.out.println("saving pack with id: " + pack.getId());
-        packRepository.save(pack);}
+    public void savePack(Pack pack){
+        packRepository.save(pack);
+    }
 
     public void savePackWithExistingCarOptions(Pack pack){
-        System.out.println("in save pack with existing car options");
         List<CarOption> chozenoptions = pack.getCarOptions();
         List<CarOption> attachedOptions = new ArrayList<>();
         pack.setCarOptions(attachedOptions);
-
         savePack(pack);
         for(CarOption car :chozenoptions){
             attachedOptions.add(carOptionsRepository.getOne(car.getId()));
@@ -71,7 +69,6 @@ public class PackService {
     }
 
     public void editPackWithExistingCarOptions(Pack pack){
-        System.out.println("in save pack with existing car options");
         List<CarOption> chozenoptions = pack.getCarOptions();
         List<CarOption> attachedOptions = new ArrayList<>();
         pack.setCarOptions(attachedOptions);
