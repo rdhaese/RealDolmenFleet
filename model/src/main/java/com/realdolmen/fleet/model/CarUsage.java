@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
     @JoinTable(name="car_usage_usage_updates",
             joinColumns=@JoinColumn(name="car_usage_id"),
             inverseJoinColumns=@JoinColumn(name="usage_updates_id"))
-    private List<PeriodicUsageUpdate> usageUpdates;
+    private List<PeriodicUsageUpdate> usageUpdates = new ArrayList<>();
 
     public CarUsage(String licensePlate, Employee employee, OrderedCar orderedCar, Date orderDate, Date startDate, Date initialEndDate, Date endDate) {
         super();
