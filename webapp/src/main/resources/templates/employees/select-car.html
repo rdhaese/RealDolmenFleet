@@ -2,6 +2,14 @@
 <head th:replace="fragments/fragments :: head">
 </head>
 <body>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script>
+    function submit(){
+        document.forms["filter"].submit();
+    }
+</script>
+
+
 <div th:replace="fragments/fragments :: header"></div>
 
 <div class="container">
@@ -16,15 +24,15 @@
             <div>
                 <form method="get" th:action="@{/employees/select-car/filter}" th:object="${filterCarsDTO}">
                     <span style="font-weight:bold;"><p th:text="#{car.brand}">Brand</p> </span>
-                    <input id="brand" name="brand" type="text" th:field="*{brand}"/> -
+                    <input id="brand" name="brand" type="text" th:field="*{brand}" onblur="submit()"/> -
                     <span style="font-weight:bold;"><p th:text="#{car.model}">model</p> </span>
-                    <input id="carModel" name="carModel" type="text" th:field="*{model}"/><br/>
+                    <input id="carModel" name="carModel" type="text" th:field="*{model}" onblur="submit()"/><br/>
                     <span style="font-weight:bold;"><p th:text="#{selectcar.funclevel}">func level</p> </span>
-                    <input name="level" id="allPossible" type="radio" th:field="*{level}" value="#{selectcar.allpossible}"/>All
+                    <input name="level" id="allPossible" type="radio" th:field="*{level}" value="#{selectcar.allpossible}" onclick="submit()"/>All
                     Possible
-                    <input name="level" id="downgrade" type="radio" th:field="*{level}" value="#{selectcar.downgrade}"/>Downgrade
-                    <input name="level" id="myLevel" type="radio" th:field="*{level}" value="#{selectcar.mylevel}"/>My Level
-                    <input name="level" id="upgrade" type="radio" th:field="*{level}" value="#{selectcar.upgrade}"/>Upgrade <br/>
+                    <input name="level" id="downgrade" type="radio" th:field="*{level}" value="#{selectcar.downgrade}" onclick="submit()"/>Downgrade
+                    <input name="level" id="myLevel" type="radio" th:field="*{level}" value="#{selectcar.mylevel}" onclick="submit()"/>My Level
+                    <input name="level" id="upgrade" type="radio" th:field="*{level}" value="#{selectcar.upgrade}" onclick="submit()"/>Upgrade <br/>
                     <input type="submit" value="Filter" class="form-control"/>
                 </form>
             </div>
@@ -84,6 +92,6 @@
     <hr/>
 </div>
 
-<div th:replace="fragments/fragments :: div.scripts"></div>
+
 </body>
 </html>
