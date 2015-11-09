@@ -95,4 +95,8 @@ public class EmployeeService {
         BCryptPasswordEncoder e = new BCryptPasswordEncoder();
         return e.matches(pass, loggedInUser.getPassword());
     }
+
+    public List<Employee> getUsersWithPermission() {
+        return employeeRepository.findEmployeesWithPermissionToOrderNewCar();
+    }
 }
