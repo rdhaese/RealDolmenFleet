@@ -2,42 +2,85 @@
 <head th:replace="fragments/fragments :: head"></head>
 <body>
 <div th:replace="fragments/fragments :: header"></div>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#possibleoptions').dataTable().columnFilter();
+
+    } );
+
+
+</script>
 
 <div class="container">
     <div th:replace="fragments/fragments :: div#page-header"></div>
     <div class="row">
         <div class="col-lg-12">
+            <div>
+
+
+                <div style="float:left; width: 45%">
 
             <form method="POST" th:object="${pack}" action="/fleet/editpack">
                 <div th:class="${#fields.hasErrors('name')}? 'has-error'">
-                    <label th:for="${#ids.next('name')}"> name:</label>
+                    <label th:for="${#ids.next('name')}"><p th:text="#{pack.namem}">Name</p></label>
                     <input type="text" th:field="*{name}" />
                     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                 </div>
 
                 <div th:class="${#fields.hasErrors('price')}? 'has-error'">
-                    <label th:for="${#ids.next('price')}"> price:</label>
+                    <label th:for="${#ids.next('price')}">  <p th:text="#{pack.price}">Price</p> </label>
                     <input type="text" th:field="*{price}" />
                     <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
                 </div>
+                <button type="submit" class="btn btn-primary"><p th:text="#{pack.saveupdate}">save update</p> </button>
 
+            </form>
+            </div>
+                <div style="float:left; width: 55%">
+                    <form method="POST" th:object="${carOption}"  action="/fleet/createeditpackoption">
+                        <div th:class="${#fields.hasErrors('name')}? 'has-error'">
+                            <label th:for="${#ids.next('name')}"> <p th:text="#{option.namem}">Name</p></label>
+                            <input type="text" th:field="*{name}" />
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                        </div>
+
+                        <div th:class="${#fields.hasErrors('description')}? 'has-error'">
+                            <label th:for="${#ids.next('description')}">  <p th:text="#{option.description}">Descriptin</p></label>
+                            <input type="text" th:field="*{description}" />
+                            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                        </div>
+
+
+                        <br/>
+                        <button type="submit" class="btn btn-primary"><p th:text="#{pack.newoption}">add</p> </button>
+                    </form>
+                </div>
+                <br/>
+                <br/>
                 <div>
+                    <div style="float:left; width: 45%">
                     <h1> SelectedOptions </h1>
                     <table>
                         <tr th:each="caropt,idStat  : ${pack.carOptions}">
 
                             <td th:text="${caropt.name}"></td>
-                            <td th:text="${caropt.description}"></td>
+
 
 
                             <td>
-                                  <a th:href="${#mvc.url('EPC#removeOptionInEdit').arg(0, idStat.index).build()}" > Remove </a> </td>
+                                  <a th:href="${#mvc.url('EPC#removeOptionInEdit').arg(0, idStat.index).build()}" ><p th:text="#{pack.removeoption}">remove</p> </a> </td>
                                 <!--     <a th:href="@{/removeoptionedit/${caroption.id}}" > remove from pack </a> </td> -->
                                   </tr>
 
                               </table>
-                          </div>
-                          <button type="submit">Save updated pack </button>
+                    </div>
+
+
+
+
+                    <div style="float:left; width: 50%">
+
 
 
 
@@ -45,16 +88,16 @@
                           <table id="possibleoptions">
                               <thead>
                               <tr>
-                                  <th>Name </th>
-                                  <th>Description</th>
+                                  <th><p th:text="#{option.name}"> Name </p> </th>
+                                  <th><p th:text="#{option.description}"> Description</p></th>
                                   <th> </th>
 
                               </tr>
                               </thead>
                               <tfoot>
                               <tr>
-                                  <th>Name</th>
-                                  <th>Description</th>
+                                  <th><p th:text="#{option.name}"> Name </p> </th>
+                                  <th><p th:text="#{option.description}"> Description</p></th>
                               </tr>
                               </tfoot>
 
@@ -72,7 +115,7 @@
 
 
 
-                                                     <td> <a th:href="${#mvc.url('EPC#addOptionInEdit').arg(0, caroption.id).build()}" > Add to pack </a> </td>
+                                                     <td> <a th:href="${#mvc.url('EPC#addOptionInEdit').arg(0, caroption.id).build()}" > <p th:text="#{pack.addoptionto}"> Add </p> </a> </td>
 
 
 
@@ -83,33 +126,23 @@
                     </tr>
                     </tbody>
                 </table>
-
-
-
-            </form>
-
-
-
-            <br/>
-
-            <form method="POST" th:object="${carOption}"  action="/fleet/createeditpackoption">
-                <div th:class="${#fields.hasErrors('name')}? 'has-error'">
-                    <label th:for="${#ids.next('name')}"> name:</label>
-                    <input type="text" th:field="*{name}" />
-                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                    </div>
                 </div>
 
-                <div th:class="${#fields.hasErrors('description')}? 'has-error'">
-                    <label th:for="${#ids.next('description')}"> description:</label>
-                    <input type="text" th:field="*{description}" />
-                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
-                </div>
+
+
+
 
 
                 <br/>
-                <button type="submit">Add new pack Option </button>
-            </form>
+                <br/>
+            </div>
 
+            <br/>
+            <div style="clear:both;">
+
+
+            </div>
         </div>
 
         <hr/>

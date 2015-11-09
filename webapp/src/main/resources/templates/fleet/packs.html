@@ -17,24 +17,29 @@
     <div class="row">
         <div class="col-lg-12">
             <div>
-                <a th:href="@{/fleet/createpack}">Create New Pack</a>
+                <a href="/fleet/createpack" th:href="@{/fleet/createpack}" class="btn btn-primary"> <p th:text="#{pack.new}">Create new pack!</p>  </a>
+
+
             </div>
+            <br/>
+            <br/>
+
 
             <table id="carpacks">
     <thead>
     <tr>
-        <th>Name </th>
-        <th>Price</th>
-        <th>nbr of Options </th>
+        <th><p th:text="#{pack.name}"> Name </p> </th>
+        <th align="center"><p th:text="#{pack.price}"> Price </p> </th>
+        <th align="center"><p th:text="#{pack.nbroptions}"> Nbr options </p> </th>
         <th> </th>
 
     </tr>
     </thead>
                 <tfoot>
                 <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>nbr Of Options</th>
+                    <th><p th:text="#{pack.name}"> Name </p> </th>
+                    <th><p th:text="#{pack.price}"> Price </p> </th>
+                    <th><p th:text="#{pack.nbroptions}"> Nbr options </p> </th>
                 </tr>
                 </tfoot>
     <tbody>
@@ -44,11 +49,11 @@
 
         <td th:text="${pack.name}"></td>
 
-        <td th:text="${pack.price}"></td>
+        <td align="center" th:text="${pack.price}"></td>
 
-        <td th:text="${pack.carOptions.size()}"></td>
+        <td align="center" th:text="${pack.carOptions.size()}"></td>
 
-        <td> <a th:href="${#mvc.url('EPC#editPack').arg(0, pack.id).build()}" > Edit pack </a> </td>
+        <td> <a th:href="${#mvc.url('EPC#editPack').arg(0, pack.id).build()}" > <p th:text="#{pack.edit}"> Edit </p> </a> </td>
 
 
 
