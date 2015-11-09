@@ -43,7 +43,7 @@ public class CarService {
     public List<Car> filterOnBrand(List<Car> cars, String brand) {
         List<Car> filteredList = new ArrayList<>();
         cars.forEach(car -> {
-                    if (car.getBrand().toLowerCase().equals(brand.toLowerCase())) {
+                    if (car.getBrand().toLowerCase().contains(brand.toLowerCase())) {
                         filteredList.add(car);
                     }
                 }
@@ -54,7 +54,7 @@ public class CarService {
     public List<Car> filterOnModel(List<Car> cars, String model) {
         List<Car> filteredList = new ArrayList<>();
         cars.forEach(car -> {
-                    if (car.getModel().toLowerCase().equals(model.toLowerCase())) {
+                    if (car.getModel().toLowerCase().contains(model.toLowerCase())) {
                         filteredList.add(car);
                     }
                 }
