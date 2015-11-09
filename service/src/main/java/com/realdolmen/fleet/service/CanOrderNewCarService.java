@@ -28,7 +28,12 @@ public class CanOrderNewCarService {
         return employeeService.getLoggedInUser().isPermissionToOrderNewCar();
     }
 
-    private boolean hasOpenOrder(CarUsage carUsage) {
+    public boolean needsPermission(Employee employee) {
+        CarUsage carUsage = getLastCarUsageEmployee(employee);
+        return ((!hasOpenOrder(carUsage) && (!hasACar(carUsage)) || reachedEndDate(carUsage) || reachedIdealKm(carUsage)));
+    }
+
+    public boolean hasOpenOrder(CarUsage carUsage) {
         if (carUsage == null){
             return false;
         }
@@ -39,7 +44,7 @@ public class CanOrderNewCarService {
         return false;
     }
 
-    private boolean reachedIdealKm( CarUsage carUsage) {
+    public boolean reachedIdealKm( CarUsage carUsage) {
         List<PeriodicUsageUpdate> usageUpdates = carUsage.getUsageUpdates();
         if (usageUpdates.isEmpty()){
             return false;
@@ -52,7 +57,7 @@ public class CanOrderNewCarService {
         return true;
     }
 
-    private boolean reachedEndDate( CarUsage carUsage) {
+    public boolean reachedEndDate( CarUsage carUsage) {
         Date currentDate = new Date();
         Date initialEndDate = carUsage.getInitialEndDate();
         if (currentDate.before(initialEndDate)){
@@ -61,7 +66,7 @@ public class CanOrderNewCarService {
         return true;
     }
 
-    private boolean hasACar( CarUsage carUsage) {
+    public boolean hasACar( CarUsage carUsage) {
         if (carUsage == null){
             return false;
         }
@@ -71,16 +76,11 @@ public class CanOrderNewCarService {
         return true;
     }
 
-    private CarUsage getLastCarUsageEmployee(Employee employee){
+    public CarUsage getLastCarUsageEmployee(Employee employee){
         TreeSet<CarUsage> carUsages = new TreeSet<>(carUsageRepository.findByEmployee(employee.getEmail()));
         if (carUsages.isEmpty()){
             return null;
         }
         return carUsages.last();
-    }
-
-    public boolean needsPermission(Employee employee) {
-        CarUsage carUsage = getLastCarUsageEmployee(employee);
-        return ((!hasOpenOrder(carUsage) && (!hasACar(carUsage)) || reachedEndDate(carUsage) || reachedIdealKm(carUsage)));
     }
 }

@@ -59,4 +59,9 @@ public class TestConfig {
     public PackRepository packRepository(){
         return mock(PackRepository.class);
     }
+
+    @Bean
+    public CarUsageRepository carUsageRepository(){
+        return mock(CarUsageRepository.class);
+    }
 }

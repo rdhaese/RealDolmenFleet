@@ -138,8 +138,7 @@ public class CarUsagePersistenceTest extends AbstractPersistenceTest{
         em.clear();
         List<PeriodicUsageUpdate> uUpdates = em.find(CarUsage.class, carUsage.getId()).getUsageUpdates();
         assertEquals(1000, uUpdates.get(0).getNewTotalKm());
-        assertEquals(500, uUpdates.get(1).getNewTotalKm());
-        assertEquals(0, uUpdates.get(2).getNewTotalKm());
+        assertEquals(0, uUpdates.get(uUpdates.size() - 1).getNewTotalKm());
     }
 
     @Test (expected = ConstraintViolationException.class)

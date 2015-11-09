@@ -19,10 +19,25 @@ import javax.transaction.Transactional;
 @ContextConfiguration(classes = TestConfig.class)
 @ActiveProfiles("test")
 public abstract class AbstractRepositoryTest extends Assert{
-
+    @Autowired
+    protected CarUsageRepository carUsageRepository;
+    @Autowired
+    protected PackRepository packRepository;
+    @Autowired
+    protected CarOptionsRepository carOptionsRepository;
+    @Autowired
+    protected OrderedCarRepository orderedCarRepository;
     @Autowired
     protected CarRepository carRepository;
-
     @Autowired
     protected EmployeeRepository employeeRepository;
+
+    protected void deleteAll(){
+        carUsageRepository.deleteAll();
+        employeeRepository.deleteAll();
+        orderedCarRepository.deleteAll();
+        carRepository.deleteAll();
+        packRepository.deleteAll();
+        carOptionsRepository.deleteAll();
+    }
 }

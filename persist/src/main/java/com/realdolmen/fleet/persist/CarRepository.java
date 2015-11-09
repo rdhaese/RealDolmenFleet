@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface CarRepository  extends JpaRepository<Car, Long> {
 
-    @Query("select c from Car c WHERE c.category = ?1 - 1 OR c.category = ?1 OR c.category = ?1 + 1")
+    @Query("select c from Car c WHERE (c.category = ?1 - 1 OR c.category = ?1 OR c.category = ?1 + 1) AND c.isdeleted = false")
     List<Car> findFor(int functionalLevel);
 
     List<Car> findByIsdeletedNot(Boolean b);
