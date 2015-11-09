@@ -8,10 +8,11 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <H2>Order Confirmed</H2>
-            <p>Your order has been placed and is sent to Fleet.</p>
-            <p>Fleet will treat this as soon as possible.</p>
-            <p>Return to your <a th:href="@{/}">personal overview</a></p>
+            <H2 th:text="#{order.confirmed}">Order Confirmed</H2>
+            <p th:text="#{order.sent}">Your order has been placed and is sent to Fleet.</p>
+            <p th:text="#{order.whentotreat}">Fleet will treat this as soon as possible.</p>
+            <p th:text="#{order.return}"> Return to your </p>
+            <a th:href="@{/}" th:text="#{order.personalview}">personal overview</a>
         </div>
     </div>
 
