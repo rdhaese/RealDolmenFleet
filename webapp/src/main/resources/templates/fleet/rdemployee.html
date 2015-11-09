@@ -16,27 +16,30 @@
     <div class="row">
         <div class="col-lg-12">
             <div>
-                <a th:href="@{/fleet/createemployee}">Create New Employee</a>
+                <a th:href="@{/fleet/createemployee}" class="btn btn-primary"><p th:text="#{employee.createnew}"> create new employee </p></a>
             </div>
+            <br/>
+            <br/>
+
             <table id="allCars">
                 <thead>
                 <tr>
-                    <th>Name </th>
-                    <th>E-mail</th>
-                    <th>Functional level </th>
-                    <th>Permission to order new Car</th>
-                    <th>In service date</th>
+                    <th><p th:text="#{employee.name}"> name </p></th>
+                    <th><p th:text="#{employee.mail}"> mail  </p></th>
+                    <th><p th:text="#{employee.funclevel}"> functional level </p> </th>
+                    <th><p th:text="#{employee.permission}">  permission </p></th>
+                    <th><p th:text="#{employee.servicedate}"> servicedate  </p></th>
                     <th></th>
 
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
-                    <th>Name </th>
-                    <th>E-mail</th>
-                    <th>Functional level </th>
-                    <th>Permission to order new Car</th>
-                    <th>In service date</th>
+                    <th><p th:text="#{employee.name}"> name </p></th>
+                    <th><p th:text="#{employee.mail}"> mail  </p></th>
+                    <th><p th:text="#{employee.funclevel}"> functional level </p> </th>
+                    <th><p th:text="#{employee.permission}">  permission </p></th>
+                    <th><p th:text="#{employee.servicedate}"> servicedate  </p></th>
 
                 </tr>
                 </tfoot>
@@ -47,13 +50,12 @@
                 <tr th:each="employee  : ${employeeList}">
 
                     <td th:text="${employee.name}"></td>
-
                     <td th:text="${employee.email}"></td>
                     <td th:text="${employee.functionalLevel}"></td>
                     <td th:text="${employee.permissionToOrderNewCar}"></td>
                     <td th:text="${#dates.format(employee.inServiceDate, #messages.msg('app.dateformat'))}"></td>
 
-                    <td> <a th:href="${#mvc.url('EC#editEmployee').arg(0,employee.id).build()}" > Edit Employee </a> </td>
+                    <td> <a th:href="${#mvc.url('EC#editEmployee').arg(0,employee.id).build()}" > <p th:text="#{employee.edit}"> Employee edit  </p> </a> </td>
 
 
 
