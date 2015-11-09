@@ -33,8 +33,6 @@ public class CarService {
     private PeriodicUsageUpdateRepository periodicUsageUpdateRepository;
 
     public List<Car> findAll() {
-
-        //return carRepository.findAll();
         return carRepository.findByIsdeletedNot(true);
     }
 
@@ -117,12 +115,8 @@ public class CarService {
     }
 
     public void saveNewCar(Car car){
-
         List<CarOption> chozenoptions = car.getExtraOptions();
         List<CarOption> attachedOptions = new ArrayList<>();
-
-
-        //savePack(pack);
         for(CarOption caropt :chozenoptions){
             attachedOptions.add(carOptionsRepository.getOne(caropt.getId()));
         }
@@ -167,7 +161,6 @@ public class CarService {
         CarUsage carUsage = carUsageRepository.findCurrentUsageWithLicencePlate(licenseplate);
         if(carUsage == null)
             return "This is not a valid licenseplate of RealDolmen employee, please check";
-       // if(carUsage.getUsageUpdates().get(0).getNewTotalKm() >  )
         if( p.getTotalFuelPrice() < 0 || p.getTotalFuelledForPeriod() < 0)
             return "Refuel is not correct, please check";
         periodicUsageUpdateRepository.save(p);
@@ -175,6 +168,5 @@ public class CarService {
         carUsage.addUsageUpdate(p);
         save(carUsage);
         return "PeriodUsageUpdate stored successfully!";
-
     }
 }
