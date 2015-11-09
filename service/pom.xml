@@ -11,6 +11,10 @@
 
     <artifactId>service</artifactId>
 <dependencies>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+    </dependency>
 
     <dependency>
         <groupId>javax.mail</groupId>
