@@ -37,6 +37,7 @@ public class ConfirmOrderServiceTest extends AbstractServiceTest {
             return mock(CarService.class);
         }
     }
+
     @Autowired
     private ConfirmOrderService confirmOrderService;
     @Autowired
