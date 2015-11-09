@@ -28,12 +28,11 @@
                     <span style="font-weight:bold;"><p th:text="#{car.model}">model</p> </span>
                     <input id="carModel" name="carModel" type="text" th:field="*{model}" onblur="submit()"/><br/>
                     <span style="font-weight:bold;"><p th:text="#{selectcar.funclevel}">func level</p> </span>
-                    <input name="level" id="allPossible" type="radio" th:field="*{level}" value="#{selectcar.allpossible}" onclick="submit()"/>All
-                    Possible
-                    <input name="level" id="downgrade" type="radio" th:field="*{level}" value="#{selectcar.downgrade}" onclick="submit()"/>Downgrade
-                    <input name="level" id="myLevel" type="radio" th:field="*{level}" value="#{selectcar.mylevel}" onclick="submit()"/>My Level
-                    <input name="level" id="upgrade" type="radio" th:field="*{level}" value="#{selectcar.upgrade}" onclick="submit()"/>Upgrade <br/>
-                    <input type="submit" value="Filter" class="form-control"/>
+                    <input name="level" id="allPossible" value="allPossible" type="radio" th:field="*{level}" onclick="submit()"/><span th:text="#{selectcar.allpossible}">All
+                    Possible</span>
+                    <input name="level" id="downgrade" value="downgrade" type="radio" th:field="*{level}" onclick="submit()"/><span th:text="#{selectcar.downgrade}">Downgrade</span>
+                    <input name="level" id="myLevel" value="myLevel" type="radio" th:field="*{level}" onclick="submit()"/><span th:text="#{selectcar.mylevel}">My Level</span>
+                    <input name="level" id="upgrade" value="upgrade" type="radio" th:field="*{level}" onclick="submit()"/><span th:text="#{selectcar.upgrade}">Upgrade</span><br/>
                 </form>
             </div>
 
