@@ -12,34 +12,36 @@
             <div id="selectedCar">
                 <img th:src="${car.pictures[0]}" height="200" width="250" class="img-thumbnail" style="float: left"/>
 
-                <p> Brand: <span th:text="${car.brand}">brand</span></p>
+                <p th:text="#{car.brand} + ' :  ' +  ${car.brand}" > brand </p>
 
-                <p> Model: <span th:text="${car.model}">model</span></p>
+                <p th:text="#{car.model} + ' :  ' +  ${car.model}" > model </p>
+
             </div>
             <form method="post" th:action="@{order-car}">
                 <input type="hidden" id="carId" name="carId" th:value="${car.id}"/>
                 <div id="control">
-                    <input type="submit" class="form-control" value="Confirm Order"/>
+                    <input type="submit" class="btn btn-primary form-control" value="Confirm Order"/>
                 </div>
                 <div id="colorInput">
-                    Fill in color: <select id="color" name="color" class="form-control">
-                        <option value="Black">Black</option>
-                        <option value="Silver">Silver</option>
-                        <option value="White">White</option>
-                        <option value="Blue">Blue</option>
-                        <option value="Red">Red</option>
-                        <option value="Green">Green</option>
-                        <option value="Yellow">Yellow</option>
-                        <option value="Orange">Orange</option>
+                    <h3 th:text="#{car.fillcolor}" > Fill in color:  </h3>
+                    <select id="color" name="color" class="form-control">
+                        <option value="Black" th:text="#{color.black}">Black</option>
+                        <option value="Silver" th:text="#{color.silver}">Silver</option>
+                        <option value="White" th:text="#{color.white}">White</option>
+                        <option value="Blue" th:text="#{color.blue}">Blue</option>
+                        <option value="Red" th:text="#{color.red}">Red</option>
+                        <option value="Green" th:text="#{color.green}">Green</option>
+                        <option value="Yellow" th:text="#{color.yellow}">Yellow</option>
+                        <option value="Orange" th:text="#{color.orange}">Orange</option>
                     </select>
                 </div>
                 <div id="extraPacks" style="width:49%; float:left;">
-                    <h3>Select extra packs:</h3>
+                    <h3 th:text="#{ordercar.extrapack}">Select extra packs:</h3>
                     <table class="table">
                         <thead>
-                        <th>Pack</th>
-                        <th>Options</th>
-                        <th>Select</th>
+                        <th  th:text="#{ordercar.pack}">Packk</th>
+                        <th  th:text="#{ordercar.options}">Optionss</th>
+                        <th  th:text="#{ordercar.select}">Selectt</th>
                         </thead>
                         <tbody>
                         <tr th:each="pack : ${car.extraPacks}">
@@ -59,12 +61,12 @@
                     </table>
                 </div>
                 <div id="extraOptions" style="width:49%; float:right;">
-                    <h3>Select extra options:</h3>
+                    <h3 th:text="#{ordercar.extraoption}">Select extra options:</h3>
                     <table class="table">
                         <thead>
-                        <th>Option</th>
-                        <th>Description</th>
-                        <th>Select</th>
+                        <th  th:text="#{ordercar.option}">Option</th>
+                        <th  th:text="#{ordercar.description}">Description</th>
+                        <th th:text="#{ordercar.select}">Select</th>
                         </thead>
                         <tbody>
                         <tr th:each="option : ${car.extraOptions}">

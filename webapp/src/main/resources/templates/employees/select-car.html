@@ -9,29 +9,29 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h2>Order Car</h2>
+            <h2>  <p th:text="#{selectcar.ordercar}">Order Car </p> </h2>
 
-            <h3>From Catalog:</h3>
+            <h3> <p th:text="#{selectcar.fromcatalog}">From Catalog: </p></h3>
 
             <div>
                 <form method="get" th:action="@{/employees/select-car/filter}" th:object="${filterCarsDTO}">
-                    <span style="font-weight:bold;">Brand: </span>
+                    <span style="font-weight:bold;"><p th:text="#{car.brand}">Brand</p> </span>
                     <input id="brand" name="brand" type="text" th:field="*{brand}"/> -
-                    <span style="font-weight:bold;">Model: </span>
+                    <span style="font-weight:bold;"><p th:text="#{car.model}">model</p> </span>
                     <input id="carModel" name="carModel" type="text" th:field="*{model}"/><br/>
-                    <span style="font-weight:bold;">Level: </span>
-                    <input name="level" id="allPossible" type="radio" th:field="*{level}" value="allPossible"/>All
+                    <span style="font-weight:bold;"><p th:text="#{selectcar.funclevel}">func level</p> </span>
+                    <input name="level" id="allPossible" type="radio" th:field="*{level}" value="#{selectcar.allpossible}"/>All
                     Possible
-                    <input name="level" id="downgrade" type="radio" th:field="*{level}" value="downgrade"/>Downgrade
-                    <input name="level" id="myLevel" type="radio" th:field="*{level}" value="myLevel"/>My Level
-                    <input name="level" id="upgrade" type="radio" th:field="*{level}" value="upgrade"/>Upgrade <br/>
+                    <input name="level" id="downgrade" type="radio" th:field="*{level}" value="#{selectcar.downgrade}"/>Downgrade
+                    <input name="level" id="myLevel" type="radio" th:field="*{level}" value="#{selectcar.mylevel}"/>My Level
+                    <input name="level" id="upgrade" type="radio" th:field="*{level}" value="#{selectcar.upgrade}"/>Upgrade <br/>
                     <input type="submit" value="Filter" class="form-control"/>
                 </form>
             </div>
 
             <hr/>
 
-            <p th:if="${dimensionalCarList.isEmpty()}">No cars matching criteria found.</p>
+            <p th:if="${dimensionalCarList.isEmpty()}"><p th:text="#{selectcar.nomatch}">No match</p></p>
             <table class="table-bordered" th:if="${!dimensionalCarList.isEmpty()}">
                 <tbody>
                 <tr th:each="carList  : ${dimensionalCarList}">
@@ -42,8 +42,8 @@
                             <img th:src="${car.pictures[0]}" height="200" width="250" class="img-thumbnail"/>
                         </a>
                         <ul>
-                            <li th:if="${car.category &lt; functionalLevelForLoggedInUser}">Downgrade</li>
-                            <li th:if="${car.category &gt; functionalLevelForLoggedInUser}">Upgrade</li>
+                            <li th:if="${car.category &lt; functionalLevelForLoggedInUser}"><p th:text="#{selectcar.downgrade}">Downgrade</p></li>
+                            <li th:if="${car.category &gt; functionalLevelForLoggedInUser}"><p th:text="#{selectcar.upgrade}">Upgrade</p></li>
                         </ul>
                     </td>
                 </tr>
@@ -52,7 +52,7 @@
 
             <hr/>
 
-            <h3>From Free Pool</h3>
+            <h3><p th:text="#{selectcar.fromfreepool}">From free pool</p></h3>
 
             <table class="table-bordered">
                 <tbody>
@@ -66,10 +66,10 @@
                              class="img-thumbnail"/></a>
                         <ul>
                             <li>
-                                Color: <span th:text="${carUsage.orderedCar.color}">carColor</span>
+                                <p th:text="#{selectcar.color}"> Color</p> <span th:text="${carUsage.orderedCar.color}">carColor</span>
                             </li>
                             <li>
-                                Current km: <span th:text="${carUsage.usageUpdates[0].newTotalKm}">carColor</span>
+                                <p th:text="#{selectcar.currentkm}"> Current km:  </p> <span th:text="${carUsage.usageUpdates[0].newTotalKm}">carColor</span>
                             </li>
                             </ul>
                     </td>
