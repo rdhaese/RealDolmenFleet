@@ -10,13 +10,14 @@ import java.util.Date;
 
 /**
  * Created on 5/11/2015.
- *
+ * Test class for {@link EmployeeRepository}
  * @author Robin D'Haese
  */
 public class EmployeeRepositoryTest extends AbstractRepositoryTest{
 
     @Before
     public void setUp(){
+        deleteAll();
         Employee emp = new Employee("name", "email", "password", EmployeeType.ROLE_NORMAL, 2, new Date());
         emp.setPermissionToOrderNewCar(true);
         employeeRepository.saveAndFlush(emp);

@@ -22,7 +22,6 @@
         <module>util</module>
         <module>comparator</module>
         <module>enums</module>
-        <module>sql-generator</module>
     </modules>
 
     <parent>
