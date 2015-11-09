@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created on 29/10/2015.
@@ -39,6 +41,15 @@ public class PackService {
 
     public List<CarOption> findGeneralRDOptions(){
         return packRepository.findByName("RealDolmen General Options").getCarOptions();
+    }
+
+    public List<CarOption> findMissingGeneralRDOptions(List<CarOption> lst){
+        List<CarOption> all = findGeneralRDOptions();
+        Set<CarOption> setall = new HashSet<CarOption>(all);
+        Set<CarOption> setexisting = new HashSet<CarOption>(lst);
+        setall.removeAll(setexisting);
+        List<CarOption> res = new ArrayList<CarOption>(setall);
+        return res;
     }
     public void savePack(Pack pack){
 

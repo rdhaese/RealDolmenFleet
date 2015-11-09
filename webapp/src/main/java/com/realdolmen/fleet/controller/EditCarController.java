@@ -40,7 +40,7 @@ public class EditCarController {
     public void populateModel(Model model){
         model.addAttribute("car", updatedCar);
         model.addAttribute("packList", packService.findAll());
-        model.addAttribute("optionList", carOptionsService.findAll());
+        model.addAttribute("optionList", packService.findMissingGeneralRDOptions(updatedCar.getExtraOptions()));
     }
 
 

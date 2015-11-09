@@ -2274,36 +2274,40 @@ INSERT INTO car_pictures(Car_id, pictures) VALUES('10','http://directlease.be/DL
 
 
 
+INSERT INTO pack(name, price, version, id) VALUES ('RealDolmen General Options', '500', '0', '51');
+
+
 
 
 
 INSERT INTO employee(version, email, functional_level, name, password, role, permission_to_order_new_car, in_service_date) VALUES ('1','jeroen@skynet.be', '2', 'Jeroen Van Den Haute', '$2a$10$v8Y.TvnxrqZCfIScuzNchesRzpYAAfM1yfHGuW50l/qpWqLd9NERe', 'ROLE_FLEET', false, '2015-09-01');
 INSERT INTO employee(version, email, functional_level, name, password, role, permission_to_order_new_car, in_service_date) VALUES ('1','r.dhaese92@gmail.com', '4', 'Robin D''Haese', '$2a$10$2SfKBifGwHep6e5y79KDJOjfgq3CmLdsyoh44MEmYPiWFvevmbfmq', 'ROLE_FLEET', false, '2015-09-01');
 
-INSERT INTO car_option(description, name) VALUES ('GPS van tomtom', 'GPS');
-INSERT INTO car_option(description, name) VALUES ('achterlichten in LED-techniek', 'LED achterlichten');
-INSERT INTO car_option(name) VALUES ('Cruise control');
-INSERT INTO car_option(description, name) VALUES ('Stevige rails op het dak', 'Dakrails');
-INSERT INTO car_option(description, name) VALUES ('Robuust en onmisbaar', 'Trekhaak');
-INSERT INTO car_option(name) VALUES ('Automaat');
-INSERT INTO car_option(name) VALUES ('7-zits');
-INSERT INTO car_option(description, name) VALUES ('indien mogelijkheid voorzien door constructeur', 'Volwaardig reservewiel');
-INSERT INTO car_option(name) VALUES ('Parkeersensoren');
-INSERT INTO car_option(description, name) VALUES ('100 procent het beste leer', 'lederen intereur');
-INSERT INTO car_option(description, name) VALUES ('Enkel Vooraan', 'Verwarmde zetels');
-INSERT INTO car_option(description, name) VALUES ('Onherkenbaarheid is verzekerd', 'Getinte ruiten');
+INSERT INTO car_option(name, version, id) VALUES ('Reservewiel', '0', '1100');
+INSERT INTO car_option(description, name, version, id) VALUES ('Trekhaak > 750 kg', 'LED achterlichten', '0', '1101');
 
+INSERT INTO car_option(name, version, id) VALUES ('Cruise control', '0', '1102');
+INSERT INTO car_option(description, name, version, id) VALUES ('Stevige rails op het dak', 'Dakrails', '0', '1103');
+INSERT INTO car_option(name, version, id) VALUES ('Trekhaak tot 750 kg', '0', '1104');
+INSERT INTO car_option(name, version, id) VALUES ('Automaat', '0', '1105');
+INSERT INTO car_option(name, version, id) VALUES ('7-zits', '0', '1106');
+INSERT INTO car_option(name, version, id) VALUES ('Parkeersensoren', '0', '1108');
+INSERT INTO car_option(description, name, version, id) VALUES ('100 procent het beste leer', 'lederen intereur', '0', '1109');
+INSERT INTO car_option(description, name, version, id) VALUES ('Enkel Vooraan', 'Verwarmde zetels', '0', '1110');
+INSERT INTO car_option(description, name, version, id) VALUES ('Onherkenbaarheid is verzekerd', 'Getinte ruiten', '0', '1111');
 
-INSERT INTO pack(name, price, version) VALUES ('Pack Business @ GPS Discover Media', '299', '0');
-INSERT INTO pack(name, price, version) VALUES ('Pack Business gps rns315 / pre gsm', '399', '0');
-INSERT INTO pack(name, price, version) VALUES ('Business Media Pack', '255', '0');
+INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('51', '1100');
+INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('51', '1101');
+INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('51', '1102');
+INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('51', '1103');
+INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('51', '1104');
+INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('51', '1105');
+INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('51', '1106');
+INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('51', '1108');
+INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('51', '1109');
+INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('51', '1110');
+INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('51', '1111');
 
-INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('1', '4');
-INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('1', '5');
-INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('2', '6');
-INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('2', '7');
-INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('2', '8');
-INSERT INTO pack_car_options(pack_id, car_options_id) VALUES ('2', '9');
 
 INSERT INTO car (id,  version, amount_downgrade, amount_upgrade, benefit, brand, car_type, category, delivery_time, emission, fiscalhp, fuel_type, ideal_km, list_price, max_km, model, pk, base_pack_id) VALUES ('1',  '0', '2000', '2000', '200', 'Audi', 'NORMAL', '4', '3', '80', '125', 'DIESEL', '120000', '40000', '150000', 'A4', '125', 1);
 INSERT INTO car (id,  version, amount_downgrade, amount_upgrade, benefit, brand, car_type, category, delivery_time, emission, fiscalhp, fuel_type, ideal_km, list_price, max_km, model, pk, base_pack_id) VALUES ('2',  '1', '2000', '2000', '200', 'Audi', 'NORMAL', '3', '3', '80', '125', 'DIESEL', '120000', '40000', '150000', 'A3', '125', 2);

@@ -25,7 +25,7 @@ public class Car extends BaseEntity{
     @NotNull
     @Size(min=1, max=255)
     private String model;
-    @DecimalMin(value = "0")
+    @DecimalMin(value = "1")
     @DecimalMax(value = "8")
     private int category;
     @DecimalMin(value = "1")
