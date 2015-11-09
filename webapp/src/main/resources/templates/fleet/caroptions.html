@@ -17,22 +17,26 @@
     <div class="row">
         <div class="col-lg-12">
             <div>
-                <a th:href="@{/fleet/createcaroption}">Create New option</a>
+                <a href="/fleet/createcaroption" th:href="@{/fleet/createcaroption}" class="btn btn-primary"> <p th:text="#{option.new}">Create new option!</p>  </a>
+
             </div>
+
+            <br/>
+            <br/>
 
 <table id="caroptions" >
     <thead>
     <tr>
-        <th>Name </th>
-        <th>Description</th>
+        <th><p th:text="#{option.name}"> Name </p> </th>
+        <th><p th:text="#{option.description}"> Description</p></th>
 
 
     </tr>
     </thead>
     <tfoot>
     <tr>
-        <th>Name</th>
-        <th>Description</th>
+        <th><p th:text="#{option.name}"> Name </p> </th>
+        <th><p th:text="#{option.description}"> Description</p></th>
     </tr>
     </tfoot>
 

@@ -14,20 +14,20 @@
 
 <form method="POST" th:object="${carOption}">
     <div th:class="${#fields.hasErrors('name')}? 'has-error'">
-        <label th:for="${#ids.next('name')}"> name:</label>
+        <label th:for="${#ids.next('name')}"><p th:text="#{option.namem}">Name</p> </label>
         <input type="text" th:field="*{name}" />
         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
     </div>
 
     <div th:class="${#fields.hasErrors('description')}? 'has-error'">
-        <label th:for="${#ids.next('description')}"> description:</label>
+        <label th:for="${#ids.next('description')}"> <p th:text="#{option.description}">Descriptin</p></label>
         <input type="text" th:field="*{description}" />
         <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
     </div>
 
 
     <br/>
-    <button type="submit">Add Option </button>
+    <button type="submit" class="btn btn-primary"><p th:text="#{option.new}">add</p> </button>
 </form>
 
         </div>

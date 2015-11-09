@@ -17,15 +17,18 @@
     <div class="row">
         <div class="col-lg-12">
             <div>
-                <button type="button" class="btn btn-primary" th:href="@{/fleet/createcar}"> Add new Car </button>
+
+                    <a href="/fleet/createcar" th:href="@{/fleet/createcar}" class="btn btn-primary"> <p th:text="#{car.createnew}">Create new car!</p>  </a>
+
+
                 <br/>
                 <br/>
             </div>
             <table id="allCars"  class="display" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th>Brand </th>
-                    <th>Model</th>
+                    <th> <p th:text="#{car.brand}">Brand</p> </th>
+                    <th> <p th:text="#{car.model}">Model</p></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -33,8 +36,8 @@
 
                 <tfoot>
                 <tr>
-                    <th>Brand</th>
-                    <th>Model</th>
+                    <th> <p th:text="#{car.brand}">Brand</p></th>
+                    <th> <p th:text="#{car.model}">Model</p></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -50,9 +53,9 @@
 
                     <td th:text="${car.model}"></td>
 
-                    <td> <a th:href="${#mvc.url('ECC#editCar').arg(0,car.id).build()}" > Edit Car </a> </td>
+                    <td> <a th:href="${#mvc.url('ECC#editCar').arg(0,car.id).build()}" >  <p th:text="#{car.edit}">Edit</p> </a> </td>
 
-                    <td> <a th:href="${#mvc.url('CCC#deleteCarFromCatalog').arg(0,car.id).build()}" > Delete Car From catalog </a> </td>
+                    <td> <a th:href="${#mvc.url('CCC#deleteCarFromCatalog').arg(0,car.id).build()}" >  <p th:text="#{car.delete}">delete</p> </a> </td>
 
                 </tr>
                 </tbody>
