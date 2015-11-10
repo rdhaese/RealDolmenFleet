@@ -1,10 +1,7 @@
 package com.realdolmen.fleet.service;
 
 import com.realdolmen.fleet.model.*;
-import com.realdolmen.fleet.persist.CarOptionsRepository;
-import com.realdolmen.fleet.persist.CarRepository;
-import com.realdolmen.fleet.persist.CarUsageRepository;
-import com.realdolmen.fleet.persist.PeriodicUsageUpdateRepository;
+import com.realdolmen.fleet.persist.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +28,9 @@ public class CarService {
 
     @Autowired
     private PeriodicUsageUpdateRepository periodicUsageUpdateRepository;
+
+    @Autowired
+    private HistoryRecordRepository historyRecordRepository;
 
     public List<Car> findAll() {
         return carRepository.findByIsdeletedNot(true);
@@ -109,6 +109,14 @@ public class CarService {
     }
 
     public void backToFreePool(CarUsage carUsage) {
+        HistoryRecord historyRecord = new HistoryRecord();
+        historyRecord.setEmployee(carUsage.getEmployee());
+        PeriodicUsageUpdate lastUpdate = carUsage.getUsageUpdates().get(0);
+        historyRecord.setDrivenUntil(lastUpdate.getUpdateDate());
+        historyRecord.setLastKm(lastUpdate.getNewTotalKm());
+       historyRecordRepository.save(historyRecord);
+
+        carUsage.getHistoryRecords().add(historyRecord);
         carUsage.setEmployee(null);
         carUsage.setLicensePlate(null);
         carUsageRepository.save(carUsage);

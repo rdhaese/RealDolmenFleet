@@ -131,6 +131,25 @@
                 </table>
             </div>
 
+            <div id="history" th:with="historyRecords=${carDetails.historyRecords}">
+                <h3>Usage History</h3>
+                <p th:if="${historyRecords.isEmpty()}">Nothing to report.</p>
+                <table class="table" th:if="${!historyRecords.isEmpty()}">
+                    <thead>
+                    <th>Employee</th>
+                    <th>Driven Until</th>
+                    <th>Until Mileage</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="record : ${historyRecords}">
+                        <td th:text="${record.employee.name}"></td>
+                        <td th:text="${record.drivenUntil}"></td>
+                        <td th:text="${record.lastKm}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <div id="employeeDetails" th:with="employee=${carDetails.employee}" th:if="${carDetails.employee != null}">
                 <h3>Current User Details</h3>
                 <p>Name: <span th:text="${employee.name}"></span></p>
@@ -142,7 +161,6 @@
                 <p>Functional level: <span th:text="${employee.functionalLevel}"></span> </p>
                 <p>License Plate: <span th:text="${carDetails.licensePlate}"></span> </p>
             </div>
-
         </div>
     </div>
 
