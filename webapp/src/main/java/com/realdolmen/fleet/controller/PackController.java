@@ -75,11 +75,6 @@ public class PackController {
         CarOption selectedOption = packService.getCarOption(id);
         carOptions.add(selectedOption);
         p.addCarOption(selectedOption);
-        /*
-        CarOption selectedOption = packService.getCarOption(id);
-        carOptions.add(selectedOption);
-        p.addCarOption(selectedOption);
-        populateModel(model);*/
         return "id correct received";
     }
 

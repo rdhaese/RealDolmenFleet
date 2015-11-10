@@ -9,9 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -65,6 +63,15 @@ public class EditPackController {
     }
 
 
+    @RequestMapping(value = "/fleet/addajaxoptioninedit", method = RequestMethod.POST)
+    public @ResponseBody
+    String addAjaxOptionInEdit(@RequestParam Long id, Model model) {
+        CarOption selectedOption = packService.getCarOption(id);
+        p.addCarOption(selectedOption);
+        //populateModel(model);
+        return "ok";
+    }
+
     @RequestMapping(value = "/fleet/addoptioninedit", method = RequestMethod.GET, params="id")
     public
     String addOptionInEdit(@RequestParam Long id, Model model) {
@@ -73,7 +80,17 @@ public class EditPackController {
         populateModel(model);
         return "/fleet/editpack";
     }
-
+/*
+    @RequestMapping(value = "/fleet/addajaxoptiontopack", method = RequestMethod.POST)
+    public @ResponseBody
+    String addAjaxOptionToPack(@ModelAttribute(value="id") Long id, Model model) {
+        System.out.println("id received: " + id);
+        CarOption selectedOption = packService.getCarOption(id);
+        carOptions.add(selectedOption);
+        p.addCarOption(selectedOption);
+        return "id correct received";
+    }
+*/
     @RequestMapping(value = "/fleet/removeoptionedit/{id}", method = RequestMethod.GET)
     public
     String removeOptionInEdit(@RequestParam int id, Model model) {
@@ -81,6 +98,25 @@ public class EditPackController {
         populateModel(model);
         return "/fleet/editpack";
     }
+    @RequestMapping(value = "/fleet/removeajaxoptionedit", method = RequestMethod.POST)
+    public @ResponseBody
+    String removeAjaxOptionInEdit(@RequestParam("id") int id, Model model) {
+        p.removeCarOption(id);
+        populateModel(model);
+        return "ok";
+    }
+    /*
+    @RequestMapping(value = "/fleet/removeajaxoptiontopack", method = RequestMethod.POST)
+    public @ResponseBody
+    String removeAjaxOption(@RequestParam("id") int id, Model model) {
+
+        carOptions.remove(id);
+        p.removeCarOption(id);
+        // populateModel(model);
+        // Prepare the response string
+        return "ok";
+    }
+    */
 
     @RequestMapping(value="/fleet/createeditpackoption", method = RequestMethod.POST)
     public String processCarOptionEdit(@Valid CarOption carOption, Errors errors, Model model) {
