@@ -80,7 +80,8 @@ public class ConfirmOrderController {
             return "fleet/confirm-order-from-free-pool-detail";
         }
         order.setLicensePlate(confirmedOrderDTO.getLicensePlate());
-        orderService.confirmOrder(order);
+        CarUsage oldOrder = orderService.findCurrentUsage(order.getEmployee().getId());
+        orderService.confirmOrder(order, oldOrder);
         return "redirect:/fleet/confirm-order";
     }
 
@@ -92,7 +93,8 @@ public class ConfirmOrderController {
             model.addAttribute(confirmedOrderDTO);
             return "fleet/confirm-order-detail";
         }
-        orderService.confirmOrder(order);
+        CarUsage oldOrder = orderService.findCurrentUsage(order.getEmployee().getId());
+        orderService.confirmOrder(order, oldOrder);
         model.addAttribute("orderConfirmed", true);
         return confirmOrder(model);
     }
@@ -120,14 +122,20 @@ public class ConfirmOrderController {
             order.getOrderedCar().setPrice(confirmedOrderDTO.getPrice());
         }
         try{
+            if (confirmedOrderDTO.getStartDate() == null || confirmedOrderDTO.getStartDate().isEmpty()){
+                throw new Exception();
+            }
             order.setStartDate(dateFormat.parse(confirmedOrderDTO.getStartDate()));
-        } catch (ParseException ex){
+        } catch (Exception ex){
             model.addAttribute("startDateError", true);
             error = true;
         }
         try{
+            if (confirmedOrderDTO.getInitialEndDate() == null || confirmedOrderDTO.getInitialEndDate().isEmpty()){
+                throw new Exception();
+            }
             order.setInitialEndDate(dateFormat.parse(confirmedOrderDTO.getStartDate()));
-        } catch (ParseException ex){
+        } catch (Exception ex){
             model.addAttribute("initialEndDateError", true);
             error = true;
         }

@@ -70,3 +70,11 @@ ul.head ul.navbar ul.navbar-nav ul.navbar-right ul.headertext {
   background-color: #E2001A !important;
   /* background-color: #e7e7e7; */
 }
+
+.form-control{
+  margin: 5px;
+}
+
+.val-error{
+  color:red;
+}

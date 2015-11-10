@@ -78,7 +78,8 @@ public class ConfirmOrderServiceTest extends AbstractServiceTest {
 
     @Test
     public void confirmOrderPerformedCorrectly(){
-        CarUsage carUsage = mock(CarUsage.class);
+        fail("Needs to be cahnged to fit new implementation");
+        /*CarUsage carUsage = mock(CarUsage.class);
         Employee employee = mock(Employee.class);
         when(employee.getId()).thenReturn(1L);
         when(carUsage.getEmployee()).thenReturn(employee);
@@ -90,7 +91,7 @@ public class ConfirmOrderServiceTest extends AbstractServiceTest {
 
         when(carUsageRepository.findCurrentUsage(1L)).thenReturn(new CarUsage());
         confirmOrderService.confirmOrder(carUsage);
-        verify(carService, times(1)).backToFreePool(any(CarUsage.class));
+        verify(carService, times(1)).backToFreePool(any(CarUsage.class));*/
     }
 
     @Test

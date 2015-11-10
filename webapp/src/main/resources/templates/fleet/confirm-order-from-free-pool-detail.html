@@ -11,10 +11,17 @@
         <div class="col-lg-12">
             <H2>Confirm Order From Free Pool</H2>
 
+            <form method="post" action="#" th:action="@{/fleet/disallow-order}">
+                <div id="disallowOrder">
+                    <input type="hidden" id="orderId" name="orderId" th:value="${confirmedOrderDTO.getOrderId()}"/>
+                    <input type="submit" value="Disallow Order" class="btn btn-primary form-control"/>
+                </div>
+            </form>
+
             <form method="post" action="#" th:action="@{/fleet/confirm-order-from-free-pool-detail}" th:object="${confirmedOrderDTO}">
                 <div id="control">
                     <input type="hidden" th:field="*{orderId}"/>
-                    <input type="submit" value="Save Changes And Confirm" class="form-control"/>
+                    <input type="submit" class="btn btn-primary form-control" value="Save Changes And Confirm"/>
                 </div>
                 <div id="carDetails" style="width: 49%; float:left;">
                     <h3>Car Details</h3>
@@ -64,8 +71,8 @@
                 <div id="orderDetails" style="width: 49%; float: right;">
                     <h3>Order Specific Details</h3>
 
-                    <p>License Plate: <input type="text" th:field="*{licensePlate}"/>
-                        <span th:if="${licensePlateError}"><br/>Make sure the license plate is filled in.</span>
+                    <p>License Plate: <input type="text" th:field="*{licensePlate}" class="form-control"/>
+                        <span class="val-error" th:if="${licensePlateError}"><br/>Make sure the license plate is filled in.</span>
                     </p>
 
                 </div>

@@ -42,10 +42,10 @@ public class ConfirmOrderService {
     }
 
     @Transactional
-    public void confirmOrder(CarUsage order) {
-        CarUsage carUsage = carUsageRepository.findCurrentUsage(order.getEmployee().getId());
-        if (carUsage != null){
-            carService.backToFreePool(carUsage);
+    public void confirmOrder(CarUsage order, CarUsage oldUsage) {
+        String mail = order.getEmployee().getEmail();
+        if ((oldUsage != null) && (isFromFreePool(oldUsage))){
+            carService.backToFreePool(oldUsage);
         }
         if (order.getUsageUpdates().isEmpty()) {
             PeriodicUsageUpdate firstUsageUpdate = new PeriodicUsageUpdate(new Date(), 1, 0, 0);
@@ -53,7 +53,7 @@ public class ConfirmOrderService {
             order.getUsageUpdates().add(firstUsageUpdate);
         }
         carUsageRepository.save(order);
-        mailService.sendMail(order.getEmployee().getEmail(), getMessage("mail.confirmorder.subject"), getMessage("mail.confirmorder.text"));
+        mailService.sendMail(mail, getMessage("mail.confirmorder.subject"), getMessage("mail.confirmorder.text"));
     }
 
     public boolean isFromFreePool(CarUsage order) {
@@ -62,11 +62,20 @@ public class ConfirmOrderService {
 
     @Transactional
     public void disallowOrder(CarUsage order) {
-        carUsageRepository.delete(order);
-        mailService.sendMail(order.getEmployee().getEmail(), getMessage("mail.disalloworder.subject"), getMessage("mail.disalloworder.text"));
+        String mail = order.getEmployee().getEmail();
+        if (isFromFreePool(order)){
+            carService.backToFreePool(order);
+        }else {
+            carUsageRepository.delete(order);
+        }
+        mailService.sendMail(mail, getMessage("mail.disalloworder.subject"), getMessage("mail.disalloworder.text"));
     }
 
     private String getMessage(String key){
         return messageSource.getMessage(key, null, Locale.US);
+    }
+
+    public CarUsage findCurrentUsage(Long id) {
+        return carUsageRepository.findCurrentUsage(id);
     }
 }

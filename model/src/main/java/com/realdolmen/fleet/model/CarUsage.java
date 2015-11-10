@@ -44,6 +44,10 @@ public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
             inverseJoinColumns=@JoinColumn(name="usage_updates_id"))
     private List<PeriodicUsageUpdate> usageUpdates = new ArrayList<>();
 
+    @OneToMany
+    @OrderBy("lastKm DESC")
+    private List<HistoryRecord> historyRecords = new ArrayList<>();
+
     public CarUsage(String licensePlate, Employee employee, OrderedCar orderedCar, Date orderDate, Date startDate, Date initialEndDate, Date endDate) {
         super();
         this.licensePlate = licensePlate;
@@ -69,26 +73,37 @@ public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
 
         CarUsage carUsage = (CarUsage) o;
 
-        if (licensePlate != null ? !licensePlate.equals(carUsage.licensePlate) : carUsage.licensePlate != null) return false;
-        if (employee != null ? !employee.equals(carUsage.employee) : carUsage.employee != null) return false;
-        if (orderedCar != null ? !orderedCar.equals(carUsage.orderedCar) : carUsage.orderedCar != null) return false;
-        if (orderDate != null ? !orderDate.equals(carUsage.orderDate) : carUsage.orderDate != null) return false;
-        if (startDate != null ? !startDate.equals(carUsage.startDate) : carUsage.startDate != null) return false;
-        if (initialEndDate != null ? !initialEndDate.equals(carUsage.initialEndDate) : carUsage.initialEndDate != null)
+        if (getLicensePlate() != null ? !getLicensePlate().equals(carUsage.getLicensePlate()) : carUsage.getLicensePlate() != null)
             return false;
-        return !(endDate != null ? !endDate.equals(carUsage.endDate) : carUsage.endDate != null);
+        if (getEmployee() != null ? !getEmployee().equals(carUsage.getEmployee()) : carUsage.getEmployee() != null)
+            return false;
+        if (getOrderedCar() != null ? !getOrderedCar().equals(carUsage.getOrderedCar()) : carUsage.getOrderedCar() != null)
+            return false;
+        if (getOrderDate() != null ? !getOrderDate().equals(carUsage.getOrderDate()) : carUsage.getOrderDate() != null)
+            return false;
+        if (getStartDate() != null ? !getStartDate().equals(carUsage.getStartDate()) : carUsage.getStartDate() != null)
+            return false;
+        if (getInitialEndDate() != null ? !getInitialEndDate().equals(carUsage.getInitialEndDate()) : carUsage.getInitialEndDate() != null)
+            return false;
+        if (getEndDate() != null ? !getEndDate().equals(carUsage.getEndDate()) : carUsage.getEndDate() != null)
+            return false;
+        if (getUsageUpdates() != null ? !getUsageUpdates().equals(carUsage.getUsageUpdates()) : carUsage.getUsageUpdates() != null)
+            return false;
+        return !(getHistoryRecords() != null ? !getHistoryRecords().equals(carUsage.getHistoryRecords()) : carUsage.getHistoryRecords() != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = licensePlate != null ? licensePlate.hashCode() : 0;
-        result = 31 * result + (employee != null ? employee.hashCode() : 0);
-        result = 31 * result + (orderedCar != null ? orderedCar.hashCode() : 0);
-        result = 31 * result + (orderDate != null ? orderDate.hashCode() : 0);
-        result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
-        result = 31 * result + (initialEndDate != null ? initialEndDate.hashCode() : 0);
-        result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+        int result = getLicensePlate() != null ? getLicensePlate().hashCode() : 0;
+        result = 31 * result + (getEmployee() != null ? getEmployee().hashCode() : 0);
+        result = 31 * result + (getOrderedCar() != null ? getOrderedCar().hashCode() : 0);
+        result = 31 * result + (getOrderDate() != null ? getOrderDate().hashCode() : 0);
+        result = 31 * result + (getStartDate() != null ? getStartDate().hashCode() : 0);
+        result = 31 * result + (getInitialEndDate() != null ? getInitialEndDate().hashCode() : 0);
+        result = 31 * result + (getEndDate() != null ? getEndDate().hashCode() : 0);
+        result = 31 * result + (getUsageUpdates() != null ? getUsageUpdates().hashCode() : 0);
+        result = 31 * result + (getHistoryRecords() != null ? getHistoryRecords().hashCode() : 0);
         return result;
     }
 
@@ -158,6 +173,14 @@ public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
 
     public void addUsageUpdate(PeriodicUsageUpdate usageUpdate){
         usageUpdates.add(usageUpdate);
+    }
+
+    public List<HistoryRecord> getHistoryRecords() {
+        return historyRecords;
+    }
+
+    public void setHistoryRecords(List<HistoryRecord> historyRecords) {
+        this.historyRecords = historyRecords;
     }
 
     @Override
