@@ -29,7 +29,8 @@
     <div style="float:left; width: 40%">
     <h3> <p th:text="#{car.basepacks}"> bse pack</p></h3>
 
-    <p th:if="${car.basePack != null}" th:text="${car.basePack.name}"/>
+    <p id="basepack2"  th:if="${car.basePack != null}" th:text="${car.basePack.name}">     </p>
+        <p id="basepack"></p>
 
     <h3>  <p th:text="#{car.optionalpacks}"> otpional pack</p></h3>
 
@@ -83,7 +84,8 @@
 
             <td th:text="${pack.price}"></td>
 
-            <td> <a th:href="${#mvc.url('CCC#setBasicPack').arg(0, pack.id).build()}" ><p th:text="#{car.setbasepack}">  set base pack </p> </a> </td>
+            <td>  <a th:onclick="'javascript:setBasePack(\'' + ${pack.id} + '\',\'' + ${pack.name}+ '\');'"
+                     class="btn btn-primary form-control" th:text="#{pack.addoptionto}">add </a> </td>
 
             <td> <a th:href="${#mvc.url('CCC#addExtraPack').arg(0, pack.id).build()}" > <p th:text="#{car.addextrapack}"> add extra pack </p> </a> </td>
 
@@ -138,6 +140,126 @@
         <hr/>
     </div>
 </div>
+<script>
+
+    function setBasePack(id, name){
+        var request = $.ajax({
+            url : "/fleet/setajaxbasicpack",
+            type : "post",
+            data : "id=" + id
+        });
+
+        request.done(function(data) {
+            console.log(data);
+            console.log(name);
+         document.getElementById("basepack").innerHTML = name;
+           var b = document.getElementById("basepack2");
+            b.parentNode.removeChild(b);
+
+
+        });
+
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+
+
+    }
+
+    function removeOption(element){
+
+
+        var id = element.parentNode.parentNode.rowIndex;
+
+        var request = $.ajax({
+            url : "http://localhost:8080/fleet/removeajaxoptiontopack",
+            type : "post",
+            data : "id=" + id
+        });
+
+        request.done(function(data) {
+
+            document.getElementById('selectedoptions').deleteRow(id);
+
+
+        });
+
+        // callback handler that will be called on failure
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+
+
+
+    }
+    function addInPack(id, index, name){
+
+
+        var request = $.ajax({
+            url : "http://localhost:8080/fleet/addajaxoptiontopack",
+            type : "post",
+            data : "id=" + id
+        });
+
+
+        request.done(function(data) {
+            var tableRef = document.getElementById('selectedoptions').getElementsByTagName('tbody')[0];
+
+            if(!undefined ) {
+                document.getElementById('selectedoptions').appendChild(document.createElement('tbody'));
+                tableRef = document.getElementById('selectedoptions').getElementsByTagName('tbody')[0];
+            }
+            var rownumber = tableRef.rows.length;
+
+// Insert a row in the table at the last row
+            var newRow   = tableRef.insertRow(tableRef.rows.length);
+
+
+
+
+
+// Insert a cell in the row at index 0
+            var newCell  = newRow.insertCell(0);
+            var newCell2 = newRow.insertCell(1);
+
+// Append a text node to the cell
+            var newText  = document.createTextNode(name)
+            newCell.appendChild(newText);
+
+            var a = document.createElement('a');
+            var linkText = document.createTextNode("Remove");
+            a.appendChild(linkText);
+            a.title = "Remove";
+
+            var nbr = tableRef.getElementsByTagName('tr').length;
+            a.onclick = function() {
+                removeOption(this);
+            }
+            a.className = "btn btn-primary form-control";
+
+
+            var newText2  = document.createTextNode(id)
+            newCell2.appendChild(a);
+
+
+
+        });
+
+        // callback handler that will be called on failure
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+
+
+    }
+</script>
+
 
 </body>
 </html>
