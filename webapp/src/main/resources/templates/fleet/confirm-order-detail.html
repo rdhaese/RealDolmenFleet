@@ -90,7 +90,7 @@
                         <span th:if="${licensePlateError}"><br/>Make sure the license plate is filled in.</span>
                     </p>
 
-                    <p>Price: <input type="text" th:field="*{price}"/>
+                    <p>Price: <input type="number" th:field="*{price}"/>
                         <span th:if="${priceError}"><br/>Make sure the price is filled in. (>0)</span>
                     </p>
                 </div>
