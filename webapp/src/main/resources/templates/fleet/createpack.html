@@ -129,10 +129,7 @@
 </div>
 
     <br/>
-<div style="clear:both;" id="test">
 
-qqqqqqqq
-</div>
         </div>
 
         <hr/>
@@ -145,7 +142,7 @@ qqqqqqqq
 
 
         var id = element.parentNode.parentNode.rowIndex;
-        console.log(id);
+
         var request = $.ajax({
             url : "http://localhost:8080/fleet/removeajaxoptiontopack",
             type : "post",
@@ -206,8 +203,8 @@ qqqqqqqq
             var a = document.createElement('a');
             var linkText = document.createTextNode("Remove");
             a.appendChild(linkText);
-            a.title = "remove";
-            console.log(tableRef.getElementsByTagName('tr').length)
+            a.title = "Remove";
+
             var nbr = tableRef.getElementsByTagName('tr').length;
             a.onclick = function() {
                 removeOption(this);
