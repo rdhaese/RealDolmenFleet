@@ -18,4 +18,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
      @Query("select e from Employee e where e.permissionToOrderNewCar = false")
      List<Employee> findEmployeesWithoutPermissionTOrderNewCar();
+
+     @Query("select e from Employee e where e.permissionToOrderNewCar = true")
+     List<Employee> findEmployeesWithPermissionToOrderNewCar();
 }

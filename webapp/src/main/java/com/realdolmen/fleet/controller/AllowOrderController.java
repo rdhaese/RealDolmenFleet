@@ -2,6 +2,7 @@ package com.realdolmen.fleet.controller;
 
 import com.realdolmen.fleet.listener.LoginListener;
 import com.realdolmen.fleet.model.Employee;
+import com.realdolmen.fleet.service.AllowOrderService;
 import com.realdolmen.fleet.service.EmployeeService;
 import com.realdolmen.fleet.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class AllowOrderController {
     @Autowired
     private EmployeeService employeeService;
     @Autowired
+    private AllowOrderService allowOrderService;
+    @Autowired
     private LoginListener loginListener;
     @Autowired
     private MailService mailService;
@@ -44,10 +47,8 @@ public class AllowOrderController {
             addUsersThatNeedPermissionsToModel(model);
             return "fleet/allow-order";
         }
-        employee.setPermissionToOrderNewCar(true);
-        employeeService.save(employee);
+        allowOrderService.allow(employee);
         loginListener.updateLoggedInUserCanOrderNewCar();
-    //    mailService.sendMail(employee.getEmail(), "Ordering New Car Available", "From this point, it is possible to order a new car on the fleet portal.");
         return "redirect:/fleet/allow-order";
     }
 

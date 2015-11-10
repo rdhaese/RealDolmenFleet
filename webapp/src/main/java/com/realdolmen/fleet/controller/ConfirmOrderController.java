@@ -93,7 +93,16 @@ public class ConfirmOrderController {
             return "fleet/confirm-order-detail";
         }
         orderService.confirmOrder(order);
-        return "redirect:/fleet/confirm-order";
+        model.addAttribute("orderConfirmed", true);
+        return confirmOrder(model);
+    }
+
+    @RequestMapping(value="/fleet/disallow-order", method = RequestMethod.POST)
+    public String disallowOrder(@RequestParam("orderId") long orderId, Model model) {
+        CarUsage order = orderService.getOrder(orderId);
+        orderService.disallowOrder(order);
+        model.addAttribute("orderDisallowed", true);
+        return confirmOrder(model);
     }
 
     private boolean hasError(Model model, ConfirmedOrderDTO confirmedOrderDTO, CarUsage order) {

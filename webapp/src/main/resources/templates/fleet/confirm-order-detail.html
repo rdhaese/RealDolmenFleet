@@ -11,6 +11,12 @@
         <div class="col-lg-12">
             <H2>Confirm Order</H2>
 
+            <form method="post" action="#" th:action="@{/fleet/disallow-order}">
+                <div id="disallowOrder">
+                    <input type="hidden" id="orderId" name="orderId" th:value="${confirmedOrderDTO.getOrderId()}"/>
+                    <input type="submit" value="Disallow Order" class="form-control"/>
+                </div>
+            </form>
             <form method="post" action="#" th:action="@{/fleet/confirm-order-detail}" th:object="${confirmedOrderDTO}">
                 <div id="control">
                     <input type="hidden" th:field="*{orderId}"/>
@@ -18,6 +24,7 @@
 
                 </div>
                 <div id="carDetails" style="width: 49%; float:left;">
+                    <h3>Car Details</h3>
 
                     <h3>  <p th:text="#{car.details}" >Car details </p></h3>
 
@@ -147,11 +154,11 @@
 
 <div th:replace="fragments/fragments :: div.scripts"></div>
 <script type="text/javascript">
-    $(function() {
-        $( "#datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
+    $(function () {
+        $("#datepicker").datepicker({dateFormat: 'dd/mm/yy'});
     });
-    $(function() {
-        $( "#datepicker2" ).datepicker({ dateFormat: 'dd/mm/yy' });
+    $(function () {
+        $("#datepicker2").datepicker({dateFormat: 'dd/mm/yy'});
     });
 </script>
 </body>
