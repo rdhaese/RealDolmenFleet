@@ -11,9 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -82,6 +80,21 @@ public class CreateCarController {
         model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
         return "/fleet/optionselection";
     }
+
+    @RequestMapping(value = "/fleet/setajaxbasicpack", method = RequestMethod.POST)
+    public @ResponseBody
+    String setAjaxBasicPack(@RequestParam("id") Long id, Model model) {
+        Pack p = packService.findPackById(id);
+        createdCar.setBasePack(p);
+        System.out.println("base pack selected wiht id:" + id);
+        /*
+        model.addAttribute("car", createdCar);
+        model.addAttribute("packList", packService.findAll());
+        model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
+        return "/fleet/optionselection";*/
+        return "ok";
+    }
+
 
     @RequestMapping(value = "/fleet/addExtraPack/{id}", method = RequestMethod.GET)
     public
