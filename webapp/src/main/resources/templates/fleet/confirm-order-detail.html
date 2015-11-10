@@ -20,53 +20,58 @@
             <form method="post" action="#" th:action="@{/fleet/confirm-order-detail}" th:object="${confirmedOrderDTO}">
                 <div id="control">
                     <input type="hidden" th:field="*{orderId}"/>
-                    <input type="submit" value="Confirm" class="form-control"/>
+                    <button type="submit" class="btn btn-primary form-control"><p th:text="#{confirm.savechanges}"> save  </p> </button>
+
                 </div>
                 <div id="carDetails" style="width: 49%; float:left;">
                     <h3>Car Details</h3>
 
-                    <p>Brand: <span th:text="${order.orderedCar.car.brand}">brand</span></p>
+                    <h3>  <p th:text="#{car.details}" >Car details </p></h3>
 
-                    <p>Model: <span th:text="${order.orderedCar.car.model}">model</span></p>
+                    <p th:text="#{car.brand} + ' :  ' +  ${order.orderedCar.car.brand}" > brand </p>
 
-                    <p>Category: <span th:text="${order.orderedCar.car.category}">category</span></p>
+                    <p th:text="#{car.model} + ' :  ' +  ${order.orderedCar.car.model}" > model </p>
 
-                    <p th:if="${order.orderedCar.car.category &lt; order.employee.functionalLevel}">Upgrade amount:
-                        €<span th:text="${order.orderedCar.car.amountUpgrade}">amountUpgrade</span></p>
+                    <p th:text="#{car.category} + ' :  ' +  ${order.orderedCar.car.category}" > category </p>
 
-                    <p th:if="${order.orderedCar.car.category &gt; order.employee.functionalLevel}">Downgrade amount:
-                        €<span th:text="${order.orderedCar.car.amountDowngrade}">amountDowngrade</span></p>
+                    <p th:if="${order.orderedCar.car.category &gt; order.employee.functionalLevel}" th:text="#{car.upgrade} + ' : €' +  ${order.orderedCar.car.amountUpgrade}"> amountUpgrade</p>
 
-                    <p>Horse Power: <span th:text="${order.orderedCar.car.pk}">pk</span></p>
+                    <p th:if="${order.orderedCar.car.category &lt; order.employee.functionalLevel}" th:text="#{car.downgrade} + ' : €' +  ${order.orderedCar.car.amountDowngrade}"> amountDowngrade</p>
 
-                    <p>Fiscal Horse Power: <span th:text="${order.orderedCar.car.fiscalHP}">fiscalHp</span></p>
+                    <p th:text="#{car.pk} + ' :  ' +  ${order.orderedCar.car.pk}" > pk </p>
 
-                    <p>Emission: <span th:text="${order.orderedCar.car.emission}">emission</span></p>
+                    <p th:text="#{car.fiscalhp} + ' :  ' +  ${order.orderedCar.car.fiscalHP}" > fhp </p>
 
-                    <p>Fuel type: <span th:text="${order.orderedCar.car.fuelType}">fuelType</span></p>
+                    <p th:text="#{car.emission} + ' :  ' +  ${order.orderedCar.car.emission}" > emission </p>
 
-                    <p>Car type: <span th:text="${order.orderedCar.car.carType}">carType</span></p>
+                    <p th:text="#{car.fueltype} + ' :  ' +  ${order.orderedCar.car.fuelType}" > fuel type </p>
 
-                    <p>Delivery time: <span th:text="${order.orderedCar.car.deliveryTime}">carType</span> months</p>
+                    <p th:text="#{car.type} + ' :  ' +  ${order.orderedCar.car.carType}" > cartype </p>
 
-                    <p>Ideal km: <span th:text="${order.orderedCar.car.idealKm}">idealKm</span></p>
+                    <p th:text="#{car.deliverytime} + ' :  ' +  ${order.orderedCar.car.deliveryTime}" > delivery time </p>
 
-                    <p>Max km: <span th:text="${order.orderedCar.car.maxKm}">maxKm</span></p>
+                    <p th:text="#{car.idealkm} + ' :  ' +  ${order.orderedCar.car.idealKm}" > ideal km </p>
 
-                    <p>List price: €<span th:text="${order.orderedCar.car.listPrice}">listPrice</span></p>
+                    <p th:text="#{car.maxkm} + ' :  ' +  ${order.orderedCar.car.maxKm}" > maxkm </p>
+                    <p th:text="#{car.price} + ' :  ' +  ${order.orderedCar.car.listPrice}" > listprice </p>
 
-                    <p>Benefit: €<span th:text="${order.orderedCar.car.benefit}">benefit</span></p>
+                    <p th:text="#{car.benefit} + ' :  ' +  ${order.orderedCar.car.benefit}" > benefit </p>
 
                 </div>
                 <div id="employeeDetails" style="width: 49%; float: right;">
-                    <h3>Employee Details</h3>
+                    <h3 th:text="#{employee.details}">Employee Details</h3>
 
-                    <p>Name: <span th:text="${order.employee.name}">employeeName</span></p>
+                    <p th:text="#{employee.name} + ' :  ' +  ${order.employee.name}" > employeename </p>
 
-                    <p>Email: <span th:text="${order.employee.email}">employeeEmail</span></p>
 
-                    <p>Functional level: <span
-                            th:text="${order.employee.functionalLevel}">employeeFunctionalLevel</span></p>
+
+                    <p th:text="#{employee.mail} + ' :  ' +  ${order.employee.email}" > mail </p>
+
+
+
+                    <p th:text="#{employee.funclevel} + ' :  ' +  ${order.employee.functionalLevel}" > functional level </p>
+
+
                 </div>
                 <div id="orderSpecificDetails" style="width: 49%; float: right;">
                     <h3>Order Specific Car Details</h3>
@@ -74,35 +79,34 @@
                     <p>Color: <span th:text="${order.orderedCar.color}">carColor</span></p>
                 </div>
                 <div id="orderDetails" style="width: 49%; float: right;">
-                    <h3>Order Specific Details</h3>
+                    <h3 th:text="#{order.specificdetails}">Order Specific Details</h3>
 
-                    <p>Order date: <span th:text="*{orderedDate}">orderDate</span></p>
+                    <p th:text="#{order.date} + ' :  ' +  *{orderedDate}" > order date </p>
 
-                    <p>Start Date: <input type="text" id="datepicker" th:field="*{startDate}"/>
-                        <span th:if="${startDateError}"><br/>Make sure the start date is in the correct format.</span>
+                    <p> <p th:text="#{confirm.startdate}"/> <input type="text" id="datepicker" th:field="*{startDate}"/>
+                        <span th:if="${startDateError}" th:text="#{confirm.startdateerror}"><br/>Make sure the start date is in the correct format.</span>
                     </p>
 
-                    <p>Initial End Date: <input type="text" id="datepicker2" th:field="*{initialEndDate}"/>
-                        <span th:if="${initialEndDateError}"><br/>Make sure the initial end date is in the correct format.</span>
+                    <p> <p th:text="#{confirm.initialenddate}"/><input type="text" id="datepicker2" th:field="*{initialEndDate}"/>
+                        <span th:if="${initialEndDateError}" th:text="#{confirm.initialenddateerror}"><br/>Make sure the initial end date is in the correct format.</span>
                     </p>
 
-                    <p>License Plate: <input type="text" th:field="*{licensePlate}"/>
-                        <span th:if="${licensePlateError}"><br/>Make sure the license plate is filled in.</span>
+                    <p> <p th:text="#{confirm.licenseplate}"/> <input type="text" th:field="*{licensePlate}"/>
+                        <span th:if="${licensePlateError}" th:text="#{confirm.licenseplateerror}"><br/>Make sure the license plate is filled in.</span>
                     </p>
 
-                    <p>Price: <input type="number" th:field="*{price}"/>
-                        <span th:if="${priceError}"><br/>Make sure the price is filled in. (>0)</span>
-                    </p>
+                    <p> <p th:text="#{confirm.price}"/> <input type="number" th:field="*{price}"/>
+                        <span th:if="${priceError}" th:text="#{confirm.priceerror}"><br/>Make sure the price is filled in. (>0)</span>
                 </div>
                 <div style="width: 100%; float: left;">
                     <div id="extraPacks" style="width: 49%; float: left;">
-                        <h3>Extra Packs</h3>
+                        <h3 th="#{confirm.extrapacks}">Extra Packs</h3>
 
-                        <p th:if="${order.orderedCar.packs.isEmpty()}">No extra packs ordered.</p>
+                        <p th:if="${order.orderedCar.packs.isEmpty()}" th:text="#{confirm.noextrapacksordered}">No extra packs ordered.</p>
                         <table class="table" th:if="${!order.orderedCar.packs.isEmpty()}">
                             <thead>
-                            <th>Name</th>
-                            <th>Options</th>
+                            <th th:text="#{option.name}" >Name</th>
+                            <th th:text="#{ordercar.options}" >Options</th>
                             </thead>
                             <tbody>
                             <tr th:each="pack : ${order.orderedCar.packs}">
@@ -121,13 +125,14 @@
                         </table>
                     </div>
                     <div id="extraOptions" style="width: 49%; float: right;">
-                        <h3>Extra Options</h3>
+                        <h3 th:text="#{car.alloptions}">Extra Options</h3>
 
                         <p th:if="${order.orderedCar.options.isEmpty()}">No extra options ordered.</p>
                         <table class="table" th:if="${!order.orderedCar.options.isEmpty()}">
                             <thead>
-                            <th>Name</th>
-                            <th>Description</th>
+
+                            <th th:text="${caroption.name}">Name</th>
+                            <th th:text="${caroption.description}">Description</th>
                             </thead>
                             <tbody>
                             <tr th:each="option : ${order.orderedCar.options}">

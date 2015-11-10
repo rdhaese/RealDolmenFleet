@@ -32,16 +32,16 @@
             <p th:if="${ordersToConfirm.isEmpty()}">No orders to confirm.</p>
             <table class="table" th:if="${!ordersToConfirm.isEmpty()}" id="orderTable">
                 <thead>
-                <th>Employee</th>
-                <th>Ordered On</th>
-                <th>Confirm Order</th>
+                <th th:text="#{confirm.employee}">Employee</th>
+                <th th:text="#{confirm.orderedon}">Ordered On</th>
+                <th th:text="#{confirm.order}">Confirm Order</th>
                 </thead>
                 <tbody>
                 <tr th:each="carUsage : ${ordersToConfirm}">
                     <td th:text="${carUsage.employeeName}">employeeName</td>
                     <td th:text="${carUsage.orderDate}">orderDate</td>
                     <td style="text-align: center;">
-                        <a th:href="${'/fleet/confirm-order-detail?id=' + carUsage.orderId}" class="form-control">Confirm
+                        <a th:href="${'/fleet/confirm-order-detail?id=' + carUsage.orderId}" class="form-control" th:text="#{confirm.order}">Confirm
                             Order</a>
                     </td>
                 </tr>

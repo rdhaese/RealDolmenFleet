@@ -18,15 +18,15 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <H2>Our Cars</H2>
+            <H2 th:text="#{managecars.ourcars}">Our Cars</H2>
 
-            <h3>In Use</h3>
-            <p th:if="${ourCarsInUse.isEmpty()}">No cars in use.</p>
+            <h3 th:text="#{managecars.inuse}">In Use</h3>
+            <p th:if="${ourCarsInUse.isEmpty()}" th:text="#{managecars.nocarsinuse}">No cars in use.</p>
             <table class="table" th:if="${!ourCarsInUse.isEmpty()}" id="carsInUse">
                 <thead>
-                <th>Car</th>
-                <th>Employee</th>
-                <th>Action</th>
+                <th th:text="#{managecars.car}">Car</th>
+                <th th:text="#{confirm.employee}" >Employee</th>
+                <th th:text="#{managecars.action}">Action</th>
                 </thead>
                 <tbody>
                 <tr th:each="carUsage : ${ourCarsInUse}">
@@ -35,23 +35,25 @@
                              class="img-thumbnail" style="float: left; margin-right: 1%"/>
                         <span th:text="${car.brand + ' ' + car.model}"></span>
                     </td>
-                    <td><span th:text="${carUsage.employee.name}"></span><small>(<a href="#">edit</a>)</small></td>
+                    <td><span th:text="${carUsage.employee.name}"></span><small>(<a href="#" th:text="#{managecars.edit}">edit</a>)</small></td>
                     <td>
+                        <a th:href="${'cars/detail/' + carUsage.id }" class="btn btn-primary form-control" th:text="#{managecar.details}"> details  </a>
                         <a class="form-control" th:href="${'cars/detail/' + carUsage.id }">Details</a>
                         <form method="post" th:action="${'/fleet/cars/to-free-pool'}">
                             <input type="hidden" name="carUsageId" th:value="${carUsage.id}" />
+                            <button type="submit" class="btn btn-primary form-control"><p th:text="#{managecar.tofreepool}"> to free pool  </p> </button>
                             <input type="submit" class="form-control" value="To Free Pool" />
                         </form>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <h3>In Free Pool</h3>
-            <p th:if="${ourCarsInFreePool.isEmpty()}">No cars in our free pool.</p>
+            <h3 th:text="#{managecars.infreepool}">In Free Pool</h3>
+            <p th:if="${ourCarsInFreePool.isEmpty()}" th:text="#{managecars.emptypool}"> No cars in our free pool.</p>
             <table class="table" th:if="${!ourCarsInFreePool.isEmpty()}" id="carsInFreePool">
                 <thead>
-                <th>Car</th>
-                <th>Action</th>
+                <th th:text="#{managecars.car}">Car</th>
+                <th th:text="#{managecars.action}">Action</th>
                 </thead>
                 <tbody>
                 <tr th:each="carUsage : ${ourCarsInFreePool}">

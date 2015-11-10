@@ -85,10 +85,21 @@ public class EditPackController {
     @RequestMapping(value="/fleet/createeditpackoption", method = RequestMethod.POST)
     public String processCarOptionEdit(@Valid CarOption carOption, Errors errors, Model model) {
         if( errors.hasErrors()){
+
+            model.addAttribute("optionNameError", true);
+
+            // p.setCarOptions(carOptions);
+            //populateModel(model);
+            //     model.addAttribute("allCarOptions", carOptionsRepository.findAll());
+            //     model.addAttribute("pack", p);
+            //     model.addAttribute("carOption", carOption);
+            populateModel(model);
+            return "/fleet/editpack";
+            /*
             model.addAttribute("allCarOptions", allCarOptions);
             model.addAttribute("pack", p);
             model.addAttribute("carOption", carOption);
-            return "/fleet/editpack";
+            return "/fleet/editpack";*/
         }
         carOptionsRepository.save(carOption);
         p.addCarOption(carOption);

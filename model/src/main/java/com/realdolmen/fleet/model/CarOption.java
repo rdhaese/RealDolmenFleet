@@ -16,7 +16,6 @@ public class CarOption extends BaseEntity {
     @Size(min=1, max=255)
     private String name;
     @Lob
-    @Size(min=1)
     private String description;
 
 

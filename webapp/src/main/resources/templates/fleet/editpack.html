@@ -18,7 +18,7 @@
         <div class="col-lg-12">
             <div>
 
-
+<div>
                 <div style="float:left; width: 45%">
 
             <form method="POST" th:object="${pack}" action="/fleet/editpack">
@@ -42,7 +42,7 @@
                         <div th:class="${#fields.hasErrors('name')}? 'has-error'">
                             <label th:for="${#ids.next('name')}"> <p th:text="#{option.namem}">Name</p></label>
                             <input type="text" th:field="*{name}" />
-                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                            <span th:if="${optionNameError}" th:text="#{option.namemissing}"></span>
                         </div>
 
                         <div th:class="${#fields.hasErrors('description')}? 'has-error'">
@@ -58,9 +58,10 @@
                 </div>
                 <br/>
                 <br/>
+    </div>
                 <div>
-                    <div style="float:left; width: 45%">
-                    <h1> SelectedOptions </h1>
+                    <div style=" float:left; width: 45%">
+                    <h1 th:text="#{pack.selectedoptions}"> SelectedOptions </h1>
                     <table>
                         <tr th:each="caropt,idStat  : ${pack.carOptions}">
 
