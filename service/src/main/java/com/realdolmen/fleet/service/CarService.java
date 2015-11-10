@@ -109,14 +109,15 @@ public class CarService {
     }
 
     public void backToFreePool(CarUsage carUsage) {
-        HistoryRecord historyRecord = new HistoryRecord();
-        historyRecord.setEmployee(carUsage.getEmployee());
-        PeriodicUsageUpdate lastUpdate = carUsage.getUsageUpdates().get(0);
-        historyRecord.setDrivenUntil(lastUpdate.getUpdateDate());
-        historyRecord.setLastKm(lastUpdate.getNewTotalKm());
-       historyRecordRepository.save(historyRecord);
-
-        carUsage.getHistoryRecords().add(historyRecord);
+        if(!carUsage.getUsageUpdates().isEmpty()) {
+            HistoryRecord historyRecord = new HistoryRecord();
+            historyRecord.setEmployee(carUsage.getEmployee());
+            PeriodicUsageUpdate lastUpdate = carUsage.getUsageUpdates().get(0);
+            historyRecord.setDrivenUntil(lastUpdate.getUpdateDate());
+            historyRecord.setLastKm(lastUpdate.getNewTotalKm());
+            historyRecordRepository.save(historyRecord);
+            carUsage.getHistoryRecords().add(historyRecord);
+        }
         carUsage.setEmployee(null);
         carUsage.setLicensePlate(null);
         carUsageRepository.save(carUsage);

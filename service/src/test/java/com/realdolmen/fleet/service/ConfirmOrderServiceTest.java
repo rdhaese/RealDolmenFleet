@@ -36,14 +36,16 @@ public class ConfirmOrderServiceTest extends AbstractServiceTest {
         public CarService carService(){
             return mock(CarService.class);
         }
+        @Bean
+        public MailService mailService() {return mock(MailService.class);}
     }
 
     @Autowired
     private ConfirmOrderService confirmOrderService;
     @Autowired
-    private CarUsageRepository carUsageRepository;
-    @Autowired
     private CarService carService;
+    @Autowired
+    private CarUsageRepository carUsageRepository;
     @Autowired
     private PeriodicUsageUpdateRepository periodicUsageUpdateRepository;
 
@@ -78,8 +80,8 @@ public class ConfirmOrderServiceTest extends AbstractServiceTest {
 
     @Test
     public void confirmOrderPerformedCorrectly(){
-        fail("Needs to be cahnged to fit new implementation");
-        /*CarUsage carUsage = mock(CarUsage.class);
+        fail("Needs to be changed to fit new implementation");
+       /* CarUsage carUsage = mock(CarUsage.class);
         Employee employee = mock(Employee.class);
         when(employee.getId()).thenReturn(1L);
         when(carUsage.getEmployee()).thenReturn(employee);

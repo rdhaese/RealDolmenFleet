@@ -3,10 +3,7 @@ package com.realdolmen.fleet.config;
 import com.realdolmen.fleet.listener.LoginListener;
 import com.realdolmen.fleet.model.Car;
 import com.realdolmen.fleet.persist.*;
-import com.realdolmen.fleet.service.CanOrderNewCarService;
-import com.realdolmen.fleet.service.CarService;
-import com.realdolmen.fleet.service.EmployeeService;
-import com.realdolmen.fleet.service.MailService;
+import com.realdolmen.fleet.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -63,6 +60,12 @@ public class TestConfig {
     }
 
     @Bean
+    public AllowOrderService allowOrderService() { return mock(AllowOrderService.class);}
+
+    @Bean
+    public DisallowOrderService disallowOrderService(){ return mock(DisallowOrderService.class);}
+
+    @Bean
     public LoginListener loginListener(){
         return mock(LoginListener.class);
     }
@@ -101,6 +104,9 @@ public class TestConfig {
     public CarUsageRepository carUsageRepository(){
         return mock(CarUsageRepository.class);
     }
+
+    @Bean
+    public HistoryRecordRepository historyRecordRepository() { return mock(HistoryRecordRepository.class);}
 
     @Bean
     public DataSource dataSource() {
