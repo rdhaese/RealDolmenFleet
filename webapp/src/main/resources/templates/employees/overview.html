@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <H2>Personal Overview</H2>
 
-            <div id="employeeInfo">
+            <div id="employeeInfo" style="width: 49%; float:left;">
                 <h3>Your Details</h3>
 
                 <p>Name: <span th:text="${employee.name}"></span></p>
@@ -24,14 +24,15 @@
                     <span th:if="${employee.role.toString() == 'ROLE_NORMAL'}">Normal</span>
                 </p>
 
-                <p>Date in service: <span th:text="${#dates.format(employee.inServiceDate, #messages.msg('app.dateformat'))}"></span></p>
+                <p>Date in service: <span
+                        th:text="${#dates.format(employee.inServiceDate, #messages.msg('app.dateformat'))}"></span></p>
+
+                <p th:if="${carUsage == null}" style="font-style: italic; font-weight: bold;">
+                    You have no car or open order.
+                </p>
             </div>
 
-            <p th:if="${carUsage == null}" style="font-style: italic; font-weight: bold;">
-                You have no car or open order.
-            </p>
-
-            <div th:if="${carUsage != null}">
+            <div th:if="${carUsage != null}" style="width: 49%; float: right;">
                 <p th:if="${carUsage.licensePlate == null}" style="font-style: italic; font-weight: bold;">
                     This is an open order! Fleet still has to confirm it.
                 </p>
@@ -78,97 +79,103 @@
                             </li>
                         </ul>
                     </div>
-                    <div id="pictures">
-                        <h4>Pictures</h4>
-                        <a th:each="imgLink : ${car.pictures}" th:href="${imgLink}">
-                            <img th:src="${imgLink}" height="400" width="500" class="img-thumbnail"/>
-                        </a>
-                    </div>
+                </div>
+            </div>
+            <div id="orderInfo" th:if="${carUsage != null}" th:with="orderDetails=${carUsage.orderedCar}" style="width: 49%; float: left;">
+                <h3>Order Specific Details</h3>
+
+                <span th:if="${carUsage.licensePlate != null}"><p>Price:€ <span th:text="${orderDetails.price}"></span></p></span>
+
+                <p>Color: <span th:text="${orderDetails.color}"></span></p>
+
+                <div id="extraPacks" th:with="packs=${orderDetails.packs}">
+                    <h4>Extra Packs</h4>
+
+                    <p th:if="${packs.isEmpty()}">None</p>
+                    <table class="table" th:if="${!packs.isEmpty()}">
+                        <thead>
+                        <th>Name</th>
+                        <th>Options</th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pack : ${packs}">
+                            <td th:text="${pack.name}"></td>
+                            <td>
+                                <ul>
+                                    <li th:each="option : ${pack.carOptions}">
+                                        <h5 th:text="${option.name}">optionName</h5>
+
+                                        <p th:text="${option.description}">optionDescription</p>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div id="orderInfo" th:with="orderDetails=${carUsage.orderedCar}">
-                    <h3>Order Specific Details</h3>
+                <div id="extraOptions" th:with="options=${orderDetails.options}">
+                    <h4>Extra Options</h4>
 
-                    <p>Price: <span th:text="${orderDetails.price}"></span></p>
-
-                    <p>Color: <span th:text="${orderDetails.color}"></span></p>
-
-                    <div id="extraPacks" th:with="packs=${orderDetails.packs}">
-                        <h4>Extra Packs</h4>
-
-                        <p th:if="${packs.isEmpty()}">None</p>
-                        <table class="table" th:if="${!packs.isEmpty()}">
-                            <thead>
-                            <th>Name</th>
-                            <th>Options</th>
-                            </thead>
-                            <tbody>
-                            <tr th:each="pack : ${packs}">
-                                <td th:text="${pack.name}"></td>
-                                <td>
-                                    <ul>
-                                        <li th:each="option : ${pack.carOptions}">
-                                            <h5 th:text="${option.name}">optionName</h5>
-
-                                            <p th:text="${option.description}">optionDescription</p>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div id="extraOptions" th:with="options=${orderDetails.options}">
-                        <h4>Extra Options</h4>
-
-                        <p th:if="${options.isEmpty()}">None</p>
-                        <table class="table" th:if="${!options.isEmpty()}">
-                            <thead>
-                            <th>Name</th>
-                            <th>Description</th>
-                            </thead>
-                            <tbody>
-                            <tr th:each="option : ${options}">
-                                <td th:text="${option.name}">optionName</td>
-                                <td th:text="${option.description}">optionDescription</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <p th:if="${options.isEmpty()}">None</p>
+                    <table class="table" th:if="${!options.isEmpty()}">
+                        <thead>
+                        <th>Name</th>
+                        <th>Description</th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="option : ${options}">
+                            <td th:text="${option.name}">optionName</td>
+                            <td th:text="${option.description}">optionDescription</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div id="usageInfo" th:if="${carUsage.licensePlate != null}">
-                    <h3>Usage Details</h3>
+            </div>
 
-                    <p>License Plate: <span th:text="${carUsage.licensePlate}"></span></p>
+            <div id="pictures" style="width: 49%; float: left;" th:if="${carUsage != null}" th:with="car=${carUsage.orderedCar.car}">
+                <h4>Pictures</h4>
+                <a th:each="imgLink : ${car.pictures}" th:href="${imgLink}">
+                    <img th:src="${imgLink}" height="400" width="500" class="img-thumbnail"/>
+                </a>
+            </div>
 
-                    <p>Order date: <span th:text="${#dates.format(carUsage.orderDate, #messages.msg('app.dateformat'))}"></span></p>
+            <div id="usageInfo" th:if="${carUsage != null and carUsage.licensePlate != null}" style="width: 100%; float: left;">
+                <h3>Usage</h3>
+                <h4>Details</h4>
+                <div style="width: 20%; float: left;">
+                <p>License Plate: <span th:text="${carUsage.licensePlate}"></span></p>
 
-                    <p>Start date: <span th:text="${#dates.format(carUsage.startDate, #messages.msg('app.dateformat'))}"></span></p>
+                <p>Order date: <span
+                        th:text="${#dates.format(carUsage.orderDate, #messages.msg('app.dateformat'))}"></span></p>
 
-                    <p>Initial end date: <span th:text="${#dates.format(carUsage.initialEndDate, #messages.msg('app.dateformat'))}"></span></p>
+                <p>Start date: <span
+                        th:text="${#dates.format(carUsage.startDate, #messages.msg('app.dateformat'))}"></span></p>
 
-                    <div id="usageUpdates" th:with="updates=${carUsage.usageUpdates}">
-                        <h4>Usage Updates</h4>
+                <p>Initial end date: <span
+                        th:text="${#dates.format(carUsage.initialEndDate, #messages.msg('app.dateformat'))}"></span></p>
 
-                        <p th:if="${updates.isEmpty()}">Nothing to report.</p>
-                        <table class="table" th:if="${!updates.isEmpty()}">
-                            <thead>
-                            <th>Date Received Update</th>
-                            <th>New Amount of Km</th>
-                            <th>Amount Fuelled Since Last Update (liter)</th>
-                            <th>Total paid For Fuel</th>
-                            </thead>
-                            <tbody>
-                            <tr th:each="update : ${updates}">
-                                <td th:text="${#dates.format(update.updateDate, #messages.msg('app.dateformat'))}"></td>
-                                <td th:text="${update.newTotalKm}"></td>
-                                <td th:text="${update.totalFuelledForPeriod}"></td>
-                                <td>€ <span th:text="${update.totalFuelPrice}"></span></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                </div>
+                <div id="usageUpdates" th:with="updates=${carUsage.usageUpdates}" style="width: 80%; float: right;">
+                    <h4>Updates</h4>
+
+                    <p th:if="${updates.isEmpty()}">Nothing to report.</p>
+                    <table class="table" th:if="${!updates.isEmpty()}">
+                        <thead>
+                        <th>Date Received Update</th>
+                        <th>New Amount of Km</th>
+                        <th>Amount Fuelled Since Last Update (liter)</th>
+                        <th>Total paid For Fuel</th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="update : ${updates}">
+                            <td th:text="${#dates.format(update.updateDate, #messages.msg('app.dateformat'))}"></td>
+                            <td th:text="${update.newTotalKm}"></td>
+                            <td th:text="${update.totalFuelledForPeriod}"></td>
+                            <td>€ <span th:text="${update.totalFuelPrice}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -122,14 +122,20 @@ public class ConfirmOrderController {
             order.getOrderedCar().setPrice(confirmedOrderDTO.getPrice());
         }
         try{
+            if (confirmedOrderDTO.getStartDate() == null || confirmedOrderDTO.getStartDate().isEmpty()){
+                throw new Exception();
+            }
             order.setStartDate(dateFormat.parse(confirmedOrderDTO.getStartDate()));
-        } catch (ParseException ex){
+        } catch (Exception ex){
             model.addAttribute("startDateError", true);
             error = true;
         }
         try{
+            if (confirmedOrderDTO.getInitialEndDate() == null || confirmedOrderDTO.getInitialEndDate().isEmpty()){
+                throw new Exception();
+            }
             order.setInitialEndDate(dateFormat.parse(confirmedOrderDTO.getStartDate()));
-        } catch (ParseException ex){
+        } catch (Exception ex){
             model.addAttribute("initialEndDateError", true);
             error = true;
         }

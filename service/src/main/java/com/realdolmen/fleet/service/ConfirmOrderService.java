@@ -62,12 +62,13 @@ public class ConfirmOrderService {
 
     @Transactional
     public void disallowOrder(CarUsage order) {
+        String mail = order.getEmployee().getEmail();
         if (isFromFreePool(order)){
             carService.backToFreePool(order);
         }else {
             carUsageRepository.delete(order);
         }
-        mailService.sendMail(order.getEmployee().getEmail(), getMessage("mail.disalloworder.subject"), getMessage("mail.disalloworder.text"));
+        mailService.sendMail(mail, getMessage("mail.disalloworder.subject"), getMessage("mail.disalloworder.text"));
     }
 
     private String getMessage(String key){

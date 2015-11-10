@@ -1,6 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/fragments :: head"></head>
 <body>
+<div th:replace="fragments/fragments :: div.scripts"></div>
 <script type="text/javascript" charset="utf-8">
     $(document).ready( function () {
         $('#carsInUse').dataTable().columnFilter();
@@ -26,6 +27,7 @@
                 <thead>
                 <th th:text="#{managecars.car}">Car</th>
                 <th th:text="#{confirm.employee}" >Employee</th>
+                <th th:text="#{ourcar.licenseplate}">License Plate</th>
                 <th th:text="#{managecars.action}">Action</th>
                 </thead>
                 <tbody>
@@ -35,14 +37,13 @@
                              class="img-thumbnail" style="float: left; margin-right: 1%"/>
                         <span th:text="${car.brand + ' ' + car.model}"></span>
                     </td>
-                    <td><span th:text="${carUsage.employee.name}"></span><small>(<a href="#" th:text="#{managecars.edit}">edit</a>)</small></td>
+                    <td><span th:text="${carUsage.employee.name}"></span><small>(<a th:href="${#mvc.url('EC#editEmployee').arg(0,carUsage.employee.id).build()}" th:text="#{managecars.edit}">edit</a>)</small></td>
+                    <td th:text="${carUsage.licensePlate}"></td>
                     <td>
-                        <a th:href="${'cars/detail/' + carUsage.id }" class="btn btn-primary form-control" th:text="#{managecar.details}"> details  </a>
-                        <a class="form-control" th:href="${'cars/detail/' + carUsage.id }">Details</a>
+                        <a th:href="${'cars/detail/' + carUsage.id }" class="btn btn-primary form-control" th:text="#{managecars.details}"> details  </a>
                         <form method="post" th:action="${'/fleet/cars/to-free-pool'}">
                             <input type="hidden" name="carUsageId" th:value="${carUsage.id}" />
-                            <button type="submit" class="btn btn-primary form-control"><p th:text="#{managecar.tofreepool}"> to free pool  </p> </button>
-                            <input type="submit" class="form-control" value="To Free Pool" />
+                            <button type="submit" class="btn btn-primary form-control"><p th:text="#{managecars.tofreepool}"> to free pool  </p> </button>
                         </form>
                     </td>
                 </tr>
@@ -63,10 +64,10 @@
                         <span th:text="${car.brand + ' ' + car.model}"></span>
                     </td>
                     <td>
-                        <a class="form-control" th:href="${'cars/detail/' + carUsage.id }">Details</a>
+                        <a class="btn btn-primary form-control" th:href="${'cars/detail/' + carUsage.id }">Details</a>
                         <form method="post" th:action="${'/fleet/cars/remove'}">
                             <input type="hidden" name="carUsageId" th:value="${carUsage.id}" />
-                            <input type="submit" class="form-control" value="Remove" />
+                            <input type="submit" class="btn btn-primary form-control" value="Remove" />
                         </form>
                     </td>
                 </tr>
@@ -77,8 +78,5 @@
 
     <hr/>
 </div>
-
-<div th:replace="fragments/fragments :: div.scripts"></div>
-
 </body>
 </html>

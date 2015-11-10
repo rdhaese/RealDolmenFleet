@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <form method="post" th:action="@{order-free-pool-car}">
                 <input type="hidden" id="carUsageId" name="carUsageId" th:value="${carUsage.id}"/>
-                    <input type="submit" class="form-control" value="Confirm Order"/>
+                    <input type="submit" class="btn btn-primary form-control" value="Confirm Order"/>
                 </form>
             <div id="carDetails" th:with="car=${carUsage.orderedCar.car}" style="width: 50%; float: left">
                 <h2>Car details</h2>

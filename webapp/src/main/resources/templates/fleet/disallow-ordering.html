@@ -1,6 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/fragments :: head"></head>
-<bodys>
+<body>
+<div th:replace="fragments/fragments :: div.scripts"></div>
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function () {
         $('#employeesTable').dataTable().columnFilter();
@@ -17,7 +18,9 @@
             <h2><p th:text="#{disalloworder.disallow}"> Disallow Ordering Car </p></h2>
             <h3><p th:text="#{disalloworder.employeeswithpermission}"> Employees With Permission </p></h3>
             <p th:if="${usersWithPermission.isEmpty()}">
-            <p th:text="#{disalloworder.noemployees}"> No employees that have permission to order a new car.</p>  </p>
+
+            <p th:text="#{disalloworder.noemployees}"> No employees that have permission to order a new
+                car.</p>  </p>
             <div id="allowUsersThatMeetCriteria" th:if="${!usersWithPermission.isEmpty()}">
                 <p th:text="#{disalloworder.havepermission}"> These employees have permission to order a new
                     car. </p>
@@ -47,9 +50,7 @@
     </div>
 
 
-<hr/>
+    <hr/>
 </div>
-
-<div th:replace="fragments/fragments :: div.scripts"></div>
-</bodys>
+</body>
 </html>
