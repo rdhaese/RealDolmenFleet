@@ -2,6 +2,8 @@ package com.realdolmen.fleet.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
@@ -14,10 +16,23 @@ import java.util.Date;
 public class HistoryRecord extends BaseEntity{
 
     @ManyToOne
+    @NotNull
     private Employee employee;
     @Temporal(TemporalType.DATE)
+    @NotNull
     private Date drivenUntil;
+    @NotNull
+    @DecimalMin("1")
     private Integer lastKm;
+
+    public HistoryRecord(Employee employee, Date drivenUntil, Integer lastKm) {
+        this.employee = employee;
+        this.drivenUntil = drivenUntil;
+        this.lastKm = lastKm;
+    }
+
+    public HistoryRecord() {
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -64,9 +64,9 @@
                 <h3>Extra Details</h3>
                 <p>Price: <span th:text="${orderDetails.price}"></span></p>
                 <p>Color: <span th:text="${orderDetails.color}"></span></p>
-                <p>Order date: <span th:text="${carDetails.orderDate}"></span></p>
-                <p>Start date: <span th:text="${carDetails.startDate}"></span></p>
-                <p>Initial end date: <span th:text="${carDetails.initialEndDate}"></span></p>
+                <p>Order date: <span th:text="${#dates.format(carDetails.orderDate, #messages.msg('app.dateformat'))}"></span></p>
+                <p>Start date: <span th:text="${#dates.format(carDetails.startDate, #messages.msg('app.dateformat'))}"></span></p>
+                <p>Initial end date: <span th:text="${#dates.format(carDetails.initialEndDate, #messages.msg('app.dateformat'))}"></span></p>
 
                 <div id="extraPacks" th:with="packs=${orderDetails.packs}">
                     <h4>Extra Packs</h4>
@@ -134,6 +134,7 @@
             <div id="history" th:with="historyRecords=${carDetails.historyRecords}">
                 <h3>Usage History</h3>
                 <p th:if="${historyRecords.isEmpty()}">Nothing to report.</p>
+                <p>Start date: <span th:text="${#dates.format(carDetails.startDate, #messages.msg('app.dateformat'))}">startDate</span></p>
                 <table class="table" th:if="${!historyRecords.isEmpty()}">
                     <thead>
                     <th>Employee</th>
@@ -143,7 +144,7 @@
                     <tbody>
                     <tr th:each="record : ${historyRecords}">
                         <td th:text="${record.employee.name}"></td>
-                        <td th:text="${record.drivenUntil}"></td>
+                        <td th:text="${#dates.format(record.drivenUntil, #messages.msg('app.dateformat'))}"></td>
                         <td th:text="${record.lastKm}"></td>
                     </tr>
                     </tbody>
@@ -151,7 +152,7 @@
             </div>
 
             <div id="employeeDetails" th:with="employee=${carDetails.employee}" th:if="${carDetails.employee != null}">
-                <h3>Current User Details</h3>
+                <h3>Current Employee Details</h3>
                 <p>Name: <span th:text="${employee.name}"></span></p>
                 <p>Email: <span th:text="${employee.email}"></span></p>
                 <p th:with="role=${employee.role.toString()}">Role:
