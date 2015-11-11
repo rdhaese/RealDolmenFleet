@@ -49,7 +49,7 @@
 
         <td th:text="${pack.name}"></td>
 
-        <td align="center" th:text="${pack.price}"></td>
+        <td align="center">€ <span th:text="${number.formatDecimal(pack.price,1,2)}">packPrice</span></td>
 
         <td align="center" th:text="${pack.carOptions.size()}"></td>
 
