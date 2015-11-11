@@ -1,6 +1,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/fragments :: head"></head>
 <body>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#usageTable').dataTable();
+    } );
+</script>
 <div th:replace="fragments/fragments :: header"></div>
 
 <div class="container">
@@ -207,7 +213,7 @@
                         <h4>Updates</h4>
 
                         <p th:if="${updates.isEmpty()}">Nothing to report.</p>
-                        <table class="table" th:if="${!updates.isEmpty()}">
+                        <table id="usageTable" class="table" th:if="${!updates.isEmpty()}">
                             <thead>
                             <th>Date Received Update</th>
                             <th>New Amount of Km</th>
@@ -232,7 +238,5 @@
 </div>
 <hr/>
 
-
-<div th:replace="fragments/fragments :: div.scripts"></div>
 </body>
 </html>
