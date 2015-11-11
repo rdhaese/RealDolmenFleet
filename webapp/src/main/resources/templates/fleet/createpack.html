@@ -23,13 +23,13 @@
         <form method="POST" th:object="${pack}" action="/fleet/createpack">
     <div th:class="${#fields.hasErrors('name')}? 'has-error'">
         <label th:for="${#ids.next('name')}"> <p th:text="#{pack.namem}">Name</p></label>
-        <input type="text" th:field="*{name}" /> <br/>
+        <input type="text" th:field="*{name}" class="form-control"/> <br/>
         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
     </div>
 
     <div th:class="${#fields.hasErrors('price')}? 'has-error'">
         <label th:for="${#ids.next('price')}"> <p th:text="#{pack.price}">Price</p></label>
-        <input type="text" th:field="*{price}" /> <br/>
+        <input type="text" th:field="*{price}" class="form-control"/> <br/>
         <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
     </div>
         <button type="submit" class="btn btn-primary"><p th:text="#{pack.new}">add</p> </button>
@@ -42,13 +42,13 @@
                 <form method="POST" th:object="${carOption}"  action="/fleet/createnewpackoption">
                     <div th:class="${#fields.hasErrors('name')}? 'has-error'">
                         <label th:for="${#ids.next('name')}"><p th:text="#{option.namem}">Name</p> </label>
-                        <input type="text" th:field="*{name}" /> <br/>
+                        <input type="text" th:field="*{name}" class="form-control"/> <br/>
                         <span th:if="${optionNameError}" th:text="#{option.namemissing}"></span>
                     </div>
 
                     <div th:class="${#fields.hasErrors('description')}? 'has-error'">
                         <label th:for="${#ids.next('description')}"> <p th:text="#{option.description}">Descriptin</p></label>
-                        <input type="text" th:field="*{description}" /> <br/>
+                        <input type="text" th:field="*{description}" class="form-control"/> <br/>
                         <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
                     </div>
 

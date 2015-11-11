@@ -19,33 +19,33 @@
             <form method="POST" th:object="${employee}">
                 <div th:class="${#fields.hasErrors('name')}? 'has-error'">
                     <label th:for="${#ids.next('name')}"><p th:text="#{employee.namem}"> name </p> </label>
-                    <input type="text" th:field="*{name}" />
+                    <input type="text" th:field="*{name}" class="form-control"/>
                     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                 </div>
 
                 <div th:class="${#fields.hasErrors('email')}? 'has-error'">
                     <label th:for="${#ids.next('email')}"><p th:text="#{employee.mailm}"> mail  </p></label>
-                    <input type="text" th:field="*{email}" />
+                    <input type="text" th:field="*{email}" class="form-control"/>
                     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                 </div>
 
 
                 <div th:class="${#fields.hasErrors('functionalLevel')}? 'has-error'">
                     <label th:for="${#ids.next('functionalLevel')}"> <p th:text="#{employee.funclevelm}"> functional level </p> </label>
-                    <input type="text" th:field="*{functionalLevel}" />
+                    <input type="text" th:field="*{functionalLevel}" class="form-control"/>
                     <span th:if="${#fields.hasErrors('functionalLevel')}" th:errors="*{functionalLevel}"></span>
                 </div>
 
                 <div th:class="${#fields.hasErrors('inServiceDate')}? 'has-error'">
                     <label th:for="${#ids.next('inServiceDate')}"> <p th:text="#{employee.servicedatem}"> servicedate  </p> </label>
 
-                    <input type="text"  id="datepicker" th:field="*{inServiceDate}" placeholder="MM/DD/YYYY" />
+                    <input type="text"  id="datepicker" class="form-control" th:field="*{inServiceDate}" placeholder="MM/DD/YYYY" />
                     <span th:if="${#fields.hasErrors('inServiceDate')}" th:errors="*{inServiceDate}"></span>
                 </div>
 
                 <div th:class="${#fields.hasErrors('role')}? 'has-error'">
                     <label th:for="${#ids.next('role')}"> <p th:text="#{employee.rolem}"> Role  </p></label>
-                    <select name="role-selector" th:field="*{role}" >
+                    <select name="role-selector" th:field="*{role}" class="form-control">
                         <option th:each="rol : ${T(com.realdolmen.fleet.enums.EmployeeType).values()}" th:value="${rol}" th:text="${rol}" ></option>
                     </select>
 
@@ -55,7 +55,7 @@
 
                 <div th:class="${#fields.hasErrors('password')}? 'has-error'">
                     <label th:for="${#ids.next('password')}"> <p th:text="#{employee.passwordm}"> password  </p></label>
-                    <input type="text" th:field="*{password}" />
+                    <input type="text" th:field="*{password}" class="form-control"/>
                     <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                 </div>
 
