@@ -54,17 +54,17 @@
                     <p th:text="#{car.category} + ' :  ' +  ${order.orderedCar.car.category}"> category </p>
 
                     <p th:if="${order.orderedCar.car.category &gt; order.employee.functionalLevel}"
-                       th:text="#{car.upgrade} + ' : €' +  ${order.orderedCar.car.amountUpgrade}"> amountUpgrade</p>
+                       th:text="#{car.upgrade} + ' : €' +  ${#numbers.formatDecimal(order.orderedCar.car.amountUpgrade,1,2)}"> amountUpgrade</p>
 
                     <p th:if="${order.orderedCar.car.category &lt; order.employee.functionalLevel}"
-                       th:text="#{car.downgrade} + ' : €' +  ${order.orderedCar.car.amountDowngrade}">
+                       th:text="#{car.downgrade} + ' : €' +  ${#numbers.formatDecimal(order.orderedCar.car.amountDowngrade1,2)}">
                         amountDowngrade</p>
 
-                    <p th:text="#{car.pk} + ' :  ' +  ${order.orderedCar.car.pk}"> pk </p>
+                    <p th:text="#{car.pk} + ' :  ' +  ${#numbers.formatDecimal(order.orderedCar.car.pk,1,2)}"> pk </p>
 
-                    <p th:text="#{car.fiscalhp} + ' :  ' +  ${order.orderedCar.car.fiscalHP}"> fhp </p>
+                    <p th:text="#{car.fiscalhp} + ' :  ' +  ${#numbers.formatDecimal(order.orderedCar.car.fiscalHP,1,2)}"> fhp </p>
 
-                    <p th:text="#{car.emission} + ' :  ' +  ${order.orderedCar.car.emission}"> emission </p>
+                    <p th:text="#{car.emission} + ' :  ' +  ${#numbers.formatDecimal(order.orderedCar.car.emission,1,2)}"> emission </p>
 
                     <p th:text="#{car.fueltype} + ' :  ' +  ${order.orderedCar.car.fuelType}"> fuel type </p>
 
@@ -77,9 +77,9 @@
 
                     <p th:text="#{car.maxkm} + ' :  ' +  ${order.orderedCar.car.maxKm}"> maxkm </p>
 
-                    <p th:text="#{car.price} + ' :  ' +  ${order.orderedCar.car.listPrice}"> listprice </p>
+                    <p th:text="#{car.price} + ' :  ' +  ${#numbers.formatDecimal(order.orderedCar.car.listPrice,1,2)}"> listprice </p>
 
-                    <p th:text="#{car.benefit} + ' :  ' +  ${order.orderedCar.car.benefit}"> benefit </p>
+                    <p th:text="#{car.benefit} + ' :  ' +  ${#numbers.formatDecimal(order.orderedCar.car.benefit,1,2)}"> benefit </p>
 
                 </div>
 
@@ -106,7 +106,7 @@
                 <div id="orderDetails" style="width: 49%; float: right;">
                     <h3 th:text="#{order.specificdetails}">Order Specific Details</h3>
 
-                    <p><span th:text="#{order.date}"/>: <span th:text="${order.orderDate}"/></p>
+                    <p><span th:text="#{order.date}"/>: <span th:text="${#dates.format(order.orderDate, #messages.msg('app.dateformat'))}"/></p>
 
                     <p>
                     <p th:text="#{confirm.startdate}"/> <input type="text" id="datepicker" class="form-control" th:field="*{startDate}"/>
@@ -126,7 +126,7 @@
                     </p>
 
 
-                    <p th:text="#{confirm.price}"/> <input type="number" step="0.01" min="1" th:field="*{price}" class="form-control"/>
+                    <p th:text="#{confirm.price}"/> €<input type="number" step="0.01" min="1" th:field="*{price}" class="form-control"/>
                     <span class="val-error" th:if="${priceError}" th:text="#{confirm.priceerror}"><br/>Make sure the price is filled in. (>0)</span>
                 </div>
                 <div style="width: 100%; float: left;">
