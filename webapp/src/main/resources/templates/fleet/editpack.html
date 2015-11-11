@@ -33,6 +33,7 @@
                                 <input type="number" min="0" step="0.01" th:field="*{price}" class="form-control"/>
                                 <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="val-error"></span>
                             </div>
+                            <br/>
                             <button type="submit" class="btn btn-primary"><p th:text="#{pack.saveupdate}">save
                                 update</p></button>
 
@@ -52,7 +53,7 @@
                                 <input type="text" th:field="*{description}" class="form-control"/>
                                 <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="val-error"></span>
                             </div>
-
+                            <br/>
                             <button type="submit" class="btn btn-primary"><p th:text="#{pack.newoption}">add</p>
                             </button>
                         </form>
