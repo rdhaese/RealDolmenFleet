@@ -105,7 +105,11 @@
                     <input type="text" th:field="*{amountDowngrade}" />
                     <span th:if="${#fields.hasErrors('amountDowngrade')}" th:errors="*{amountDowngrade}"></span>
                 </div>
-
+                <div th:class="${#fields.hasErrors('pictures')}? 'has-error'">
+                    <label th:for="${#ids.next('pictures')}"> <p th:text="#{car.picture}"> picture</p></label>
+                    <input type="text" th:field="*{pictures[0]}" />
+                    <span th:if="${#fields.hasErrors('pictures')}" th:errors="*{pictures}"></span>
+                </div>
 
                 <br/>
                 <button type="submit"  class="btn btn-primary"> <p th:text="#{car.gotopacks}"> Go to pack/options selection </p></button>

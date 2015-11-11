@@ -34,21 +34,30 @@
 
     <h3>  <p th:text="#{car.optionalpacks}"> otpional pack</p></h3>
 
-    <table>
+    <table id="extrapacks">
         <tr th:each="expack, idStat  : ${car.extraPacks}">
 
             <td th:text="${expack.name}">1</td>
-            <td> <a th:href="${#mvc.url('CCC#removeExtraPack').arg(0, idStat.index).build()}" > <p th:text="#{car.removepack}"> ermove </p> </a> </td>
+
+            <td>  <a  th:onclick="'javascript:removeExtraPack(this);'"
+                      class="btn btn-primary form-control" th:text="#{car.removepack}">remove</a> </td>
+
+
 
         </tr>
     </table>
 
     <h3> <p th:text="#{car.extraposoptions}"> extra pos optios</p></h3>
-    <table>
+    <table id="extraoptions">
         <tr th:each="opt, idStat  : ${car.extraOptions}">
 
             <td th:text="${opt.name}">1</td>
-            <td> <a th:href="${#mvc.url('CCC#removeExtraOption').arg(0, idStat.index).build()}" > <p th:text="#{car.removeoption}"> ermove </p>  </a> </td>
+
+
+            <td>  <a  th:onclick="'javascript:removeExtraOption(this);'"
+                      class="btn btn-primary form-control" th:text="#{car.removeoption}">remove</a> </td>
+
+
 
         </tr>
     </table>
@@ -85,9 +94,12 @@
             <td th:text="${pack.price}"></td>
 
             <td>  <a th:onclick="'javascript:setBasePack(\'' + ${pack.id} + '\',\'' + ${pack.name}+ '\');'"
-                     class="btn btn-primary form-control" th:text="#{pack.addoptionto}">add </a> </td>
+                     class="btn btn-primary form-control" th:text="#{car.setbasepack}">add </a> </td>
 
-            <td> <a th:href="${#mvc.url('CCC#addExtraPack').arg(0, pack.id).build()}" > <p th:text="#{car.addextrapack}"> add extra pack </p> </a> </td>
+            <td>  <a th:onclick="'javascript:addExtraPack(\'' + ${pack.id} + '\',\'' + ${pack.name}+ '\');'"
+                     class="btn btn-primary form-control" th:text="#{car.addextrapack}">add </a> </td>
+
+
 
 
         </tr>
@@ -168,20 +180,20 @@
 
     }
 
-    function removeOption(element){
+    function removeExtraPack(element){
 
 
         var id = element.parentNode.parentNode.rowIndex;
 
         var request = $.ajax({
-            url : "http://localhost:8080/fleet/removeajaxoptiontopack",
+            url : "http://localhost:8080/fleet/removeajaxextrapack",
             type : "post",
             data : "id=" + id
         });
 
         request.done(function(data) {
 
-            document.getElementById('selectedoptions').deleteRow(id);
+            document.getElementById('extrapacks').deleteRow(id);
 
 
         });
@@ -192,29 +204,55 @@
             alert("The following error occured: " + textStatus, errorThrown);
         });
 
+    }
+
+    function removeExtraOption(element){
 
 
+        var id = element.parentNode.parentNode.rowIndex;
+
+        var request = $.ajax({
+            url : "http://localhost:8080/fleet/removeajaxextraoption",
+            type : "post",
+            data : "id=" + id
+        });
+
+        request.done(function(data) {
+
+            document.getElementById('extraoptions').deleteRow(id);
+            console.log(data);
+
+
+        });
+
+        // callback handler that will be called on failure
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
 
     }
-    function addInPack(id, index, name){
+    function addExtraPack(id, name){
 
 
         var request = $.ajax({
-            url : "http://localhost:8080/fleet/addajaxoptiontopack",
+            url : "http://localhost:8080/fleet/addajaxextrapack",
             type : "post",
             data : "id=" + id
         });
 
 
         request.done(function(data) {
-            var tableRef = document.getElementById('selectedoptions').getElementsByTagName('tbody')[0];
-
+            var tableRef = document.getElementById('extrapacks');
+            console.log(tableRef);
+            console.log(name);
+                /*
             if(!undefined ) {
                 document.getElementById('selectedoptions').appendChild(document.createElement('tbody'));
                 tableRef = document.getElementById('selectedoptions').getElementsByTagName('tbody')[0];
             }
             var rownumber = tableRef.rows.length;
-
+            */
 // Insert a row in the table at the last row
             var newRow   = tableRef.insertRow(tableRef.rows.length);
 
@@ -237,7 +275,7 @@
 
             var nbr = tableRef.getElementsByTagName('tr').length;
             a.onclick = function() {
-                removeOption(this);
+                removeExtraPack(this);
             }
             a.className = "btn btn-primary form-control";
 

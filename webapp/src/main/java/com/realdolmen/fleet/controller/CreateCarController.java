@@ -95,6 +95,20 @@ public class CreateCarController {
         return "ok";
     }
 
+    @RequestMapping(value = "/fleet/addajaxextrapack", method = RequestMethod.POST)
+    public @ResponseBody
+    String addAjaxExtraPack(@RequestParam("id") Long id, Model model) {
+
+        Pack p = packService.findPackById(id);
+        createdCar.addExtraPack(p);
+        /*
+        model.addAttribute("car", createdCar);
+        model.addAttribute("packList", packService.findAll());
+        model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
+        return "/fleet/optionselection";*/
+        return "ok";
+    }
+
 
     @RequestMapping(value = "/fleet/addExtraPack/{id}", method = RequestMethod.GET)
     public
@@ -133,6 +147,19 @@ public class CreateCarController {
         return "/fleet/optionselection";
     }
 
+    @RequestMapping(value = "/fleet/removeajaxextrapack", method = RequestMethod.POST)
+    public @ResponseBody
+    String removeAjaxExtraPack(@RequestParam("id") int id, Model model) {
+        createdCar.getExtraPacks().remove(id);
+        /*
+        model.addAttribute("car", createdCar);
+        model.addAttribute("packList", packService.findAll());
+        model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
+        */
+        // Prepare the response string
+        return "ok";
+    }
+
     @RequestMapping(value = "/fleet/removeextraoption/{id}", method = RequestMethod.GET)
     public //@ResponseBody
     String removeExtraOption(@RequestParam int id, Model model) {
@@ -143,6 +170,20 @@ public class CreateCarController {
         //model.addAttribute("optionList", carOptionsService.findAll());
         // Prepare the response string
         return "/fleet/optionselection";
+    }
+
+    @RequestMapping(value = "/fleet/removeajaxextraoption", method = RequestMethod.POST)
+    public @ResponseBody
+    List<CarOption> removeAjaxExtraOption(@RequestParam int id, Model model) {
+        createdCar.getExtraOptions().remove(id);
+        /*
+        model.addAttribute("car", createdCar);
+        model.addAttribute("packList", packService.findAll());
+        model.addAttribute("optionList", );
+        //model.addAttribute("optionList", carOptionsService.findAll());
+        */
+        // Prepare the response string
+        return packService.findMissingGeneralRDOptions(createdCar.getExtraOptions());
     }
 
     @RequestMapping(value = "/fleet/savecar", method = RequestMethod.GET)
