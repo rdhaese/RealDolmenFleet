@@ -143,7 +143,7 @@
             <div id="usageInfo" th:if="${carUsage != null and carUsage.licensePlate != null}" style="width: 100%; float: left;">
                 <h3>Usage</h3>
                 <h4>Details</h4>
-                <div style="width: 20%; float: left;">
+                <div style="width: 19%; float: left;">
                 <p>License Plate: <span th:text="${carUsage.licensePlate}"></span></p>
 
                 <p>Order date: <span
@@ -156,7 +156,7 @@
                         th:text="${#dates.format(carUsage.initialEndDate, #messages.msg('app.dateformat'))}"></span></p>
 
                 </div>
-                <div id="usageUpdates" th:with="updates=${carUsage.usageUpdates}" style="width: 80%; float: right;">
+                <div id="usageUpdates" th:with="updates=${carUsage.usageUpdates}" style="width: 79%; float: right;">
                     <h4>Updates</h4>
 
                     <p th:if="${updates.isEmpty()}">Nothing to report.</p>
