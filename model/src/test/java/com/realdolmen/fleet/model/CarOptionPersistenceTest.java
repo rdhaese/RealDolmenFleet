@@ -56,12 +56,6 @@ public class CarOptionPersistenceTest extends AbstractPersistenceTest{
         em.persist(carOption);
     }
 
-    @Test (expected = ConstraintViolationException.class)
-    public void carOptionCannotBePersistedWithEmptyDescription(){
-        CarOption carOption= new CarOption("", "name");
-        em.persist(carOption);
-    }
-
     @Test
     public void carOptionWithVeryLongDescriptionCanBePersisted(){
         CarOption carOption= new CarOption(getStringOfXCharacters(10000), "name");

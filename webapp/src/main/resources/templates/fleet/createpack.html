@@ -4,10 +4,10 @@
 <div th:replace="fragments/fragments :: header"></div>
 <div th:replace="fragments/fragments :: div.scripts"></div>
 <script type="text/javascript" charset="utf-8">
-    $(document).ready( function () {
+    $(document).ready(function () {
         $('#possibleoptions').dataTable().columnFilter();
 
-    } );
+    });
 
 
 </script>
@@ -18,138 +18,133 @@
         <div class="col-lg-12">
             <div>
 
-<div>
-    <div style="float:left; width: 45%">
-        <form method="POST" th:object="${pack}" action="/fleet/createpack">
-    <div th:class="${#fields.hasErrors('name')}? 'has-error'">
-        <label th:for="${#ids.next('name')}"> <p th:text="#{pack.namem}">Name</p></label>
-        <input type="text" th:field="*{name}" /> <br/>
-        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-    </div>
+                <div>
+                    <div style="float:left; width: 44%">
+                        <form method="POST" th:object="${pack}" action="/fleet/createpack">
+                            <div th:class="${#fields.hasErrors('name')}? 'has-error'">
+                                <label th:for="${#ids.next('name')}"><p th:text="#{pack.namem}">Name</p></label>
+                                <input type="text" th:field="*{name}" class="form-control"/> <br/>
+                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="val-error"></span>
+                            </div>
 
-    <div th:class="${#fields.hasErrors('price')}? 'has-error'">
-        <label th:for="${#ids.next('price')}"> <p th:text="#{pack.price}">Price</p></label>
-        <input type="text" th:field="*{price}" /> <br/>
-        <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
-    </div>
-        <button type="submit" class="btn btn-primary"><p th:text="#{pack.new}">add</p> </button>
-</form>
+                            <div th:class="${#fields.hasErrors('price')}? 'has-error'">
+                                <label th:for="${#ids.next('price')}"><p th:text="#{pack.price}">Price</p></label>
+                                <input type="number" min="0" step="0.01" th:field="*{price}" class="form-control"/> <br/>
+                                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="val-error"></span>
+                            </div>
+                            <br/>
+                            <button type="submit" class="btn btn-primary"><p th:text="#{pack.new}">add</p></button>
+                        </form>
 
 
-</div>
-
-                <div style="float:left; width: 55%">
-                <form method="POST" th:object="${carOption}"  action="/fleet/createnewpackoption">
-                    <div th:class="${#fields.hasErrors('name')}? 'has-error'">
-                        <label th:for="${#ids.next('name')}"><p th:text="#{option.namem}">Name</p> </label>
-                        <input type="text" th:field="*{name}" /> <br/>
-                        <span th:if="${optionNameError}" th:text="#{option.namemissing}"></span>
                     </div>
 
-                    <div th:class="${#fields.hasErrors('description')}? 'has-error'">
-                        <label th:for="${#ids.next('description')}"> <p th:text="#{option.description}">Descriptin</p></label>
-                        <input type="text" th:field="*{description}" /> <br/>
-                        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                    <div style="float:right; width: 54%">
+                        <form method="POST" th:object="${carOption}" action="/fleet/createnewpackoption">
+                            <div th:class="${#fields.hasErrors('name')}? 'has-error'">
+                                <label th:for="${#ids.next('name')}"><p th:text="#{option.namem}">Name</p></label>
+                                <input type="text" th:field="*{name}" class="form-control"/> <br/>
+                                <span th:if="${optionNameError}" th:text="#{option.namemissing}" class="val-error"></span>
+                            </div>
+
+                            <div th:class="${#fields.hasErrors('description')}? 'has-error'">
+                                <label th:for="${#ids.next('description')}"><p th:text="#{option.description}">
+                                    Descriptin</p></label>
+                                <input type="text" th:field="*{description}" class="form-control"/> <br/>
+                                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="val-error"></span>
+                            </div>
+                            <br/>
+                            <button type="submit" class="btn btn-primary"><p th:text="#{pack.newoption}">add</p>
+                            </button>
+
+                        </form>
                     </div>
-
-
                     <br/>
+                    <br/>
+                </div>
+                <div>
+                    <div style="clear:both; float:left; width: 44%">
+                        <h1><p th:text="#{pack.selectedoptions}">selecopt</p></h1>
+                        <table id="selectedoptions">
+                            <tr th:each="caropt,idStat  : ${pack.carOptions}">
 
-                    <button type="submit" class="btn btn-primary"><p th:text="#{pack.newoption}">add</p> </button>
+                                <td th:text="${caropt.name}"></td>
 
-                </form>
+                                <td><a th:onclick="'javascript:removeOption(this);'"
+                                       class="btn btn-primary form-control" th:text="#{pack.removeoption}">remove</a>
+                                </td>
+
+                            </tr>
+
+                        </table>
                     </div>
+
+
+                    <div style="float:right; width: 54%">
+                        <table id="possibleoptions">
+                            <thead>
+                            <tr>
+                                <th><p th:text="#{option.name}"> Name </p></th>
+                                <th><p th:text="#{option.description}"> Description</p></th>
+                                <th></th>
+
+
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th><p th:text="#{option.name}"> Name </p></th>
+                                <th><p th:text="#{option.description}"> Description</p></th>
+                            </tr>
+                            </tfoot>
+
+                            <tbody>
+
+
+                            <tr th:each="caroption, idStat  : ${allCarOptions}">
+
+                                <td th:text="${caroption.name}"></td>
+
+                                <td th:text="${caroption.description}"></td>
+
+                                <td>
+                                    <a th:onclick="'javascript:addInPack(\'' + ${caroption.id} + '\',\'' + ${idStat.index} +  '\',\'' + ${caroption.name}+ '\');'"
+                                       class="btn btn-primary form-control" th:text="#{pack.addoptionto}">add </a></td>
+
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
                 <br/>
                 <br/>
-    </div>
-    <div>
-    <div style="clear:both; float:left; width: 45%">
-        <h1> <p th:text="#{pack.selectedoptions}">selecopt</p> </h1>
-        <table id="selectedoptions">
-            <tr th:each="caropt,idStat  : ${pack.carOptions}">
+            </div>
 
-                <td th:text="${caropt.name}"></td>
-
-                <td>  <a  th:onclick="'javascript:removeOption(this);'"
-                          class="btn btn-primary form-control" th:text="#{pack.removeoption}">remove</a> </td>
-
-            </tr>
-
-        </table>
-    </div>
-
-
-
-
-    <div style="float:left; width: 50%">
-    <table  id="possibleoptions" >
-        <thead>
-        <tr>
-            <th><p th:text="#{option.name}"> Name </p> </th>
-            <th><p th:text="#{option.description}"> Description</p></th>
-            <th> </th>
-
-
-        </tr>
-        </thead>
-        <tfoot>
-        <tr>
-            <th><p th:text="#{option.name}"> Name </p> </th>
-            <th><p th:text="#{option.description}"> Description</p></th>
-        </tr>
-        </tfoot>
-
-        <tbody>
-
-
-        <tr th:each="caroption, idStat  : ${allCarOptions}">
-
-            <td th:text="${caroption.name}"></td>
-
-            <td th:text="${caroption.description}"></td>
-
-           <td>  <a th:onclick="'javascript:addInPack(\'' + ${caroption.id} + '\',\'' + ${idStat.index} +  '\',\'' + ${caroption.name}+ '\');'"
-                    class="btn btn-primary form-control" th:text="#{pack.addoptionto}">add </a> </td>
-
-
-
-        </tr>
-        </tbody>
-    </table>
-        </div>
-        </div>
-
-
-
-
-
-
-<br/>
-<br/>
-</div>
-
-    <br/>
+            <br/>
 
         </div>
 
         <hr/>
     </div>
-    </div>
+</div>
 
 <script>
 
-    function removeOption(element){
+    function removeOption(element) {
 
 
         var id = element.parentNode.parentNode.rowIndex;
 
         var request = $.ajax({
-            url : "http://localhost:8080/fleet/removeajaxoptiontopack",
-            type : "post",
-            data : "id=" + id
+            url: "http://localhost:8080/fleet/removeajaxoptiontopack",
+            type: "post",
+            data: "id=" + id
         });
 
-        request.done(function(data) {
+        request.done(function (data) {
 
             document.getElementById('selectedoptions').deleteRow(id);
 
@@ -157,47 +152,42 @@
         });
 
         // callback handler that will be called on failure
-        request.fail(function(jqXHR, textStatus, errorThrown) {
+        request.fail(function (jqXHR, textStatus, errorThrown) {
             // log the error to the console
             alert("The following error occured: " + textStatus, errorThrown);
         });
 
 
-
-
     }
-    function addInPack(id, index, name){
+    function addInPack(id, index, name) {
 
 
         var request = $.ajax({
-            url : "http://localhost:8080/fleet/addajaxoptiontopack",
-            type : "post",
-            data : "id=" + id
+            url: "http://localhost:8080/fleet/addajaxoptiontopack",
+            type: "post",
+            data: "id=" + id
         });
 
 
-        request.done(function(data) {
+        request.done(function (data) {
             var tableRef = document.getElementById('selectedoptions').getElementsByTagName('tbody')[0];
 
-            if(!undefined ) {
+            if (!undefined) {
                 document.getElementById('selectedoptions').appendChild(document.createElement('tbody'));
-               tableRef = document.getElementById('selectedoptions').getElementsByTagName('tbody')[0];
+                tableRef = document.getElementById('selectedoptions').getElementsByTagName('tbody')[0];
             }
             var rownumber = tableRef.rows.length;
 
 // Insert a row in the table at the last row
-            var newRow   = tableRef.insertRow(tableRef.rows.length);
-
-
-
+            var newRow = tableRef.insertRow(tableRef.rows.length);
 
 
 // Insert a cell in the row at index 0
-            var newCell  = newRow.insertCell(0);
+            var newCell = newRow.insertCell(0);
             var newCell2 = newRow.insertCell(1);
 
 // Append a text node to the cell
-            var newText  = document.createTextNode(name)
+            var newText = document.createTextNode(name)
             newCell.appendChild(newText);
 
             var a = document.createElement('a');
@@ -206,30 +196,27 @@
             a.title = "Remove";
 
             var nbr = tableRef.getElementsByTagName('tr').length;
-            a.onclick = function() {
+            a.onclick = function () {
                 removeOption(this);
             }
             a.className = "btn btn-primary form-control";
 
 
-            var newText2  = document.createTextNode(id)
+            var newText2 = document.createTextNode(id)
             newCell2.appendChild(a);
-
 
 
         });
 
         // callback handler that will be called on failure
-        request.fail(function(jqXHR, textStatus, errorThrown) {
+        request.fail(function (jqXHR, textStatus, errorThrown) {
             // log the error to the console
             alert("The following error occured: " + textStatus, errorThrown);
         });
 
 
-
     }
 </script>
-
 
 
 </body>

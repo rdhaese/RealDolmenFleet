@@ -1,13 +1,9 @@
 package com.realdolmen.fleet.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -162,6 +158,7 @@ public class CarUsage extends BaseEntity implements Comparable<CarUsage> {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
 
     public List<PeriodicUsageUpdate> getUsageUpdates() {
         return usageUpdates;

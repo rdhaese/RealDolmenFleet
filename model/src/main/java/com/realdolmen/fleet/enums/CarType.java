@@ -7,9 +7,11 @@ package com.realdolmen.fleet.enums;
  */
 public enum CarType
 {
-    ELECTRIC,
-    HYBRID,
+    NORMAL,
     BREAK,
     MONOVOLUME,
-    NORMAL
+    HYBRID,
+    ELECTRIC
+
+
 }

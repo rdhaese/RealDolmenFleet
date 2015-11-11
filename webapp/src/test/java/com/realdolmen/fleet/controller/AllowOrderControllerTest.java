@@ -49,13 +49,14 @@ public class AllowOrderControllerTest extends AbstractControllerTest {
 
     @Test
     public void postAllowOrderHandledCorrectly() throws Exception {
-        Employee emp = new Employee();
+        fail("Needs to be changed to fit new implementation");
+        /*Employee emp = new Employee();
         when(employeeService.findUserOnEmail(any())).thenReturn(emp);
         MockHttpServletRequestBuilder post = post("/fleet/allow-order")
                 .param("email", "youwontfindme@lost.com");
         mockMvc.perform(post).andExpect(redirectedUrl("/fleet/allow-order"));
         verify(employeeService, times(1)).save(emp);
         verify(loginListener, times(1)).updateLoggedInUserCanOrderNewCar();
-        verify(mailService, times(1)).sendMail(any(),any(),any());
+        verify(mailService, times(1)).sendMail(any(),any(),any());*/
     }
 }

@@ -1,7 +1,9 @@
 package com.realdolmen.fleet.controller;
 
 import com.realdolmen.fleet.dto.EditPasswordDTO;
+import com.realdolmen.fleet.model.CarUsage;
 import com.realdolmen.fleet.model.Employee;
+import com.realdolmen.fleet.service.CarService;
 import com.realdolmen.fleet.service.EmployeeService;
 import com.realdolmen.fleet.validator.PasswordValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private CarService carService;
 
     private Employee employee;
 
@@ -50,7 +54,6 @@ public class EmployeeController {
         passwordValidator.validate(editPasswordDTO, errors);
 
         if( errors.hasErrors()){
-            System.out.println("password has errors");
             return "employees/editpassword";
         }
 
@@ -58,9 +61,14 @@ public class EmployeeController {
          //   employeeService.saveEditedEmployee(employeeService.getLoggedInUser(), editPasswordDTO.getExistingPassword(), editPasswordDTO.getNewPassword());
         employeeService.saveNewPassword(editPasswordDTO.getNewPassword());
 
-
-
-        return "redirect:/index";
+        Employee loggedInUser = employeeService.getLoggedInUser();
+        model.addAttribute("employee", loggedInUser);
+        CarUsage carUsage = carService.findCarUsageForEmployee(employeeService.getLoggedInUser().getEmail());
+        if (carUsage != null) {
+            model.addAttribute("carUsage", carUsage);
+        }
+        model.addAttribute("passwordEdit", true);
+        return "/employees/overview";
     }
 
 

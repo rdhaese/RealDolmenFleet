@@ -18,7 +18,7 @@
                 <h2><p th:text="#{order.allow}"> Allow Ordering Car </p></h2>
                 <form method="post" th:action="@{allow-order}">
                     <p th:if="${emailNotFound}">
-                    <p th:text="#{order.nomailfound}"> No employee found for the given email. </p>
+                    <p th:text="#{order.nomailfound}" class="val-error"> No employee found for the given email. </p>
                     </p>
                     <p th:text="#{order.givemail}">  Give in email </p>
                     <input type="text" id="email" name="email" class="form-control"/>

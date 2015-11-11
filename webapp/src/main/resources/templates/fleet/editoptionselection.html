@@ -4,15 +4,15 @@
 <div th:replace="fragments/fragments :: header"></div>
 <div th:replace="fragments/fragments :: div.scripts"></div>
 <script type="text/javascript" charset="utf-8">
-    $(document).ready( function () {
+    $(document).ready(function () {
         $('#allPacks').dataTable().columnFilter();
 
-    } );
+    });
 
-    $(document).ready( function () {
+    $(document).ready(function () {
         $('#allOptions').dataTable().columnFilter();
 
-    } );
+    });
 
 </script>
 
@@ -21,113 +21,115 @@
     <div class="row">
         <div class="col-lg-12">
 
-            <h1> <b> <p th:text="${car.brand} + '  ' +  ${car.model}" >brand + model </p> </b> </h1>
+            <h1><b><p th:text="${car.brand} + '  ' +  ${car.model}">brand + model </p></b></h1>
 
-            <h4> <a th:href="${#mvc.url('ECC#updateCar').arg(0, car.id).build()}" class="btn btn-primary" >  <p th:text="#{car.update}"> Update Car </p> </a> </h4>
-
-
-
-    <div style="float:left; width: 40%">
-        <h3> <p th:text="#{car.basepacks}"> bse pack</p></h3>
-
-        <p th:if="${car.basePack != null}" th:text="${car.basePack.name}"/>
-
-        <h3>  <p th:text="#{car.optionalpacks}"> otpional pack</p></h3>
-    <table>
-        <tr th:each="expack, idStat  : ${car.extraPacks}">
-
-            <td th:text="${expack.name}">1</td>
-            <td> <a th:href="${#mvc.url('ECC#removeEditExtraPack').arg(0, idStat.index).build()}" > <p th:text="#{car.removepack}"> ermove </p> </a> </td>
-
-        </tr>
-    </table>
-
-    <h3> <p th:text="#{car.extraposoptions}"> extra pos optios</p></h3>
-    <table>
-        <tr th:each="opt, idStat  : ${car.extraOptions}">
-
-            <td th:text="${opt.name}">1</td>
-            <td> <a th:href="${#mvc.url('ECC#removeEditExtraOption').arg(0, idStat.index).build()}" ><p th:text="#{car.removeoption}"> ermove </p>  </a> </td>
-
-        </tr>
-    </table>
-
-</div>
-            <div style="float:left; width: 55%">
-                <h2> <p th:text="#{car.allpacks}"> all packs </p></h2>
-    <table id="allPacks">
-        <thead>
-        <tr>
-            <th><p th:text="#{pack.name}"> Name </p> </th>
-            <th><p th:text="#{pack.price}"> Price </p> </th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr>
-            <th><p th:text="#{pack.name}"> Name </p> </th>
-            <th><p th:text="#{pack.price}"> Price </p> </th>
-        </tr>
-        </tfoot>
-
-        <tbody>
+            <h4><a th:href="${#mvc.url('ECC#updateCar').arg(0, car.id).build()}" class="btn btn-primary"><p
+                    th:text="#{car.update}"> Update Car </p></a></h4>
 
 
-        <tr th:each="pack  : ${packList}">
+            <div style="float:left; width: 44%">
+                <h3><p th:text="#{car.basepacks}"> bse pack</p></h3>
 
-            <td th:text="${pack.name}"></td>
+                <p th:if="${car.basePack != null}" th:text="${car.basePack.name}"/>
 
-            <td th:text="${pack.price}"></td>
+                <h3><p th:text="#{car.optionalpacks}"> otpional pack</p></h3>
+                <table>
+                    <tr th:each="expack, idStat  : ${car.extraPacks}">
 
-            <td> <a th:href="${#mvc.url('ECC#setEditBasicPack').arg(0, pack.id).build()}" > <p th:text="#{car.setbasepack}">  set base pack </p> </a> </td>
+                        <td th:text="${expack.name}">1</td>
+                        <td><a th:href="${#mvc.url('ECC#removeEditExtraPack').arg(0, idStat.index).build()}"><p
+                                th:text="#{car.removepack}"> ermove </p></a></td>
 
-            <td> <a th:href="${#mvc.url('ECC#addEditExtraPack').arg(0, pack.id).build()}" > <p th:text="#{car.addextrapack}"> add extra pack </p> </a> </td>
+                    </tr>
+                </table>
 
+                <h3><p th:text="#{car.extraposoptions}"> extra pos optios</p></h3>
+                <table>
+                    <tr th:each="opt, idStat  : ${car.extraOptions}">
 
-        </tr>
-        </tbody>
-    </table>
+                        <td th:text="${opt.name}">1</td>
+                        <td><a th:href="${#mvc.url('ECC#removeEditExtraOption').arg(0, idStat.index).build()}"><p
+                                th:text="#{car.removeoption}"> ermove </p></a></td>
 
+                    </tr>
+                </table>
 
-      <h2> <p th:text="#{car.alloptions}"> allopitons </p> </h2>
-    <table id="allOptions">
-        <thead>
-        <tr>
-            <th><p th:text="#{option.name}"> Name </p> </th>
-            <th><p th:text="#{option.description}"> Description</p></th>
-            <th></th>
+            </div>
+            <div style="float:right; width: 54%">
+                <h2><p th:text="#{car.allpacks}"> all packs </p></h2>
+                <table id="allPacks">
+                    <thead>
+                    <tr>
+                        <th><p th:text="#{pack.name}"> Name </p></th>
+                        <th><p th:text="#{pack.price}"> Price </p></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th><p th:text="#{pack.name}"> Name </p></th>
+                        <th><p th:text="#{pack.price}"> Price </p></th>
+                    </tr>
+                    </tfoot>
 
-        </tr>
-        </thead>
-        <tfoot>
-        <tr>
-            <th><p th:text="#{option.name}"> Name </p> </th>
-            <th><p th:text="#{option.description}"> Description</p></th>
-        </tr>
-        </tfoot>
-
-        <tbody>
-
-
-        <tr th:each="option  : ${optionList}">
-
-            <td th:text="${option.name}"></td>
-
-            <td th:text="${option.description}"></td>
-
-            <td> <a th:href="${#mvc.url('ECC#addEditExtraOption').arg(0, option.id).build()}" > <p th:text="#{car.addoption}"> Add option </p> </a> </td>
-
-
-
-
-        </tr>
-        </tbody>
-    </table>
+                    <tbody>
 
 
-</div>
+                    <tr th:each="pack  : ${packList}">
 
+                        <td th:text="${pack.name}"></td>
+
+                        <td>€ <span th:text="${#numbers.formatDecimal(pack.price,1,2)}"></span></td>
+
+                        <td><a th:href="${#mvc.url('ECC#setEditBasicPack').arg(0, pack.id).build()}"><p
+                                th:text="#{car.setbasepack}"> set base pack </p></a></td>
+
+                        <td><a th:href="${#mvc.url('ECC#addEditExtraPack').arg(0, pack.id).build()}"><p
+                                th:text="#{car.addextrapack}"> add extra pack </p></a></td>
+
+
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <h2><p th:text="#{car.alloptions}"> allopitons </p></h2>
+                <table id="allOptions">
+                    <thead>
+                    <tr>
+                        <th><p th:text="#{option.name}"> Name </p></th>
+                        <th><p th:text="#{option.description}"> Description</p></th>
+                        <th></th>
+
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th><p th:text="#{option.name}"> Name </p></th>
+                        <th><p th:text="#{option.description}"> Description</p></th>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+
+
+                    <tr th:each="option  : ${optionList}">
+
+                        <td th:text="${option.name}"></td>
+
+                        <td th:text="${option.description}"></td>
+
+                        <td><a th:href="${#mvc.url('ECC#addEditExtraOption').arg(0, option.id).build()}"><p
+                                th:text="#{car.addoption}"> Add option </p></a></td>
+
+
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
 
 
         </div>

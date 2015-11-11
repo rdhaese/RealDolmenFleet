@@ -64,4 +64,7 @@ public class TestConfig {
     public CarUsageRepository carUsageRepository(){
         return mock(CarUsageRepository.class);
     }
+
+    @Bean
+    public HistoryRecordRepository historyRecordRepository() {return mock(HistoryRecordRepository.class);}
 }
