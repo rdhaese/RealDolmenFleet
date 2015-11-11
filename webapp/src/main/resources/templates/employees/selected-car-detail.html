@@ -21,15 +21,15 @@
 
                 <p th:text="#{car.category} + ' :  ' +  ${car.category}" > category </p>
 
-                <p th:if="${car.category &gt; functionalLevelForLoggedInUser}" th:text="#{car.upgrade} + ' : €' +  ${#number.formatDecimal(car.amountUpgrade,1,2)}"> amountUpgrade</p>
+                <p th:if="${car.category &gt; functionalLevelForLoggedInUser}" th:text="#{car.upgrade} + ' : €' +  ${#numbers.formatDecimal(car.amountUpgrade,1,2)}"> amountUpgrade</p>
 
-                <p th:if="${car.category &lt; functionalLevelForLoggedInUser}" th:text="#{car.downgrade} + ' : €' +  ${#number.formatDecimal(car.amountDowngrade,1,2)}"> amountDowngrade</p>
+                <p th:if="${car.category &lt; functionalLevelForLoggedInUser}" th:text="#{car.downgrade} + ' : €' +  ${#numbers.formatDecimal(car.amountDowngrade,1,2)}"> amountDowngrade</p>
 
-                <p th:text="#{car.pk} + ' :  ' +  ${#number.formatDecimal(car.pk,1,2)}" > pk </p>
+                <p th:text="#{car.pk} + ' :  ' +  ${#numbers.formatDecimal(car.pk,1,2)}" > pk </p>
 
-                <p th:text="#{car.fiscalhp} + ' :  ' +  ${#number.formatDecimal(car.fiscalHP,1,2)}" > fhp </p>
+                <p th:text="#{car.fiscalhp} + ' :  ' +  ${#numbers.formatDecimal(car.fiscalHP,1,2)}" > fhp </p>
 
-                <p th:text="#{car.emission} + ' :  ' +  ${#number.formatDecimal(car.emission,1,2)}" > emission </p>
+                <p th:text="#{car.emission} + ' :  ' +  ${#numbers.formatDecimal(car.emission,1,2)}" > emission </p>
 
                 <p th:text="#{car.fueltype} + ' :  ' +  ${car.fuelType}" > fuel type </p>
 
@@ -40,9 +40,9 @@
                 <p th:text="#{car.idealkm} + ' :  ' +  ${car.idealKm}" > ideal km </p>
 
                 <p th:text="#{car.maxkm} + ' :  ' +  ${car.maxKm}" > maxkm </p>
-                <p th:text="#{car.price} + ' :  ' +  ${#number.formatDecimal(car.listPrice,1,2)}" > listprice </p>
+                <p th:text="#{car.price} + ' :  ' +  ${#numbers.formatDecimal(car.listPrice,1,2)}" > listprice </p>
 
-                <p th:text="#{car.benefit} + ' :  ' +  ${#number.formatDecimal(car.benefit,1,2}" > benefit </p>
+                <p th:text="#{car.benefit} + ' :  ' +  ${#numbers.formatDecimal(car.benefit,1,2)}" > benefit </p>
 
             </div>
             <div id="pictures" style="width: 49%; float: left">
@@ -55,7 +55,7 @@
                 <h2> </h2>
                 <h3 th:text="#{car.basepack}">Base Pack</h3>
                 <h4 th:text="${car.basePack.name}">basePackName</h4>
-                <p th:text="#{car.price} + ' : € ' +  ${#number.formatDecimal(car.basePack.price,1,2)}" > basepackprice </p>
+                <p th:text="#{car.price} + ' : € ' +  ${#numbers.formatDecimal(car.basePack.price,1,2)}" > basepackprice </p>
 
                 <h5><p th:text="#{car.options} + ' :  '" > caropitons </p></h5>
                 <ul>

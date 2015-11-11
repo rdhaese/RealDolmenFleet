@@ -57,7 +57,7 @@
                        th:text="#{car.upgrade} + ' : €' +  ${#numbers.formatDecimal(order.orderedCar.car.amountUpgrade,1,2)}"> amountUpgrade</p>
 
                     <p th:if="${order.orderedCar.car.category &lt; order.employee.functionalLevel}"
-                       th:text="#{car.downgrade} + ' : €' +  ${#numbers.formatDecimal(order.orderedCar.car.amountDowngrade1,2)}">
+                       th:text="#{car.downgrade} + ' : €' +  ${#numbers.formatDecimal(order.orderedCar.car.amountDowngrade,1,2)}">
                         amountDowngrade</p>
 
                     <p th:text="#{car.pk} + ' :  ' +  ${#numbers.formatDecimal(order.orderedCar.car.pk,1,2)}"> pk </p>
@@ -126,7 +126,7 @@
                     </p>
 
 
-                    <p th:text="#{confirm.price}"/> €<input type="number" step="0.01" min="1" th:field="*{price}" class="form-control"/>
+                    <p th:text="#{confirm.price}"/><input type="number" step="0.01" min="1" th:field="*{price}" class="form-control"/>
                     <span class="val-error" th:if="${priceError}" th:text="#{confirm.priceerror}"><br/>Make sure the price is filled in. (>0)</span>
                 </div>
                 <div style="width: 100%; float: left;">
