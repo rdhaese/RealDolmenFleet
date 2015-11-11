@@ -8,18 +8,20 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
-
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created on 11/11/2015.
- * Test class for {@link AllowOrderService}
+ * Test class for {@link DisallowOrderService}
  * @author Robin D'Haese
  */
-@SpringApplicationConfiguration(classes = {AllowOrderService.class, AllowOrderServiceTest.InnerConfig.class})
-public class AllowOrderServiceTest extends AbstractServiceTest {
+@SpringApplicationConfiguration(classes = {DisallowOrderService.class, DisallowOrderServiceTest.InnerConfig.class})
+public class DisallowOrderServiceTest extends AbstractServiceTest {
     @Configuration
     @Profile("test")
     static class InnerConfig {
@@ -41,7 +43,7 @@ public class AllowOrderServiceTest extends AbstractServiceTest {
     }
 
     @Autowired
-    private AllowOrderService allowOrderService;
+    private DisallowOrderService disallowOrderService;
 
     @Autowired
     private EmployeeService employeeService;
@@ -51,10 +53,10 @@ public class AllowOrderServiceTest extends AbstractServiceTest {
     @Test
     public void allowTest(){
         Employee emp = new Employee();
-        allowOrderService.allow(emp);
+        emp.setPermissionToOrderNewCar(true);
+        disallowOrderService.disallow(emp);
         verify(employeeService, times(1)).save(emp);
         verify(mailService, times(1)).sendMail(any(), any(), any());
-        assertTrue(emp.isPermissionToOrderNewCar());
+        assertFalse(emp.isPermissionToOrderNewCar());
     }
-
 }
