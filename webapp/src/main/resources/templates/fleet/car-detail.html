@@ -22,11 +22,11 @@
 
                     <p>Category: <span th:text="${car.category}">category</span></p>
 
-                    <p>Horse Power: <span th:text="${car.pk}">pk</span></p>
+                    <p>Horse Power: <span th:text="${#numbers.formatDecimal(car.pk,1,2)}">pk</span></p>
 
-                    <p>Fiscal Horse Power: <span th:text="${car.fiscalHP}">fiscalHp</span></p>
+                    <p>Fiscal Horse Power: <span th:text="${#numbers.formatDecimal(car.fiscalHP,1,2)}">fiscalHp</span></p>
 
-                    <p>Emission: <span th:text="${car.emission}">emission</span></p>
+                    <p>Emission: <span th:text="${#numbers.formatDecimal(car.emission,1,2)}">emission</span></p>
 
                     <p>Fuel type: <span th:text="${car.fuelType}">fuelType</span></p>
 
@@ -38,9 +38,9 @@
 
                     <p>Max km: <span th:text="${car.maxKm}">maxKm</span></p>
 
-                    <p>List price: €<span th:text="${car.listPrice}">listPrice</span></p>
+                    <p>List price: €<span th:text="${#numbers.formatDecimal(car.listPrice,1,2)}">listPrice</span></p>
 
-                    <p>Benefit: €<span th:text="${car.benefit}">benefit</span></p>
+                    <p>Benefit: €<span th:text="${#numbers.formatDecimal(car.benefit,1,2)}">benefit</span></p>
                 </div>
 
                 <div id="basePackDetails" style="width: 50%; float: right" th:with="car=${carDetails.orderedCar.car}">
@@ -49,7 +49,7 @@
                     <h3>Base Pack</h3>
                     <h4 th:text="${car.basePack.name}">basePackName</h4>
 
-                    <p>price: €<span th:text="${car.basePack.price}">basePackPrice</span></p>
+                    <p>price: €<span th:text="${#numbers.formatDecimal(car.basePack.price,1,2)}">basePackPrice</span></p>
                     <h5>Options:</h5>
                     <ul>
                         <li th:each="option : ${car.basePack.carOptions}">
@@ -71,7 +71,7 @@
             <div id="orderSpecificDetails" th:with="orderDetails=${carDetails.orderedCar}">
                 <h3>Extra Details</h3>
 
-                <p>Price: <span th:text="${orderDetails.price}"></span><span> - Color: <span
+                <p>Price: <span th:text="${#numbers.formatDecimal(orderDetails.price)}"></span><span> - Color: <span
                         th:text="${orderDetails.color}"></span></span></p>
 
                 <p>Order date: <span
@@ -127,7 +127,7 @@
             </div>
         </div>
         <div id="usageUpdates" th:with="updates=${carDetails.usageUpdates}">
-            <h3>Usage</h3>
+            <h3>Usage Updates</h3>
 
             <p th:if="${updates.isEmpty()}">Nothing to report.</p>
             <table class="table" th:if="${!updates.isEmpty()}">
@@ -139,10 +139,10 @@
                 </thead>
                 <tbody>
                 <tr th:each="update : ${updates}">
-                    <td th:text="${update.updateDate}"></td>
+                    <td th:text="${#dates.format(update.updateDate, #messages.msg('app.dateformat'))}"></td>
                     <td th:text="${update.newTotalKm}"></td>
-                    <td th:text="${update.totalFuelledForPeriod}"></td>
-                    <td>€ <span th:text="${update.totalFuelPrice}"></span></td>
+                    <td th:text="${#numbers.formatDecimal(update.totalFuelledForPeriod,1,2)}"></td>
+                    <td>€ <span th:text="${#numbers.formatDecimal(update.totalFuelPrice,1,2)}"></span></td>
                 </tr>
                 </tbody>
             </table>
