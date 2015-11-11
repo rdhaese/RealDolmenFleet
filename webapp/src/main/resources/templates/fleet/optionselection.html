@@ -90,7 +90,7 @@
 
                         <td th:text="${pack.name}"></td>
 
-                        <td th:text="${#numbers.formatDecimal(pack.price,1,2)}"></td>
+                        <td>€ <span th:text="${#numbers.formatDecimal(pack.price,1,2)}"></span></td>
 
                         <td><a th:onclick="'javascript:setBasePack(\'' + ${pack.id} + '\',\'' + ${pack.name}+ '\');'"
                                class="btn btn-primary form-control" th:text="#{car.setbasepack}">add </a></td>
