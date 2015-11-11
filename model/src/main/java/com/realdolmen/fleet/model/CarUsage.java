@@ -1,8 +1,5 @@
 package com.realdolmen.fleet.model;
 
-import com.realdolmen.fleet.comparator.HistoryRecordComparator;
-import com.realdolmen.fleet.comparator.PeriodicUsageUpdateComparator;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
