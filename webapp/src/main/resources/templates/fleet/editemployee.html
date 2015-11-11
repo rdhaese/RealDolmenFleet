@@ -32,7 +32,7 @@
 
                 <div th:class="${#fields.hasErrors('functionalLevel')}? 'has-error'">
                     <label th:for="${#ids.next('functionalLevel')}"> <p th:text="#{employee.funclevelm}"> functional level </p> </label>
-                    <input type="number" min="0" max="8" th:field="*{functionalLevel}" class="form-control"/>
+                    <input type="number" min="1" max="8" th:field="*{functionalLevel}" class="form-control"/>
                     <span th:if="${#fields.hasErrors('functionalLevel')}" th:errors="*{functionalLevel}" class="val-error"></span>
                 </div>
 
