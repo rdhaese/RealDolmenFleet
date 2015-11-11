@@ -80,7 +80,7 @@
 
                         <td th:text="${pack.name}"></td>
 
-                        <td>€ <span th:text="${#numbers.formatDecimal(pack.price,1,2}"></span></td>
+                        <td>€ <span th:text="${#numbers.formatDecimal(pack.price,1,2)}"></span></td>
 
                         <td><a th:href="${#mvc.url('ECC#setEditBasicPack').arg(0, pack.id).build()}"><p
                                 th:text="#{car.setbasepack}"> set base pack </p></a></td>

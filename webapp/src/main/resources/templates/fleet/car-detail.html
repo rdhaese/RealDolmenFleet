@@ -71,7 +71,7 @@
             <div id="orderSpecificDetails" th:with="orderDetails=${carDetails.orderedCar}">
                 <h3>Extra Details</h3>
 
-                <p>Price: <span th:text="${#numbers.formatDecimal(orderDetails.price)}"></span><span> - Color: <span
+                <p>Price: <span th:text="${#numbers.formatDecimal(orderDetails.price,1,2)}"></span><span> - Color: <span
                         th:text="${orderDetails.color}"></span></span></p>
 
                 <p>Order date: <span

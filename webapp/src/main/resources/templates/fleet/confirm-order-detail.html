@@ -163,8 +163,8 @@
                         <table class="table" th:if="${!order.orderedCar.options.isEmpty()}">
                             <thead>
 
-                            <th th:text="${caroption.name}">Name</th>
-                            <th th:text="${caroption.description}">Description</th>
+                            <th th:text="#{caroption.name}">Name</th>
+                            <th th:text="#{caroption.description}">Description</th>
                             </thead>
                             <tbody>
                             <tr th:each="option : ${order.orderedCar.options}">
