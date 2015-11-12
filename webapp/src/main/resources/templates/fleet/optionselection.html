@@ -28,21 +28,22 @@
 
 
             <div style="float:left; width: 44%">
-                <h3><p th:text="#{car.basepacks}"> bse pack</p></h3>
-
+                <h3><p th:text="#{car.basepack}"> bse pack</p></h3>
+                <hr/>
                 <p id="basepack2" th:if="${car.basePack != null}" th:text="${car.basePack.name}"></p>
                 <p id="basepack"></p>
+
                 
                 
     <h3>  <p th:text="#{car.optionalpacks}"> otpional pack</p></h3>
-
+            <hr/>
     <table id="extrapacks">
         <tr th:each="expack, idStat  : ${car.extraPacks}">
 
             <td th:text="${expack.name}">1</td>
 
             <td>  <a  th:onclick="'javascript:removeExtraPack(this);'"
-                      class="btn btn-primary form-control" th:text="#{car.removepack}">remove</a> </td>
+                      class="btn btn-danger form-control" th:text="#{car.removepack}">remove</a> </td>
 
 
 
@@ -50,6 +51,7 @@
                 </table>
 
     <h3> <p th:text="#{car.extraposoptions}"> extra pos optios</p></h3>
+                <hr/>
     <table id="extraoptions">
         <tr th:each="opt, idStat  : ${car.extraOptions}">
 
@@ -57,7 +59,7 @@
 
 
             <td>  <a  th:onclick="'javascript:removeExtraOption(this);'"
-                      class="btn btn-primary form-control" th:text="#{car.removeoption}">remove</a> </td>
+                      class="btn btn-danger form-control" th:text="#{car.removeoption}">remove</a> </td>
 
 
 
@@ -96,10 +98,10 @@
             <td>€ <span th:text="${#numbers.formatDecimal(pack.price,1,2)}"></span> </td>
 
             <td>  <a th:onclick="'javascript:setBasePack(\'' + ${pack.id} + '\',\'' + ${pack.name}+ '\');'"
-                     class="btn btn-primary form-control" th:text="#{car.setbasepack}">add </a> </td>
+                     class="btn btn-success form-control" th:text="#{car.setbasepack}">add </a> </td>
 
             <td>  <a th:onclick="'javascript:addExtraPack(\'' + ${pack.id} + '\',\'' + ${pack.name}+ '\');'"
-                     class="btn btn-primary form-control" th:text="#{car.addextrapack}">add </a> </td>
+                     class="btn btn-success form-control" th:text="#{car.addextrapack}">add </a> </td>
 
 
 
@@ -135,7 +137,7 @@
 
             <td th:text="${option.description}"></td>
 
-            <td> <a th:href="${#mvc.url('CCC#addExtraOption').arg(0, option.id).build()}" > <p th:text="#{car.addoption}"> Add option </p> </a> </td>
+            <td> <a th:href="${#mvc.url('CCC#addExtraOption').arg(0, option.id).build()}" class="btn btn-success form-control" > <p th:text="#{car.addoption}"> Add option </p> </a> </td>
 
 
 
@@ -254,7 +256,7 @@
                a.onclick = function() {
                    addExtraOption(this, rowData["id"]);
                }
-               a.className = "btn btn-primary form-control";
+               a.className = "btn btn-success form-control";
 
 
 
@@ -312,7 +314,7 @@
             a.onclick = function() {
                 removeExtraOption(this);
             }
-            a.className = "btn btn-primary form-control";
+            a.className = "btn btn-danger form-control";
 
             newCell2.appendChild(a);
 
@@ -381,7 +383,7 @@
             a.onclick = function() {
                 removeExtraPack(this);
             }
-            a.className = "btn btn-primary form-control";
+            a.className = "btn btn-danger form-control";
 
 
             var newText2  = document.createTextNode(id)

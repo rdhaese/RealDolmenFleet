@@ -53,9 +53,9 @@
 
                     <td th:text="${car.model}"></td>
 
-                    <td> <a th:href="${#mvc.url('ECC#editCar').arg(0,car.id).build()}" >  <p th:text="#{car.edit}">Edit</p> </a> </td>
+                    <td> <a th:href="${#mvc.url('ECC#editCar').arg(0,car.id).build()}"  class="btn btn-info" >  <p th:text="#{car.edit}">Edit</p> </a> </td>
 
-                    <td> <a th:href="${#mvc.url('CCC#deleteCarFromCatalog').arg(0,car.id).build()}" >  <p th:text="#{car.delete}">delete</p> </a> </td>
+                    <td> <a th:href="${#mvc.url('CCC#deleteCarFromCatalog').arg(0,car.id).build()}" class="btn btn-danger">  <p th:text="#{car.delete}">delete</p> </a> </td>
 
                 </tr>
                 </tbody>
