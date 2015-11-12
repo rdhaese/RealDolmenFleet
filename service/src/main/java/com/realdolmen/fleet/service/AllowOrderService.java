@@ -3,7 +3,9 @@ package com.realdolmen.fleet.service;
 import com.realdolmen.fleet.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.LocaleResolver;
 
 import javax.transaction.Transactional;
 import java.util.Locale;
@@ -22,6 +24,8 @@ public class AllowOrderService {
     private MailService mailService;
     @Autowired
     private MessageSource messageSource;
+    @Autowired
+    private LocaleResolver localeResolver;
 
     @Transactional
     public void allow(Employee employee) {
@@ -31,6 +35,6 @@ public class AllowOrderService {
     }
 
     private String getMessage(String key){
-        return messageSource.getMessage(key, null, Locale.US);
+        return messageSource.getMessage(key, null, LocaleContextHolder.getLocale());
     }
 }

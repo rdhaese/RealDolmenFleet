@@ -3,6 +3,7 @@ package com.realdolmen.fleet.service;
 import com.realdolmen.fleet.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,6 @@ public class DisallowOrderService {
     }
 
     private String getMessage(String key){
-        return messageSource.getMessage(key, null, Locale.US);
+        return messageSource.getMessage(key, null, LocaleContextHolder.getLocale());
     }
 }

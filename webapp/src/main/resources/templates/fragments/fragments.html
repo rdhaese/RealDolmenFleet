@@ -53,6 +53,16 @@
             <li sec:authorize="isAuthenticated()"><p class="nav navbar-text" sec:authentication="name">
                 loggedInUserName</p></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" th:text="#{fragments.navbar.logout}">Log Out</a></li>
+
+            <li class="dropdown dropback">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false"><span  th:text="#{fragments.navbar.language}">Language</span> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="?lang=en" th:text="#{fragments.navbar.language.english}">English</a></li>
+                    <li><a href="?lang=nl" th:text="#{fragments.navbar.language.dutch}">Dutch</a></li>
+                </ul>
+            </li>
+
         </ul>
     </div>
 </div>
