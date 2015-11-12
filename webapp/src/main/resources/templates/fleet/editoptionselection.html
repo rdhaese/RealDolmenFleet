@@ -68,7 +68,7 @@
             </div>
             <div style="float:right; width: 54%">
                 <h2><p th:text="#{car.allpacks}"> all packs </p></h2>
-                <table id="allPacks">
+                <table id="allPacks" class="display">
                     <thead>
                     <tr>
                         <th><p th:text="#{pack.name}"> Name </p></th>
@@ -107,7 +107,7 @@
 
 
                 <h2><p th:text="#{car.alloptions}"> allopitons </p></h2>
-                <table id="allOptions">
+                <table id="allOptions" class="display">
                     <thead>
                     <tr>
                         <th><p th:text="#{option.name}"> Name </p></th>
@@ -134,7 +134,7 @@
 
                         <td  th:id="'a\'' + ${idStat.index} + '\''" >  <a
                                  th:onclick="'javascript:addExtraOptionId( \'' + ${option.id} +  '\',\'' + ${idStat.index} +  '\');'"
-                                 class="btn btn-success form-control" th:text="#{car.addextrapack}">add </a> </td>
+                                 class="btn btn-success form-control" th:text="#{car.addoption}">add </a> </td>
 
 
 
