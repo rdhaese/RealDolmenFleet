@@ -28,28 +28,36 @@
 
 
             <div style="float:left; width: 44%">
+
                 <h3><p th:text="#{car.basepacks}"> bse pack</p></h3>
 
-                <p th:if="${car.basePack != null}" th:text="${car.basePack.name}"/>
+                <p id="basepack2" th:if="${car.basePack != null}" th:text="${car.basePack.name}"></p>
+                <p id="basepack"></p>
+
 
                 <h3><p th:text="#{car.optionalpacks}"> otpional pack</p></h3>
-                <table>
+                <table id="extrapacks">
                     <tr th:each="expack, idStat  : ${car.extraPacks}">
 
                         <td th:text="${expack.name}">1</td>
-                        <td><a th:href="${#mvc.url('ECC#removeEditExtraPack').arg(0, idStat.index).build()}"><p
-                                th:text="#{car.removepack}"> ermove </p></a></td>
+
+
+                        <td>  <a  th:onclick="'javascript:removeExtraPack(this);'"
+                                  class="btn btn-primary form-control" th:text="#{car.removepack}">remove</a> </td>
+
 
                     </tr>
                 </table>
 
                 <h3><p th:text="#{car.extraposoptions}"> extra pos optios</p></h3>
-                <table>
+                <table id="extraoptions">
                     <tr th:each="opt, idStat  : ${car.extraOptions}">
 
                         <td th:text="${opt.name}">1</td>
-                        <td><a th:href="${#mvc.url('ECC#removeEditExtraOption').arg(0, idStat.index).build()}"><p
-                                th:text="#{car.removeoption}"> ermove </p></a></td>
+
+                        <td>  <a  th:onclick="'javascript:removeExtraOption(this);'"
+                                  class="btn btn-primary form-control" th:text="#{car.removeoption}">remove</a> </td>
+
 
                     </tr>
                 </table>
@@ -82,11 +90,12 @@
 
                         <td>€ <span th:text="${#numbers.formatDecimal(pack.price,1,2)}"></span></td>
 
-                        <td><a th:href="${#mvc.url('ECC#setEditBasicPack').arg(0, pack.id).build()}"><p
-                                th:text="#{car.setbasepack}"> set base pack </p></a></td>
+                        <td>  <a th:onclick="'javascript:setBasePack(\'' + ${pack.id} + '\',\'' + ${pack.name}+ '\');'"
+                                 class="btn btn-primary form-control" th:text="#{car.setbasepack}">add </a> </td>
 
-                        <td><a th:href="${#mvc.url('ECC#addEditExtraPack').arg(0, pack.id).build()}"><p
-                                th:text="#{car.addextrapack}"> add extra pack </p></a></td>
+                        <td>  <a th:onclick="'javascript:addExtraPack(\'' + ${pack.id} + '\',\'' + ${pack.name}+ '\');'"
+                                 class="btn btn-primary form-control" th:text="#{car.addextrapack}">add </a> </td>
+
 
 
                     </tr>
@@ -114,14 +123,16 @@
                     <tbody>
 
 
-                    <tr th:each="option  : ${optionList}">
+                    <tr th:each="option, idStat  : ${optionList}">
 
                         <td th:text="${option.name}"></td>
 
                         <td th:text="${option.description}"></td>
 
-                        <td><a th:href="${#mvc.url('ECC#addEditExtraOption').arg(0, option.id).build()}"><p
-                                th:text="#{car.addoption}"> Add option </p></a></td>
+                        <td  th:id="'a\'' + ${idStat.index} + '\''" >  <a
+                                 th:onclick="'javascript:addExtraOptionId( \'' + ${option.id} +  '\',\'' + ${idStat.index} +  '\');'"
+                                 class="btn btn-primary form-control" th:text="#{car.addextrapack}">add </a> </td>
+
 
 
                     </tr>
@@ -137,6 +148,324 @@
         <hr/>
     </div>
 </div>
+
+
+
+
+<script>
+
+    function a(id){
+        addExtraOption(this, id);
+    }
+
+    function setBasePack(id, name){
+        var request = $.ajax({
+            url : "/fleet/setajaxeditbasicpack",
+            type : "post",
+            data : "id=" + id
+        });
+
+        request.done(function(data) {
+
+            document.getElementById("basepack").innerHTML = name;
+            var b = document.getElementById("basepack2");
+            b.parentNode.removeChild(b);
+
+
+        });
+
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+
+
+    }
+
+    function removeExtraPack(element){
+
+
+        var id = element.parentNode.parentNode.rowIndex;
+
+        var request = $.ajax({
+            url : "http://localhost:8080/fleet/removeajaxeditextrapack",
+            type : "post",
+            data : "id=" + id
+        });
+
+        request.done(function(data) {
+
+            document.getElementById('extrapacks').deleteRow(id);
+
+
+
+        });
+
+        // callback handler that will be called on failure
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+    }
+
+    function removeExtraOption(element){
+
+
+        var id = element.parentNode.parentNode.rowIndex;
+
+        var request = $.ajax({
+            url : "http://localhost:8080/fleet/removeajaxeditextraoption",
+            type : "post",
+            data : "id=" + id
+        });
+
+        request.done(function(data) {
+
+            document.getElementById('extraoptions').deleteRow(id);
+
+            var table = document.getElementById("allOptions").getElementsByTagName('tbody')[0];
+            var new_tbody = document.createElement('tbody');
+
+            data.forEach(function(rowData) {
+
+                var row = document.createElement('tr');
+
+
+                var cell = document.createElement('td');
+                cell.appendChild(document.createTextNode(rowData["name"]));
+                row.appendChild(cell);
+
+                var cell2 = document.createElement('td');
+                var description = rowData["description"];
+                if(description == null){
+                    description = "";
+                }
+                cell2.appendChild(document.createTextNode(description));
+                row.appendChild(cell2);
+
+                var cell3 = document.createElement('td');
+
+                var a = document.createElement('a');
+                var linkText = document.createTextNode("Add");
+                a.appendChild(linkText);
+                a.title = "Add";
+
+
+                a.onclick = function() {
+                    addExtraOption(this, rowData["id"]);
+                }
+                a.className = "btn btn-primary form-control";
+
+
+
+                row.appendChild(a);
+                new_tbody.appendChild(row);
+
+            });
+
+            table.parentNode.replaceChild(new_tbody, table);
+
+
+
+
+
+        });
+
+        // callback handler that will be called on failure
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+    }
+
+
+
+    function addExtraOption(element, id){
+        console.log(element);
+        console.log(id);
+
+        var request = $.ajax({
+            url : "http://localhost:8080/fleet/addAjaxEditExtraOption",
+            type : "post",
+            data : "id=" + id
+        });
+
+
+        request.done(function(data) {
+            var tableRef = document.getElementById('extraoptions');
+
+            // Insert a row in the table at the last row
+            var newRow   = tableRef.insertRow(tableRef.rows.length);
+
+            // Insert a cell in the row at index 0 and  1
+            var newCell  = newRow.insertCell(0);
+            var newCell2 = newRow.insertCell(1);
+
+            // Append a text node to the cell
+            var newText  = document.createTextNode(data)
+            newCell.appendChild(newText);
+
+            var a = document.createElement('a');
+            var linkText = document.createTextNode("Remove");
+            a.appendChild(linkText);
+            a.title = "Remove";
+            var nbr = tableRef.getElementsByTagName('tr').length;
+            a.onclick = function() {
+                removeExtraOption(this);
+            }
+            a.className = "btn btn-primary form-control";
+
+            newCell2.appendChild(a);
+
+
+            var rowtodelete = (element.parentNode.rowIndex);
+            console.log(rowtodelete);
+            console.log(document.getElementById('allOptions').getElementsByTagName('tbody')[0]);
+            document.getElementById('allOptions').getElementsByTagName('tbody')[0].deleteRow(rowtodelete - 1);
+
+
+
+        });
+
+        // callback handler that will be called on failure
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+
+
+
+    }
+
+    function addExtraOptionId(id, index){
+
+        console.log(id);
+
+        var request = $.ajax({
+            url : "http://localhost:8080/fleet/addAjaxEditExtraOption",
+            type : "post",
+            data : "id=" + id
+        });
+
+
+        request.done(function(data) {
+            var tableRef = document.getElementById('extraoptions');
+
+            // Insert a row in the table at the last row
+            var newRow   = tableRef.insertRow(tableRef.rows.length);
+
+            // Insert a cell in the row at index 0 and  1
+            var newCell  = newRow.insertCell(0);
+            var newCell2 = newRow.insertCell(1);
+
+            // Append a text node to the cell
+            var newText  = document.createTextNode(data)
+            newCell.appendChild(newText);
+
+            var a = document.createElement('a');
+            var linkText = document.createTextNode("Remove");
+            a.appendChild(linkText);
+            a.title = "Remove";
+            var nbr = tableRef.getElementsByTagName('tr').length;
+            a.onclick = function() {
+                removeExtraOption(this);
+            }
+            a.className = "btn btn-primary form-control";
+
+            newCell2.appendChild(a);
+
+
+            console.log(index);
+            console.log(document.getElementById("a'"+ index + "'"))
+            console.log(document.getElementById('allOptions').getElementsByTagName('tbody')[0]);
+            var arow = document.getElementById("a'"+ index + "'");
+            arow.parentNode.parentNode.removeChild(arow.parentNode);
+          //  document.getElementById('allOptions').getElementsByTagName('tbody')[0].deleteRow(index);
+
+
+
+        });
+
+        // callback handler that will be called on failure
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+
+
+
+    }
+
+
+    function addExtraPack(id, name){
+        var request = $.ajax({
+            url : "http://localhost:8080/fleet/addAjaxEditExtraPack",
+            type : "post",
+            data : "id=" + id
+        });
+
+
+        request.done(function(data) {
+            var tableRef = document.getElementById('extrapacks');
+            console.log(tableRef);
+            console.log(name);
+            /*
+             if(!undefined ) {
+             document.getElementById('selectedoptions').appendChild(document.createElement('tbody'));
+             tableRef = document.getElementById('selectedoptions').getElementsByTagName('tbody')[0];
+             }
+             var rownumber = tableRef.rows.length;
+             */
+// Insert a row in the table at the last row
+            var newRow   = tableRef.insertRow(tableRef.rows.length);
+
+
+
+
+
+// Insert a cell in the row at index 0
+            var newCell  = newRow.insertCell(0);
+            var newCell2 = newRow.insertCell(1);
+
+// Append a text node to the cell
+            var newText  = document.createTextNode(name)
+            newCell.appendChild(newText);
+
+            var a = document.createElement('a');
+            var linkText = document.createTextNode("Remove");
+            a.appendChild(linkText);
+            a.title = "Remove";
+
+            var nbr = tableRef.getElementsByTagName('tr').length;
+            a.onclick = function() {
+                removeExtraPack(this);
+            }
+            a.className = "btn btn-primary form-control";
+
+
+            var newText2  = document.createTextNode(id)
+            newCell2.appendChild(a);
+
+
+
+        });
+
+        // callback handler that will be called on failure
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+
+
+    }
+</script>
+
 
 </body>
 </html>

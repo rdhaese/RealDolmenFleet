@@ -38,8 +38,7 @@
                     <th><p th:text="#{employee.name}"> name </p></th>
                     <th><p th:text="#{employee.mail}"> mail  </p></th>
                     <th><p th:text="#{employee.funclevel}"> functional level </p> </th>
-                    <th><p th:text="#{employee.permission}">  permission </p></th>
-                    <th><p th:text="#{employee.servicedate}"> servicedate  </p></th>
+
 
                 </tr>
                 </tfoot>
@@ -55,7 +54,7 @@
                     <td th:text="${employee.permissionToOrderNewCar}"></td>
                     <td th:text="${#dates.format(employee.inServiceDate, #messages.msg('app.dateformat'))}"></td>
 
-                    <td> <a th:href="${#mvc.url('EC#editEmployee').arg(0,employee.id).build()}" > <p th:text="#{employee.edit}"> Employee edit  </p> </a> </td>
+                    <td> <a th:href="${#mvc.url('EC#editEmployee').arg(0,employee.id).build()}" class="btn btn-info"> <p th:text="#{employee.edit}"> Employee edit  </p> </a> </td>
 
 
 

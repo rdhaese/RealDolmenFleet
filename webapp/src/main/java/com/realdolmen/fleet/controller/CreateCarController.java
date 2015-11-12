@@ -108,6 +108,21 @@ public class CreateCarController {
         return "/fleet/optionselection";
     }
 
+    @RequestMapping(value = "/fleet/addAjaxExtraOption", method = RequestMethod.POST)
+    public @ResponseBody
+    String addAjaxExtraOption(@RequestParam("id") Long id, Model model) {
+
+        CarOption carOption = carOptionsService.getCarOptionByID(id);
+        createdCar.addExtraOption(carOption);
+        System.out.println("car option with id added: " + id);
+        /*
+        model.addAttribute("car", createdCar);
+        model.addAttribute("packList", packService.findAll());
+        model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
+        */
+        return carOption.getName();
+    }
+
 
     @RequestMapping(value = "/fleet/removeextrapack/{id}", method = RequestMethod.GET)
     public //@ResponseBody

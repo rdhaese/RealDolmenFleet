@@ -20,7 +20,6 @@
 
                 <div>
                     <div style="float:left; width: 44%">
-
                         <form method="POST" th:object="${pack}" action="/fleet/editpack">
                             <div th:class="${#fields.hasErrors('name')}? 'has-error'">
                                 <label th:for="${#ids.next('name')}"><p th:text="#{pack.namem}">Name</p></label>
@@ -34,8 +33,7 @@
                                 <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="val-error"></span>
                             </div>
                             <br/>
-                            <button type="submit" class="btn btn-primary"><p th:text="#{pack.saveupdate}">save
-                                update</p></button>
+                            <button type="submit" class="btn btn-primary"><p th:text="#{pack.saveupdate}">save update</p></button>
 
                         </form>
                     </div>
@@ -62,7 +60,7 @@
                     <br/>
                 </div>
                 <div>
-                    <div style=" float:left; width: 44%">
+                    <div style=" clear:both; float:left; width: 44%">
                         <h1 th:text="#{pack.selectedoptions}"> SelectedOptions </h1>
                         <table id="selectedoptions">
                             <tr th:each="caropt,idStat  : ${pack.carOptions}">
@@ -71,7 +69,7 @@
 
 
                                 <td><a th:onclick="'javascript:removeOption(this);'"
-                                       class="btn btn-primary form-control" th:text="#{pack.removeoption}">remove</a>
+                                       class="btn btn-danger form-control" th:text="#{pack.removeoption}">remove</a>
                                 </td>
                             </tr>
 
@@ -107,12 +105,9 @@
 
                                 <td th:text="${caroption.description}"></td>
 
-                                <!--        <td> <a th:href="@{/addoptioninedit/${caroption.id}}" > Add to pack </a> </td>
-                                                                      <td> <a th:onclick="'javascript:addInPack(\'' + ${caroption.id} + '\');'" > badd </a> </td>  -->
-
                                 <td>
                                     <a th:onclick="'javascript:addInPack(\'' + ${caroption.id} + '\',\'' + ${idStat.index} +  '\',\'' + ${caroption.name}+ '\');'"
-                                       class="btn btn-primary form-control" th:text="#{pack.addoptionto}">add </a></td>
+                                       class="btn btn-success form-control" th:text="#{pack.addoptionto}">add </a></td>
 
 
                             </tr>
@@ -206,7 +201,7 @@
             a.onclick = function () {
                 removeOption(this);
             }
-            a.className = "btn btn-primary form-control";
+            a.className = "btn btn-danger form-control";
 
 
             var newText2 = document.createTextNode(id)

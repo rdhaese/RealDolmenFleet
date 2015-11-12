@@ -3,6 +3,7 @@ package com.realdolmen.fleet.controller;
 import com.realdolmen.fleet.model.CarOption;
 import com.realdolmen.fleet.model.Pack;
 import com.realdolmen.fleet.persist.CarOptionsRepository;
+import com.realdolmen.fleet.service.CarOptionsService;
 import com.realdolmen.fleet.service.PackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -27,6 +28,9 @@ public class EditPackController {
 
     @Autowired
     private CarOptionsRepository carOptionsRepository;
+
+    @Autowired
+    private CarOptionsService carOptionsService;
     List<CarOption> allCarOptions = new ArrayList<>();
     private Pack p = new Pack();
 
@@ -37,9 +41,10 @@ public class EditPackController {
         model.addAttribute("carOption", new CarOption());
     }
 
+
     @RequestMapping(value = "/fleet/editpack/{id}", method = RequestMethod.GET)
     public String editPack(@RequestParam Long id, Model model) {
-        allCarOptions = carOptionsRepository.findAll();
+        allCarOptions = carOptionsService.findAll();
         p = packService.findPackById(id);
         populateModel(model);
         return "/fleet/editpack";
@@ -64,8 +69,10 @@ public class EditPackController {
     String addAjaxOptionInEdit(@RequestParam Long id, Model model) {
         CarOption selectedOption = packService.getCarOption(id);
         p.addCarOption(selectedOption);
+
         return "ok";
     }
+
 
     @RequestMapping(value = "/fleet/addoptioninedit", method = RequestMethod.GET, params="id")
     public
@@ -91,14 +98,18 @@ public class EditPackController {
         return "ok";
     }
 
+
     @RequestMapping(value="/fleet/createeditpackoption", method = RequestMethod.POST)
     public String processCarOptionEdit(@Valid CarOption carOption, Errors errors, Model model) {
         if( errors.hasErrors()){
             model.addAttribute("optionNameError", true);
             populateModel(model);
+
             return "/fleet/editpack";
+
         }
-        carOptionsRepository.save(carOption);
+
+        carOptionsService.saveCarOption(carOption);
         p.addCarOption(carOption);
         populateModel(model);
         return "/fleet/editpack";

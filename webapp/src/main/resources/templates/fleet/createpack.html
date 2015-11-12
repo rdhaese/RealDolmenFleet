@@ -71,7 +71,7 @@
                                 <td th:text="${caropt.name}"></td>
 
                                 <td><a th:onclick="'javascript:removeOption(this);'"
-                                       class="btn btn-primary form-control" th:text="#{pack.removeoption}">remove</a>
+                                       class="btn btn-danger form-control" th:text="#{pack.removeoption}">remove</a>
                                 </td>
 
                             </tr>
@@ -109,7 +109,7 @@
 
                                 <td>
                                     <a th:onclick="'javascript:addInPack(\'' + ${caroption.id} + '\',\'' + ${idStat.index} +  '\',\'' + ${caroption.name}+ '\');'"
-                                       class="btn btn-primary form-control" th:text="#{pack.addoptionto}">add </a></td>
+                                       class="btn btn-success form-control" th:text="#{pack.addoptionto}">add </a></td>
 
 
                             </tr>
@@ -178,15 +178,15 @@
             }
             var rownumber = tableRef.rows.length;
 
-// Insert a row in the table at the last row
+            // Insert a row in the table at the last row
             var newRow = tableRef.insertRow(tableRef.rows.length);
 
 
-// Insert a cell in the row at index 0
+            // Insert a cell in the row at index 0
             var newCell = newRow.insertCell(0);
             var newCell2 = newRow.insertCell(1);
 
-// Append a text node to the cell
+            // Append a text node to the cell
             var newText = document.createTextNode(name)
             newCell.appendChild(newText);
 
@@ -199,7 +199,7 @@
             a.onclick = function () {
                 removeOption(this);
             }
-            a.className = "btn btn-primary form-control";
+            a.className = "btn btn-danger form-control";
 
 
             var newText2 = document.createTextNode(id)

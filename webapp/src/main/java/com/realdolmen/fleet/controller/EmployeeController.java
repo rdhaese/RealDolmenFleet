@@ -51,14 +51,18 @@ public class EmployeeController {
         if( errors.hasErrors()){
             return "employees/editpassword";
         }
+
         employeeService.saveNewPassword(editPasswordDTO.getNewPassword());
         Employee loggedInUser = employeeService.getLoggedInUser();
         model.addAttribute("employee", loggedInUser);
+
         CarUsage carUsage = carService.findCarUsageForEmployee(employeeService.getLoggedInUser().getEmail());
         if (carUsage != null) {
             model.addAttribute("carUsage", carUsage);
         }
+
         model.addAttribute("passwordEdit", true);
+
         return "/employees/overview";
     }
 
@@ -75,9 +79,11 @@ public class EmployeeController {
 
     @RequestMapping(value = "/fleet/editemployee", method = RequestMethod.POST)
     public String editUpdatedEmployee(@Valid Employee employee, Errors errors, Model model) {
+
         if( errors.hasErrors()){
             return "fleet/editemployee";
         }
+
         employeeService.saveEditedEmployee(employee.getId(), employee);
         return "redirect:/fleet/rdemployee";
     }
@@ -92,13 +98,16 @@ public class EmployeeController {
     @RequestMapping(value = "/fleet/createemployee", method = RequestMethod.POST)
     public String createEmpl(@Valid Employee employee, Errors errors, Model m) {
         if( errors.hasErrors()){
+
             return "fleet/createemployee";
         }
         String originalPassword = employee.getPassword();
         BCryptPasswordEncoder e = new BCryptPasswordEncoder();
         employee.setPassword(e.encode(employee.getPassword()));
+
         employeeService.saveNewEmployee(employee, originalPassword);
         return "redirect:/fleet/rdemployee";
     }
+
 
 }

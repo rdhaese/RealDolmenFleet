@@ -4,6 +4,7 @@ import com.realdolmen.fleet.model.CarOption;
 import com.realdolmen.fleet.model.Pack;
 import com.realdolmen.fleet.persist.CarOptionsRepository;
 import com.realdolmen.fleet.persist.PackRepository;
+import com.realdolmen.fleet.service.CarOptionsService;
 import com.realdolmen.fleet.service.PackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -29,7 +30,7 @@ public class PackController {
     private PackService packService;
 
     @Autowired
-    private CarOptionsRepository carOptionsRepository;
+    private CarOptionsService carOptionsService;
 
     private List<CarOption> carOptions = new ArrayList<>();
     private Pack p = new Pack();
@@ -44,29 +45,18 @@ public class PackController {
 
     @RequestMapping(value="/fleet/packs", method = RequestMethod.GET)
     public List<Pack> packs(){
-       return packService.findAll();
+       return packService.findAllWithGeneralPack();
     }
 
     @RequestMapping(value="/fleet/createpack", method = RequestMethod.GET)
     public String showNewPack(Model model) {
-        allCarOptions = carOptionsRepository.findAll();
+        allCarOptions = carOptionsService.findAll();
         p = new Pack();
         carOptions = new ArrayList<>();
         populateModel(model);
         return "/fleet/createpack";
     }
 
-
-    @RequestMapping(value = "/fleet/addoptiontopack", method = RequestMethod.GET)
-    public
-    String addOption(@RequestParam("id") Long id, Model model) {
-
-        CarOption selectedOption = packService.getCarOption(id);
-        carOptions.add(selectedOption);
-        p.addCarOption(selectedOption);
-        populateModel(model);
-        return "fleet/createpack";
-    }
 
     @RequestMapping(value = "/fleet/addajaxoptiontopack", method = RequestMethod.POST)
     public @ResponseBody
@@ -77,6 +67,7 @@ public class PackController {
         p.addCarOption(selectedOption);
         return "id correct received";
     }
+
 
 
 
@@ -107,7 +98,8 @@ public class PackController {
             populateModel(model);
             return "/fleet/createpack";
         }
-        carOptionsRepository.save(carOption);
+
+        carOptionsService.saveCarOption(carOption);
         carOptions.add(carOption);
         p.addCarOption(carOption);
         populateModel(model);
@@ -118,7 +110,7 @@ public class PackController {
     public String processPack(@Valid Pack pack, Errors errors, Model model) {
         if( errors.hasErrors()){
             pack.setCarOptions(carOptions);
-            model.addAttribute("allCarOptions", carOptionsRepository.findAll());
+            model.addAttribute("allCarOptions", carOptionsService.findAll());
             model.addAttribute("pack", pack);
             model.addAttribute("carOption", new CarOption());
             return "/fleet/createpack";
