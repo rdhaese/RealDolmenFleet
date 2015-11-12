@@ -43,7 +43,7 @@
                         <a th:href="${'cars/detail/' + carUsage.id }" class="btn btn-primary form-control" th:text="#{managecars.details}"> details  </a>
                         <form method="post" th:action="${'/fleet/cars/to-free-pool'}">
                             <input type="hidden" name="carUsageId" th:value="${carUsage.id}" />
-                            <button type="submit" class="btn btn-primary form-control"><p th:text="#{managecars.tofreepool}"> to free pool  </p> </button>
+                            <button type="submit" class="btn btn-warning form-control"><p th:text="#{managecars.tofreepool}"> to free pool  </p> </button>
                         </form>
                     </td>
                 </tr>
@@ -67,7 +67,7 @@
                         <a class="btn btn-primary form-control" th:href="${'cars/detail/' + carUsage.id }">Details</a>
                         <form method="post" th:action="${'/fleet/cars/remove'}">
                             <input type="hidden" name="carUsageId" th:value="${carUsage.id}" />
-                            <input type="submit" class="btn btn-primary form-control" value="Remove" />
+                            <input type="submit" class="btn btn-danger form-control" value="Remove" />
                         </form>
                     </td>
                 </tr>
