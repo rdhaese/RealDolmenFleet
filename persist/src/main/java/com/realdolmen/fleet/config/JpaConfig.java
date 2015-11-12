@@ -29,7 +29,6 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = "com.realdolmen.fleet.persist")
 public class JpaConfig {
 
-
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();

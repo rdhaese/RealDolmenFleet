@@ -37,7 +37,7 @@ public class OrderedCarService {
         return carOptionsRepository.findOne(optionId);
     }
 
-    //TODO @Transactional
+    @Transactional
     public void placeOrder(CarUsage carUsage) {
         Employee employee = carUsage.getEmployee();
         employee.setPermissionToOrderNewCar(false);

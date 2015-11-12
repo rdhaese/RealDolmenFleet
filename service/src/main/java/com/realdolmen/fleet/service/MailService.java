@@ -48,8 +48,7 @@ public class MailService {
                     Transport.send(message);
                     LOGGER.info(String.format("Email send to %s", recipient));
                 } catch (MessagingException e) {
-                    e.printStackTrace();
-                    LOGGER.warning("Could not send mail.");
+                    LOGGER.warning(String.format("Could not send mail to %s.", recipient));
                 }
             }
         }).start();

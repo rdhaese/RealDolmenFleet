@@ -18,18 +18,18 @@
                 <div class="alert alert-success alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    Order Confirmed
+                    <span th:text="#{confirm-order.confirmed}">Order Confirmed</span>
                 </div>
             </div>
             <div th:if="${orderDisallowed != null}">
                 <div class="alert alert-warning alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    Order Disallowed
+                    <span th:text="#{confirm-order.disallowed}">Order Disallowed</span>
                 </div>
             </div>
-            <H2>Open Orders</H2>
-            <p th:if="${ordersToConfirm.isEmpty()}">No open orders</p>
+            <H2 th:text="#{confirm-order.title}">Open Orders</H2>
+            <p th:if="${ordersToConfirm.isEmpty()}" th:text="#{confirm-order.noorders}">No open orders</p>
             <table class="table" th:if="${!ordersToConfirm.isEmpty()}" id="orderTable">
                 <thead>
                 <th th:text="#{confirm.employee}">Employee</th>
