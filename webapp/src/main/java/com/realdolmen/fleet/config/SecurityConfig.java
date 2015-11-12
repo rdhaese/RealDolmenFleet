@@ -50,6 +50,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").authenticated()
                 .antMatchers("/employees/**").authenticated()
                 .antMatchers("/fleet/**").hasRole("FLEET");
-
     }
 }

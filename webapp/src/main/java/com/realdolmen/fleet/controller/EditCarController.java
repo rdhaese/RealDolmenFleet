@@ -75,9 +75,7 @@ public class EditCarController {
     @RequestMapping(value = "/fleet/seteditbasicpack/{id}", method = RequestMethod.GET)
     public
     String setEditBasicPack(@RequestParam Long id, Model model) {
-
         Pack p = packService.findPackById(id);
-
        updatedCar.setBasePack(p);
        populateModel(model);
         return "/fleet/editoptionselection";
@@ -86,7 +84,6 @@ public class EditCarController {
     @RequestMapping(value = "/fleet/addEditExtraPack/{id}", method = RequestMethod.GET)
     public
     String addEditExtraPack(@RequestParam Long id, Model model) {
-
         Pack p = packService.findPackById(id);
         updatedCar.addExtraPack(p);
         populateModel(model);
@@ -96,7 +93,6 @@ public class EditCarController {
     @RequestMapping(value = "/fleet/addEditExtraOption/{id}", method = RequestMethod.GET)
     public
     String addEditExtraOption(@RequestParam Long id, Model model) {
-
         CarOption carOption = carOptionsService.getCarOptionByID(id);
         updatedCar.addExtraOption(carOption);
         populateModel(model);
@@ -105,27 +101,21 @@ public class EditCarController {
 
 
     @RequestMapping(value = "/fleet/removeeditextrapack/{id}", method = RequestMethod.GET)
-    public //@ResponseBody
-    String removeEditExtraPack(@RequestParam int id, Model model) {
+    public String removeEditExtraPack(@RequestParam int id, Model model) {
         updatedCar.getExtraPacks().remove(id);
         populateModel(model);
-
         return "/fleet/editoptionselection";
     }
 
     @RequestMapping(value = "/fleet/removeeditextraoption/{id}", method = RequestMethod.GET)
-    public //@ResponseBody
-    String removeEditExtraOption(@RequestParam int id, Model model) {
+    public String removeEditExtraOption(@RequestParam int id, Model model) {
         updatedCar.getExtraOptions().remove(id);
         populateModel(model);
-
         return "/fleet/editoptionselection";
     }
 
     @RequestMapping(value = "/fleet/updatecar", method = RequestMethod.GET)
-    public
-    String updateCar(@RequestParam Long id) {
-       // updatedCar.setId(original.getId());
+    public String updateCar(@RequestParam Long id) {
         original.CopyCar(updatedCar);
         carService.saveNewCar(original);
         return "redirect:/fleet/caroverview";

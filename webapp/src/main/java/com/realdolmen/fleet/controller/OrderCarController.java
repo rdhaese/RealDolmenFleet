@@ -57,8 +57,6 @@ public class OrderCarController {
         return "employees/order-car";
     }
 
-
-
     @RequestMapping(value="/employees/order-car", method = RequestMethod.POST)
     public String confirmOrder(@RequestParam("carId") long carId, @RequestParam("color") String color, @RequestParam(value = "selectedPacks", required = false) Long[] selectedPacks, @RequestParam(value = "selectedOptions", required = false) Long[] selectedOptions){
         OrderedCar oCar = new OrderedCar();

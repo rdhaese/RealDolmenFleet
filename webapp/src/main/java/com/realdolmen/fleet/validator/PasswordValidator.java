@@ -32,9 +32,6 @@ public class PasswordValidator implements Validator {
         if(editPasswordDTO.getNewPassword().length() <6){
             errors.rejectValue("newPassword", "password.minSize6");
         }
-
-
-
     }
 
 }

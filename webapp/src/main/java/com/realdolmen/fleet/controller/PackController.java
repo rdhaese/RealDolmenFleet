@@ -78,24 +78,11 @@ public class PackController {
         return "id correct received";
     }
 
-    /*
-	@RequestMapping(value="/AddUser.htm",method=RequestMethod.POST)
-	public @ResponseBody String addUser(@ModelAttribute(value="user") User user, BindingResult result ){
-		String returnText;
-		if(!result.hasErrors()){
-			userList.add(user);
-			returnText = "User has been added to the list. Total number of users are " + userList.size();
-		}else{
-			returnText = "Sorry, an error has occur. User has not been added to list.";
-		}
-		return returnText;
-	}
-*/
+
 
     @RequestMapping(value = "/fleet/removeoption", method = RequestMethod.GET)
-       public //@ResponseBody
+       public
     String removeOption(@RequestParam("id") int id, Model model) {
-
         carOptions.remove(id);
         p.removeCarOption(id);
         populateModel(model);
@@ -106,10 +93,8 @@ public class PackController {
     @RequestMapping(value = "/fleet/removeajaxoptiontopack", method = RequestMethod.POST)
     public @ResponseBody
     String removeAjaxOption(@RequestParam("id") int id, Model model) {
-
         carOptions.remove(id);
         p.removeCarOption(id);
-       // populateModel(model);
         // Prepare the response string
         return "ok";
     }
@@ -117,19 +102,11 @@ public class PackController {
 
     @RequestMapping(value="/fleet/createnewpackoption", method = RequestMethod.POST)
     public String processCarOption(@Valid CarOption carOption, Errors errors, Model model) {
-
         if( carOption.getName().equals("")){
             model.addAttribute("optionNameError", true);
-
-           // p.setCarOptions(carOptions);
-            //populateModel(model);
-       //     model.addAttribute("allCarOptions", carOptionsRepository.findAll());
-       //     model.addAttribute("pack", p);
-       //     model.addAttribute("carOption", carOption);
             populateModel(model);
             return "/fleet/createpack";
         }
-
         carOptionsRepository.save(carOption);
         carOptions.add(carOption);
         p.addCarOption(carOption);
@@ -139,7 +116,6 @@ public class PackController {
 
     @RequestMapping(value="/fleet/createpack", method = RequestMethod.POST)
     public String processPack(@Valid Pack pack, Errors errors, Model model) {
-
         if( errors.hasErrors()){
             pack.setCarOptions(carOptions);
             model.addAttribute("allCarOptions", carOptionsRepository.findAll());
@@ -147,7 +123,6 @@ public class PackController {
             model.addAttribute("carOption", new CarOption());
             return "/fleet/createpack";
         }
-
         pack.setCarOptions(carOptions);
         packService.savePackWithExistingCarOptions(pack);
         return "redirect:/fleet/packs";
