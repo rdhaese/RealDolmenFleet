@@ -284,7 +284,7 @@
     function addExtraOption(element, id){
 
         var request = $.ajax({
-            url : "http://localhost:8080//fleet/addAjaxExtraOption",
+            url : "http://localhost:8080/fleet/addAjaxExtraOption",
             type : "post",
             data : "id=" + id
         });
@@ -292,8 +292,6 @@
 
         request.done(function(data) {
             var tableRef = document.getElementById('extraoptions');
-            console.log(tableRef);
-            console.log(name);
 
             // Insert a row in the table at the last row
             var newRow   = tableRef.insertRow(tableRef.rows.length);
@@ -317,6 +315,12 @@
             a.className = "btn btn-primary form-control";
 
             newCell2.appendChild(a);
+
+
+            var rowtodelete = (element.parentNode.rowIndex);
+            console.log(rowtodelete);
+            console.log(document.getElementById('allOptions').getElementsByTagName('tbody')[0]);
+            document.getElementById('allOptions').getElementsByTagName('tbody')[0].deleteRow(rowtodelete - 1);
 
 
 
