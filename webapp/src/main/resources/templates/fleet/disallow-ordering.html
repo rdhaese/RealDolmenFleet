@@ -37,7 +37,7 @@
                         <td>
                             <form method="post" th:action="@{disallow-ordering}">
                                 <input type="hidden" name="email" th:value="${employee.email}"/>
-                                <button type="submit" class="btn btn-primary form-control"><p
+                                <button type="submit" class="btn btn-danger form-control"><p
                                         th:text="#{order.disallow}">
                                     Disallow Order </p></button>
                             </form>
