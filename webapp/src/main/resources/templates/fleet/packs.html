@@ -53,7 +53,7 @@
 
         <td align="center" th:text="${pack.carOptions.size()}"></td>
 
-        <td> <a th:href="${#mvc.url('EPC#editPack').arg(0, pack.id).build()}" > <p th:text="#{pack.edit}"> Edit </p> </a> </td>
+        <td> <a th:href="${#mvc.url('EPC#editPack').arg(0, pack.id).build()}" class="btn btn-info"> <p th:text="#{pack.edit}"> Edit </p> </a> </td>
 
 
 

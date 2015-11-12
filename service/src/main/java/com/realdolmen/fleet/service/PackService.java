@@ -35,6 +35,10 @@ public class PackService {
         return packRepository.findByNameNot("RealDolmen General Options");
     }
 
+    public List<Pack> findAllWithGeneralPack() {
+        return packRepository.findAll();
+    }
+
     public List<CarOption> findGeneralRDOptions(){
         Pack pack =  packRepository.findByName("RealDolmen General Options");
         if (pack == null){
