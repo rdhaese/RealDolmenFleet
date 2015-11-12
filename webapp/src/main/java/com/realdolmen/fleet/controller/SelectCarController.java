@@ -23,7 +23,7 @@ import java.util.List;
 @Controller
 public class SelectCarController {
 
-    private static final int DIMENSIONAL_LIST_BOUNDARY = 3;
+    private static final int DIMENSIONAL_LIST_BOUNDARY = 4;
     @Autowired
     private CarService carService;
     @Autowired
@@ -73,7 +73,7 @@ public class SelectCarController {
         return cars;
     }
 
-    private List<Car> filterOnModel(@ModelAttribute FilterCarsDTO filterCarsDTO, List<Car> cars) {
+    private List<Car> filterOnModel(FilterCarsDTO filterCarsDTO, List<Car> cars) {
         String carModel = filterCarsDTO.getModel();
         if (carModel != null && !carModel.isEmpty()) {
             cars = carService.filterOnModel(cars, carModel);
@@ -81,7 +81,7 @@ public class SelectCarController {
         return cars;
     }
 
-    private List<Car> filterOnBrand(@ModelAttribute FilterCarsDTO filterCarsDTO, List<Car> cars) {
+    private List<Car> filterOnBrand(FilterCarsDTO filterCarsDTO, List<Car> cars) {
         String brand = filterCarsDTO.getBrand();
         if (brand != null && !brand.isEmpty()) {
             cars = carService.filterOnBrand(cars, brand);

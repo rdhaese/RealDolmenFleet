@@ -9,7 +9,6 @@
     }
 </script>
 
-
 <div th:replace="fragments/fragments :: header"></div>
 
 <div class="container">
@@ -17,12 +16,10 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h2><p th:text="#{selectcar.ordercar}">Order Car </p></h2>
-
-            <h3><p th:text="#{selectcar.fromcatalog}">From Catalog: </p></h3>
+            <h2><p th:text="#{catalogue.catalogue}">Catalogue </p></h2>
 
             <div style="width: 100%; float:left; margin-bottom: 5px;">
-                <form method="get" th:action="@{/employees/select-car/filter}" th:object="${filterCarsDTO}">
+                <form method="get" th:action="@{/employees/catalogue/filter}" th:object="${filter}">
                     <div style="width: 49%; float:left;">
                         <span style="font-weight:bold;"><p th:text="#{car.brand}">Brand</p> </span>
                         <input id="brand" name="brand" type="text" th:field="*{brand}" onblur="submit()" class="form-control"/>
@@ -31,7 +28,11 @@
                     </div>
                     <div style="width: 49%; float:right;">
                         <span style="font-weight:bold;"><p th:text="#{selectcar.funclevel}">func level</p> </span>
-                        <input name="level" id="allPossible" value="allPossible" type="radio" th:field="*{level}"
+                        <input type="number" min="1" max="8" th:field="*{functionalLevel}" onblur="submit()" class="form-control"/>
+
+
+
+                        <!-- <input name="level" id="allPossible" value="allPossible" type="radio" th:field="*{level}"
                                onclick="submit()"/><span th:text="#{selectcar.allpossible}">All
                     Possible</span>
                         <input name="level" id="downgrade" value="downgrade" type="radio" th:field="*{level}"
@@ -39,7 +40,7 @@
                         <input name="level" id="myLevel" value="myLevel" type="radio" th:field="*{level}"
                                onclick="submit()"/><span th:text="#{selectcar.mylevel}">My Level</span>
                         <input name="level" id="upgrade" value="upgrade" type="radio" th:field="*{level}"
-                               onclick="submit()"/><span th:text="#{selectcar.upgrade}">Upgrade</span><br/>
+                               onclick="submit()"/><span th:text="#{selectcar.upgrade}">Upgrade</span><br/>-->
                     </div>
                 </form>
             </div>
@@ -47,46 +48,46 @@
             <hr/>
 
             <div style="width: 100%; float:left;">
-                <p th:if="${dimensionalCarList.isEmpty()}">
+                <span th:if="${catalogueCars.isEmpty()}">
+                <p th:text="#{selectcar.nomatch}">No match</p>
+                </span>
 
-                <p th:text="#{selectcar.nomatch}">No match</p></p>
-                <table class="table" th:if="${!dimensionalCarList.isEmpty()}">
+                <table class="table" th:if="${!catalogueCars.isEmpty()}">
                     <tbody>
-                    <tr th:each="carList  : ${dimensionalCarList}">
+                    <tr th:each="carList  : ${catalogueCars}">
                         <td th:each="car : ${carList}" style="text-align: center;">
                             <span th:text="${car.brand + ' ' + car.model}" style="font-weight: bold;">carTitle</span>
                             <br/>
-                            <a th:href="${'/employees/selected-car-detail?id=' + car.id}">
+                            <a th:href="${'/employees/catalogue/detail?id=' + car.id}">
                                 <img th:src="${car.pictures[0]}" height="200" width="250" class="img-thumbnail"/>
                             </a>
-                                <p th:if="${car.category &lt; functionalLevelForLoggedInUser}"
-                                        th:text="#{selectcar.downgrade}">Downgrade</p>
-                                <p th:if="${car.category &gt; functionalLevelForLoggedInUser}"
-                                        th:text="#{selectcar.upgrade}">Upgrade</p>
+                            <p><span th:text="#{catalogue.funclvl}">Functional level</span>: <span th:text="${car.category}">category</span> </p>
                         </td>
                     </tr>
                     </tbody>
                 </table>
 
+
                 <hr/>
 
+
                 <h3><p th:text="#{selectcar.fromfreepool}">From free pool</p></h3>
-                <p th:if="${dimensionalFreePoolCarList.isEmpty()}" th:text="#{selectcar.noneinfreepool}">No cars in free pool.</p>
-                <table class="table" th:if="${!dimensionalFreePoolCarList.isEmpty()}">
+                <p th:if="${freePoolCars.isEmpty()}" th:text="#{selectcar.noneinfreepool}">No cars in free pool.</p>
+                <table class="table" th:if="${!freePoolCars.isEmpty()}">
                     <tbody>
-                    <tr th:each="carList  : ${dimensionalFreePoolCarList}">
+                    <tr th:each="carList  : ${freePoolCars}">
                         <td th:each="carUsage : ${carList}" style="text-align: center;">
                         <span th:text="${carUsage.orderedCar.car.brand + ' ' + carUsage.orderedCar.car.model}"
                               style="font-weight: bold;">carTitle</span>
                             <br/>
-                            <a th:href="${'/employees/selected-free-pool-car-detail?id=' + carUsage.id}">
+                            <a th:href="${'/employees/catalogue/detail-from-free-pool?id=' + carUsage.id}">
                                 <img th:src="${carUsage.orderedCar.car.pictures[0]}" height="200" width="250"
                                      class="img-thumbnail"/></a>
-                                    <p th:text="#{selectcar.color}"> Color</p> <span
-                                        th:text="${carUsage.orderedCar.color}">carColor</span>
+                            <p th:text="#{selectcar.color}"> Color</p> <span
+                                th:text="${carUsage.orderedCar.color}">carColor</span>
 
-                                    <p th:text="#{selectcar.currentkm}"> Current km: </p> <span
-                                        th:text="${carUsage.usageUpdates[0].newTotalKm}">carColor</span>
+                            <p th:text="#{selectcar.currentkm}"> Current km: </p> <span
+                                th:text="${carUsage.usageUpdates[0].newTotalKm}">carColor</span>
                         </td>
                     </tr>
                     </tbody>
@@ -97,7 +98,5 @@
 
     <hr/>
 </div>
-
-
 </body>
 </html>

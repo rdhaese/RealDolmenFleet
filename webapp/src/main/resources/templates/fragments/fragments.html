@@ -44,8 +44,9 @@
                     <li><a th:href="@{/fleet/caroverview}" th:text="#{fragments.navbar.cars}">Cars</a></li>
                 </ul>
             </li>
-            <li th:if="${session.loggedInUserCanOrderNewCar}"><a th:href="@{/employees/select-car}" th:text="#{fragments.navbar.orderingavailable}">Ordering Car
+            <li sec:authorize="isAuthenticated()" th:if="${session.loggedInUserCanOrderNewCar}"><a th:href="@{/employees/select-car}" th:text="#{fragments.navbar.orderingavailable}">Ordering Car
                 Available!</a></li>
+            <li sec:authorize="isAuthenticated()" th:if="${!session.loggedInUserCanOrderNewCar}"><a th:href="@{/employees/catalogue}" th:text="#{fragments.navbar.catalogue}">Catalogue</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right headertext">
             <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}" th:text="#{fragments.navbar.login}">Login</a></li>
