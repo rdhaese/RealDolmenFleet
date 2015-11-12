@@ -30,7 +30,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/login").setViewName("login");
     }
 
-
     @Override
     public void addFormatters(FormatterRegistry formatterRegistry) {
         formatterRegistry.addFormatter(new CarOptionFormatter());

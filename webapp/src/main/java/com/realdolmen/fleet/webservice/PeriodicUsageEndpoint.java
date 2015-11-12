@@ -60,7 +60,6 @@ public class PeriodicUsageEndpoint {
         String result =	carService.addPeriodUsageUpdateToCar(periodicUsageUpdate, receivedUsage.getNumberplate());
         GetStorePeriodicUsageResponse response = new GetStorePeriodicUsageResponse();
         response.setResponse(result);
-
         return response;
     }
 

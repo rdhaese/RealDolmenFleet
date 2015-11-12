@@ -23,7 +23,6 @@ import java.util.List;
 @Scope("session")
 public class EditPackController {
 
-
     @Autowired
     private PackService packService;
 
@@ -56,7 +55,6 @@ public class EditPackController {
         pack.setId(p.getId());
         pack.setCarOptions(p.getCarOptions());
         if( errors.hasErrors()){
-
             p = pack;
             populateModel(model);
             return "/fleet/editpack";
@@ -76,6 +74,22 @@ public class EditPackController {
     }
 
 
+    @RequestMapping(value = "/fleet/addoptioninedit", method = RequestMethod.GET, params="id")
+    public
+    String addOptionInEdit(@RequestParam Long id, Model model) {
+        CarOption selectedOption = packService.getCarOption(id);
+        p.addCarOption(selectedOption);
+        populateModel(model);
+        return "/fleet/editpack";
+    }
+
+    @RequestMapping(value = "/fleet/removeoptionedit/{id}", method = RequestMethod.GET)
+    public
+    String removeOptionInEdit(@RequestParam int id, Model model) {
+        p.removeCarOption(id);
+        populateModel(model);
+        return "/fleet/editpack";
+    }
     @RequestMapping(value = "/fleet/removeajaxoptionedit", method = RequestMethod.POST)
     public @ResponseBody
     String removeAjaxOptionInEdit(@RequestParam("id") int id, Model model) {

@@ -87,6 +87,11 @@ public class CreateCarController {
 
         Pack p = packService.findPackById(id);
         createdCar.addExtraPack(p);
+        /*
+        model.addAttribute("car", createdCar);
+        model.addAttribute("packList", packService.findAll());
+        model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
+        return "/fleet/optionselection";*/
         return "ok";
     }
 
@@ -95,7 +100,6 @@ public class CreateCarController {
     @RequestMapping(value = "/fleet/addExtraPack/{id}", method = RequestMethod.GET)
     public
     String addExtraPack(@RequestParam Long id, Model model) {
-
         Pack p = packService.findPackById(id);
         createdCar.addExtraPack(p);
         model.addAttribute("car", createdCar);
@@ -108,10 +112,8 @@ public class CreateCarController {
     @RequestMapping(value = "/fleet/addExtraOption/{id}", method = RequestMethod.GET)
     public
     String addExtraOption(@RequestParam Long id, Model model) {
-
         CarOption carOption = carOptionsService.getCarOptionByID(id);
         createdCar.addExtraOption(carOption);
-
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
         model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
@@ -138,7 +140,6 @@ public class CreateCarController {
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
         model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
-        // Prepare the response string
         return "/fleet/optionselection";
     }
     */
@@ -158,8 +159,6 @@ public class CreateCarController {
         model.addAttribute("car", createdCar);
         model.addAttribute("packList", packService.findAll());
         model.addAttribute("optionList", packService.findMissingGeneralRDOptions(createdCar.getExtraOptions()));
-        //model.addAttribute("optionList", carOptionsService.findAll());
-        // Prepare the response string
         return "/fleet/optionselection";
     }*/
 
@@ -173,14 +172,14 @@ public class CreateCarController {
     @RequestMapping(value = "/fleet/savecar", method = RequestMethod.GET)
     public
     String saveCar(@RequestParam Long id) {
-
-        carService.saveNewCar(createdCar);
+       carService.saveNewCar(createdCar);
         return "redirect:/fleet/caroverview";
     }
 
 
     @RequestMapping(value = "/fleet/deletecar", method = RequestMethod.GET)
     public String deleteCarFromCatalog(@RequestParam Long id) {
+
         carService.deleteCarSoft(id);
         return "redirect:/fleet/caroverview";
     }

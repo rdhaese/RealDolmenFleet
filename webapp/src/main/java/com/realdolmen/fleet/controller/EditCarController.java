@@ -50,12 +50,18 @@ public class EditCarController {
     public String editCar(@RequestParam Long id, Model model) {
         updatedCar = carService.findById(id);
         original = updatedCar;
+        System.out.println(updatedCar.getId());
+        System.out.println(updatedCar.getBasePack());
+        System.out.println(updatedCar.getExtraPacks().size());
         populateModel(model);
         return "/fleet/editcar";
     }
 
     @RequestMapping(value="/fleet/editcar", method = RequestMethod.POST)
     public String processEditCar(@Valid Car car, Errors errors, Model m) {
+        System.out.println(car.getId());
+        System.out.println(car.getBasePack());
+        System.out.println(car.getExtraPacks().size());
         updatedCar = car;
         populateModel(m);
         if( errors.hasErrors()){

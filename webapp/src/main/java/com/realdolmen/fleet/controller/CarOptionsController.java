@@ -34,19 +34,15 @@ public class CarOptionsController {
 
     @RequestMapping(value="/fleet/createcaroption", method = RequestMethod.GET)
     public CarOption showNewCarOption(){
-        System.out.println("caroption initialized");
         return new CarOption();
     }
 
     @RequestMapping(value="/fleet/createcaroption", method = RequestMethod.POST)
     public String processCarOption(@Valid CarOption carOption, Errors errors) {
-        System.out.println("caroption ready to save");
         if( errors.hasErrors()){
             return "/fleet/createcaroption";
         }
-        System.out.println("caroption ready to save");
         carOptionsService.saveCarOption(carOption);
-        System.out.println("caroption saved");
         return "redirect:/fleet/caroptions";
     }
 }

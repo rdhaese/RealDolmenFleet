@@ -71,18 +71,28 @@ public class PackController {
 
 
 
+    @RequestMapping(value = "/fleet/removeoption", method = RequestMethod.GET)
+       public
+    String removeOption(@RequestParam("id") int id, Model model) {
+        carOptions.remove(id);
+        p.removeCarOption(id);
+        populateModel(model);
+        // Prepare the response string
+        return "/fleet/createpack";
+    }
+
     @RequestMapping(value = "/fleet/removeajaxoptiontopack", method = RequestMethod.POST)
     public @ResponseBody
     String removeAjaxOption(@RequestParam("id") int id, Model model) {
         carOptions.remove(id);
         p.removeCarOption(id);
+        // Prepare the response string
         return "ok";
     }
 
 
     @RequestMapping(value="/fleet/createnewpackoption", method = RequestMethod.POST)
     public String processCarOption(@Valid CarOption carOption, Errors errors, Model model) {
-
         if( carOption.getName().equals("")){
             model.addAttribute("optionNameError", true);
             populateModel(model);
@@ -98,7 +108,6 @@ public class PackController {
 
     @RequestMapping(value="/fleet/createpack", method = RequestMethod.POST)
     public String processPack(@Valid Pack pack, Errors errors, Model model) {
-
         if( errors.hasErrors()){
             pack.setCarOptions(carOptions);
             model.addAttribute("allCarOptions", carOptionsService.findAll());
@@ -106,7 +115,6 @@ public class PackController {
             model.addAttribute("carOption", new CarOption());
             return "/fleet/createpack";
         }
-
         pack.setCarOptions(carOptions);
         packService.savePackWithExistingCarOptions(pack);
         return "redirect:/fleet/packs";

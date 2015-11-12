@@ -10,19 +10,19 @@
             <div style="width: 25%; float:none; margin-left:auto; margin-right:auto;">
                 <form name="loginForm" th:action="@{/login}" method="POST">
                     <fieldset>
-                        <legend>Please Login</legend>
+                        <legend th:text="#{login.legend}">Please Login</legend>
                         <div th:if="${param.error}" class="alert alert-danger alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            Invalid email or password.
+                            <span th:text="#{login.error}">Invalid email or password.</span>
                         </div>
-                        <label for="email">Email</label>
+                        <label for="email" th:text="#{login.email}">Email</label>
                         <input type="text" id="email" name="email" class="form-control"/>
-                        <label for="password">Password</label>
+                        <label for="password" th:text="#{login.password}">Password</label>
                         <input type="password" id="password" name="password" class="form-control"/>
 
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary form-control">Log in</button>
+                            <button type="submit" class="btn btn-primary form-control" th:text="#{login.button}">Log in</button>
                         </div>
                     </fieldset>
                 </form>

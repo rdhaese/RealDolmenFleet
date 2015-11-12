@@ -46,5 +46,4 @@ public class ManageCarsController {
         carService.removeFromFreePool(carService.findCarUsageById(carUsageId));
         return "redirect:/fleet/cars";
     }
-
 }

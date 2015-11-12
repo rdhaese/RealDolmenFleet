@@ -19,12 +19,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created on 27/10/2015.
- *
- * @author Robin D'Haese
+ * Created by JVDAX31 on 31/10/2015.
  */
 @Controller
-
 public class EmployeeController {
 
     @Autowired
@@ -46,21 +43,16 @@ public class EmployeeController {
         return "employees/editpassword";
     }
 
-
     @RequestMapping(value="/employees/editpassword", method = RequestMethod.POST)
     public String saveEditPass(@ModelAttribute("editPassword") EditPasswordDTO editPasswordDTO, BindingResult errors, Model model){
         PasswordValidator passwordValidator = new PasswordValidator();
         editPasswordDTO.setEmployeeService(employeeService);
         passwordValidator.validate(editPasswordDTO, errors);
-
         if( errors.hasErrors()){
             return "employees/editpassword";
         }
 
-
-
         employeeService.saveNewPassword(editPasswordDTO.getNewPassword());
-
         Employee loggedInUser = employeeService.getLoggedInUser();
         model.addAttribute("employee", loggedInUser);
 
@@ -114,7 +106,6 @@ public class EmployeeController {
         employee.setPassword(e.encode(employee.getPassword()));
 
         employeeService.saveNewEmployee(employee, originalPassword);
-
         return "redirect:/fleet/rdemployee";
     }
 
