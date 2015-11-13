@@ -29,6 +29,7 @@
                 <tr>
                     <th> <p th:text="#{car.brand}">Brand</p> </th>
                     <th> <p th:text="#{car.model}">Model</p></th>
+                    <th> <p th:text="#{car.category}">func level</p></th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -37,7 +38,8 @@
                 <tfoot>
                 <tr>
                     <th> <p th:text="#{car.brand}">Brand</p></th>
-                    <th> <p th:text="#{car.model}">Model</p></th>
+                    <th> <p th:text="#{car.model}">Model</p> </th>
+                    <th> <p th:text="#{car.category}">func level </p></th>
 
                 </tr>
                 </tfoot>
@@ -51,6 +53,8 @@
                     <td th:text="${car.brand}"></td>
 
                     <td th:text="${car.model}"></td>
+
+                    <td th:text="${car.category}"></td>
 
                     <td> <a th:href="${#mvc.url('ECC#editCar').arg(0,car.id).build()}"  class="btn btn-info" >  <p th:text="#{car.edit}">Edit</p> </a> </td>
 
