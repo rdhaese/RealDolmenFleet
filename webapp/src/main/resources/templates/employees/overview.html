@@ -1,0 +1,242 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#usageTable').dataTable();
+    } );
+</script>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div th:if="${passwordEdit != null}">
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <span th:text="#{overview.passwordchanged}">Password Changed</span>
+                </div>
+            </div>
+            <H2 th:text="#{overview.title}">Personal Overview</H2>
+
+            <div id="employeeInfo" style="width: 49%; float:left;">
+                <h3><span th:text="#{overview.mydetails}">My Details</span>
+                    <small> - <a href="#employeeInfo-inner" data-toggle="collapse" th:text="#{hide-show}">Hide/Show</a></small>
+                </h3>
+                <div id="employeeInfo-inner" class="collapse in">
+                    <p><span th:text="#{employee.name}">Name</span>: <span th:text="${employee.name}"></span></p>
+
+                    <p><span th:text="#{employee.mail}">Email</span>: <span th:text="${employee.email}"></span></p>
+
+                    <p><span th:text="#{employee.funclevel}">Functional level</span>: <span th:text="${employee.functionalLevel}"></span></p>
+
+                    <p><span th:text="#{employee.role}">Role</span>:
+                        <span th:if="${employee.role.toString() == 'ROLE_FLEET'}" th:text="#{role.fleet}">Fleet</span>
+                        <span th:if="${employee.role.toString() == 'ROLE_NORMAL'}" th:text="#{role.normal}">Normal</span>
+                    </p>
+
+                    <p><span th:text="#{employee.servicedate}">Date in service</span>: <span
+                            th:text="${#dates.format(employee.inServiceDate, #messages.msg('app.dateformat'))}"></span>
+                    </p>
+
+                    <p th:if="${carUsage == null}" style="font-style: italic; font-weight: bold;" th:text="#{overview.nocarororder}">
+                        You have no car or open order.
+                    </p>
+                </div>
+            </div>
+
+            <div th:if="${carUsage != null}" style="width: 49%; float: right;">
+                <p th:if="${carUsage.licensePlate == null}" style="font-style: italic; font-weight: bold;" th:text="#{overview.hasopenorder}">
+                    This is an open order! Fleet still has to confirm it.
+                </p>
+
+                <div id="carInfo" th:with="car = ${carUsage.orderedCar.car}">
+                    <h3><span th:text="#{overview.cardetails}">Car details</span>
+                        <small> - <a href="#carInfo-inner" data-toggle="collapse" th:text="#{hide-show}">Hide/Show</a></small>
+                    </h3>
+                    <div id="carInfo-inner" class="collapse in">
+                        <p><span th:text="#{car.brand}">Brand</span>: <span th:text="${car.brand}">brand</span></p>
+
+                        <p><span th:text="#{car.model}">Model</span>: <span th:text="${car.model}">model</span></p>
+
+                        <p><span th:text="#{car.category}">Category</span>: <span th:text="${car.category}">category</span></p>
+
+                        <p><span th:text="#{car.pk}">Horse Power</span>: <span th:text="${#numbers.formatDecimal(car.pk,1,2)}">pk</span></p>
+
+                        <p><span th:text="#{car.fiscalhp}">Fiscal Horse Power</span>: <span
+                                th:text="${#numbers.formatDecimal(car.fiscalHP,1,2)}">fiscalHp</span></p>
+
+                        <p><span th:text="#{car.emission}">Emission</span>: <span th:text="${#numbers.formatDecimal(car.emission,1,2)}">emission</span></p>
+
+                        <p><span th:text="#{car.fueltype}">Fuel type</span>: <span th:text="${car.fuelType}">fuelType</span></p>
+
+                        <p><span th:text="#{car.type}">Car type</span>: <span th:text="${car.carType}">carType</span></p>
+
+                        <p><span th:text="#{car.deliverytime}">Delivery time</span>: <span th:text="${car.deliveryTime}">carType</span></p>
+
+                        <p><span th:text="#{car.idealkm}">Ideal km</span>: <span th:text="${car.idealKm}">idealKm</span></p>
+
+                        <p><span th:text="#{car.maxkm}">Max km</span>: <span th:text="${car.maxKm}">maxKm</span></p>
+
+                        <p><span th:text="#{car.price}">List price</span>: €<span th:text="${#numbers.formatDecimal(car.listPrice,1,2)}">listPrice</span>
+                        </p>
+
+                        <p><span th:text="#{car.benefit}">Benefit</span>: €<span th:text="${#numbers.formatDecimal(car.benefit,1,2)}">benefit</span></p>
+
+                        <div id="basePack">
+                            <h4><span th:text="#{overview.basepack}">Base Pack</span>
+                                <small> - <a href="#basePack-inner" data-toggle="collapse" th:text="#{hide-show}">Hide/Show</a></small>
+                            </h4>
+
+                            <div id="basePack-inner" class="collapse in">
+                                <h5 th:text="${car.basePack.name}">basePackName</h5>
+
+                                <p><span th:text="#{overview.price}">Price</span>: €<span th:text="${#numbers.formatDecimal(car.basePack.price,1,2)}">basePackPrice</span>
+                                </p>
+                                <h6 th:text="#{overview.options}">Options:</h6>
+                                <ul>
+                                    <li th:each="option : ${car.basePack.carOptions}">
+                                        <h7 th:text="${option.name}"></h7>
+                                        <p th:text="${option.description}"></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="orderInfo" th:if="${carUsage != null}" th:with="orderDetails=${carUsage.orderedCar}"
+                 style="width: 49%; float: left;">
+                <h3><span th:text="#{overview.orderspecificdetails}">Order Specific Details</span>
+                    <small> - <a href="#orderInfo-inner" data-toggle="collapse" th:text="#{hide-show}">Hide/Show</a></small>
+                </h3>
+                <div id="orderInfo-inner" class="collapse in">
+                <span th:if="${carUsage.licensePlate != null}"><p><span th:text="#{overview.price}">Price</span>: € <span
+                        th:text="${#numbers.formatDecimal(orderDetails.price,1,2)}"></span></p></span>
+
+                    <p><span th:text="#{selectcar.color}">Color</span>: <span th:text="${orderDetails.color}"></span></p>
+
+                    <div id="extraPacks" th:with="packs=${orderDetails.packs}">
+                        <h4><span th:text="#{overview.extrapacks}">Extra Packs</span>
+                            <small> - <a href="#extraPacks-inner" data-toggle="collapse" th:text="#{hide-show}">Hide/Show</a></small>
+                        </h4>
+                        <div id="extraPacks-inner">
+                            <p th:if="${packs.isEmpty()}" th:text="none">None</p>
+                            <table class="table" th:if="${!packs.isEmpty()}">
+                                <thead>
+                                <th th:text="#{overview.extrapacks.name}">Name</th>
+                                <th th:text="#{overview.extrapacks.options}">Options</th>
+                                </thead>
+                                <tbody>
+                                <tr th:each="pack : ${packs}">
+                                    <td th:text="${pack.name}"></td>
+                                    <td>
+                                        <ul>
+                                            <li th:each="option : ${pack.carOptions}">
+                                                <h5 th:text="${option.name}">optionName</h5>
+
+                                                <p th:text="${option.description}">optionDescription</p>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="extraOptions" th:with="options=${orderDetails.options}">
+                        <h4><span th:text="#{overview.extraoptions}">Extra Options</span>
+                            <small> - <a href="#extraOptions-inner" data-toggle="collapse" th:text="#{hide-show}">Hide/Show</a></small>
+                        </h4>
+                        <div id="extraOptions-inner" class="collapse in">
+                            <p th:if="${options.isEmpty()}">None</p>
+                            <table class="table" th:if="${!options.isEmpty()}">
+                                <thead>
+                                <th th:text="#{overview.extraoptions.name}">Name</th>
+                                <th th:text="#{overview.extraoptions.description}">Description</th>
+                                </thead>
+                                <tbody>
+                                <tr th:each="option : ${options}">
+                                    <td th:text="${option.name}">optionName</td>
+                                    <td th:text="${option.description}">optionDescription</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pictures" style="width: 49%; float: left;" th:if="${carUsage != null}"
+                 th:with="car=${carUsage.orderedCar.car}">
+                <h3><span th:text="#{overview.pictures}">Pictures</span>
+                    <small> - <a href="#pictures-inner" data-toggle="collapse" th:text="#{hide-show}">Hide/Show</a></small>
+                </h3>
+                <div id="pictures-inner" class="collapse in">
+                    <a th:each="imgLink : ${car.pictures}" th:href="${imgLink}">
+                        <img th:src="${imgLink}" height="400" width="500" class="img-thumbnail"/>
+                    </a>
+                </div>
+            </div>
+
+            <div id="usageInfo" th:if="${carUsage != null and carUsage.licensePlate != null}"
+                 style="width: 100%; float: left;">
+                <h3><span th:text="#{overview.usage}">Usage</span>
+                    <small> - <a href="#usageInfo-inner" data-toggle="collapse" th:text="#{hide-show}">Hide/Show</a></small>
+                </h3>
+                <div id="usageInfo-inner" class="collpase in">
+
+                    <div id="usageDetails" style="width: 19%; float: left;">
+                        <h4 th:text="#{overview.usage.details}">Details </h4>
+
+                        <p><span th:text="#{overview.usage.details.licenseplate}">License Plate</span>: <span th:text="${carUsage.licensePlate}"></span></p>
+
+                        <p><span th:text="#{overview.usage.details.orderdate}">Order date</span>: <span
+                                th:text="${#dates.format(carUsage.orderDate, #messages.msg('app.dateformat'))}"></span>
+                        </p>
+
+                        <p><span th:text="#{overview.usage.details.startdate}">Start date</span>: <span
+                                th:text="${#dates.format(carUsage.startDate, #messages.msg('app.dateformat'))}"></span>
+                        </p>
+
+                        <p><span th:text="#{overview.usage.details.initialenddate}">Initial end date</span>: <span
+                                th:text="${#dates.format(carUsage.initialEndDate, #messages.msg('app.dateformat'))}"></span>
+                        </p>
+
+                    </div>
+                    <div id="usageUpdates" th:with="updates=${carUsage.usageUpdates}" style="width: 79%; float: right;">
+                        <h4 th:text="#{overview.usage.updates}">Updates</h4>
+
+                        <p th:if="${updates.isEmpty()}">Nothing to report.</p>
+                        <table id="usageTable" class="table" th:if="${!updates.isEmpty()}">
+                            <thead>
+                            <th th:text="#{overview.usage.updates.datereceivedupdate}">Date Received Update</th>
+                            <th th:text="#{overview.usage.updates.newamountofkm}">New Amount of Km</th>
+                            <th th:text="#{overview.usage.updates.amountfuelledsincelastupdate}">Amount Fuelled Since Last Update (liter)</th>
+                            <th th:text="#{overview.usage.updates.totalpaidforfuel}">Total paid For Fuel</th>
+                            </thead>
+                            <tbody>
+                            <tr th:each="update : ${updates}">
+                                <td th:text="${#dates.format(update.updateDate, #messages.msg('app.dateformat'))}"></td>
+                                <td th:text="${update.newTotalKm}"></td>
+                                <td th:text="${#numbers.formatDecimal(update.totalFuelledForPeriod,1,2)}"></td>
+                                <td>€ <span th:text="${#numbers.formatDecimal(update.totalFuelPrice,1,2)}"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
+
+</body>
+</html>

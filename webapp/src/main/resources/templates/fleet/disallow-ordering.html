@@ -1,0 +1,56 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $('#employeesTable').dataTable().columnFilter();
+    });
+</script>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <h2><p th:text="#{disalloworder.disallow}"> Disallow Ordering Car </p></h2>
+            <h3><p th:text="#{disalloworder.employeeswithpermission}"> Employees With Permission </p></h3>
+            <p th:if="${usersWithPermission.isEmpty()}">
+
+            <p th:text="#{disalloworder.noemployees}"> No employees that have permission to order a new
+                car.</p>  </p>
+            <div id="allowUsersThatMeetCriteria" th:if="${!usersWithPermission.isEmpty()}">
+                <p th:text="#{disalloworder.havepermission}"> These employees have permission to order a new
+                    car. </p>
+                <table class="table" id="employeesTable">
+                    <thead>
+                    <th><p th:text="#{employee.name}"> name </p></th>
+                    <th><p th:text="#{employee.mail}"> email </p></th>
+                    <th><p th:text="#{employee.disallow}"> Allow </p></th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="employee : ${usersWithPermission}">
+                        <td th:text="${employee.name}">employeeName</td>
+                        <td th:text="${employee.email}">employeeEmail</td>
+                        <td>
+                            <form method="post" th:action="@{disallow-ordering}">
+                                <input type="hidden" name="email" th:value="${employee.email}"/>
+                                <button type="submit" class="btn btn-danger form-control"><p
+                                        th:text="#{order.disallow}">
+                                    Disallow Order </p></button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <hr/>
+</div>
+</body>
+</html>

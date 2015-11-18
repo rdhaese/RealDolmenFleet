@@ -1,0 +1,82 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#allCars').dataTable().columnFilter();
+
+    } );
+</script>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div>
+                <a th:href="@{/fleet/createemployee}" class="btn btn-primary"><p th:text="#{employee.createnew}"> create new employee </p></a>
+            </div>
+            <br/>
+            <br/>
+
+            <table id="allCars">
+                <thead>
+                <tr>
+                    <th><p th:text="#{employee.name}"> name </p></th>
+                    <th><p th:text="#{employee.mail}"> mail  </p></th>
+                    <th><p th:text="#{employee.funclevel}"> functional level </p> </th>
+                    <th><p th:text="#{employee.permission}">  permission </p></th>
+                    <th><p th:text="#{employee.servicedate}"> servicedate  </p></th>
+                    <th></th>
+
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th><p th:text="#{employee.name}"> name </p></th>
+                    <th><p th:text="#{employee.mail}"> mail  </p></th>
+                    <th><p th:text="#{employee.funclevel}"> functional level </p> </th>
+
+
+                </tr>
+                </tfoot>
+
+                <tbody>
+
+
+                <tr th:each="employee  : ${employeeList}">
+
+                    <td th:text="${employee.name}"></td>
+                    <td th:text="${employee.email}"></td>
+                    <td th:text="${employee.functionalLevel}"></td>
+                    <td th:text="${employee.permissionToOrderNewCar}"></td>
+                    <td th:text="${#dates.format(employee.inServiceDate, #messages.msg('app.dateformat'))}"></td>
+
+                    <td> <a th:href="${#mvc.url('EC#editEmployee').arg(0,employee.id).build()}" class="btn btn-info"> <p th:text="#{employee.edit}"> Employee edit  </p> </a> </td>
+
+
+
+
+                </tr>
+                </tbody>
+            </table>
+
+
+
+
+
+        </div>
+
+        <hr/>
+    </div>
+</div>
+
+
+
+
+
+
+</body>
+</html>

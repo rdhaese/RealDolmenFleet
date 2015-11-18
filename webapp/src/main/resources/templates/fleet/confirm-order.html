@@ -1,0 +1,57 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $('#orderTable').dataTable().columnFilter();
+
+    });
+</script>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div th:if="${orderConfirmed != null}">
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <span th:text="#{confirm-order.confirmed}">Order Confirmed</span>
+                </div>
+            </div>
+            <div th:if="${orderDisallowed != null}">
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <span th:text="#{confirm-order.disallowed}">Order Disallowed</span>
+                </div>
+            </div>
+            <H2 th:text="#{confirm-order.title}">Open Orders</H2>
+            <p th:if="${ordersToConfirm.isEmpty()}" th:text="#{confirm-order.noorders}">No open orders</p>
+            <table class="table" th:if="${!ordersToConfirm.isEmpty()}" id="orderTable">
+                <thead>
+                <th th:text="#{confirm.employee}">Employee</th>
+                <th th:text="#{confirm.orderedon}">Ordered On</th>
+                <th th:text="#{confirm.order}">Confirm Order</th>
+                </thead>
+                <tbody>
+                <tr th:each="carUsage : ${ordersToConfirm}">
+                    <td th:text="${carUsage.employeeName}">employeeName</td>
+                    <td th:text="${carUsage.orderDate}">orderDate</td>
+                    <td style="text-align: center;">
+                        <a th:href="${'/fleet/confirm-order-detail?id=' + carUsage.orderId}" class="btn btn-primary form-control" th:text="#{confirm.order}">Confirm
+                            Order</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <hr/>
+</div>
+</body>
+</html>

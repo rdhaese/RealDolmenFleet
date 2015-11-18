@@ -1,0 +1,89 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head">
+</head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="selectedCar">
+                <img th:src="${car.pictures[0]}" height="200" width="250" class="img-thumbnail" style="float: left"/>
+
+                <p th:text="#{car.brand} + ' :  ' +  ${car.brand}" > brand </p>
+
+                <p th:text="#{car.model} + ' :  ' +  ${car.model}" > model </p>
+
+            </div>
+            <form method="post" th:action="@{order-car}">
+                <input type="hidden" id="carId" name="carId" th:value="${car.id}"/>
+                <div id="control">
+                    <input type="submit" class="btn btn-primary form-control" value="Confirm Order"/>
+                </div>
+                <div id="colorInput">
+                    <h3 th:text="#{car.fillcolor}" > Pick a color:  </h3>
+                    <select id="color" name="color" class="form-control">
+                        <option value="Black" th:text="#{color.black}">Black</option>
+                        <option value="Silver" th:text="#{color.silver}">Silver</option>
+                        <option value="White" th:text="#{color.white}">White</option>
+                        <option value="Blue" th:text="#{color.blue}">Blue</option>
+                        <option value="Red" th:text="#{color.red}">Red</option>
+                        <option value="Green" th:text="#{color.green}">Green</option>
+                        <option value="Yellow" th:text="#{color.yellow}">Yellow</option>
+                        <option value="Orange" th:text="#{color.orange}">Orange</option>
+                    </select>
+                </div>
+                <div id="extraPacks" style="width:49%; float:left;">
+                    <h3 th:text="#{ordercar.extrapack}">Select extra packs:</h3>
+                    <table class="table">
+                        <thead>
+                        <th  th:text="#{ordercar.pack}">Packk</th>
+                        <th  th:text="#{ordercar.options}">Optionss</th>
+                        <th  th:text="#{ordercar.select}">Selectt</th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pack : ${car.extraPacks}">
+                            <td th:text="${pack.name}">packName</td>
+                            <td>
+                                <ul>
+                                    <li th:each="option : ${pack.carOptions}">
+                                        <p th:text="${option.name}">optionName</p>
+
+                                        <p th:text="${option.description}">optionDescription</p>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td><input name="selectedPacks" th:value="${pack.id}" type="checkbox"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="extraOptions" style="width:49%; float:right;">
+                    <h3 th:text="#{ordercar.extraoption}">Select extra options:</h3>
+                    <table class="table">
+                        <thead>
+                        <th  th:text="#{ordercar.option}">Option</th>
+                        <th  th:text="#{ordercar.description}">Description</th>
+                        <th th:text="#{ordercar.select}">Select</th>
+                        </thead>
+                        <tbody>
+                        <tr th:each="option : ${car.extraOptions}">
+                            <td th:text="${option.name}">optionName</td>
+                            <td th:text="${option.description}">optionDescription</td>
+                            <td><input name="selectedOptions" th:value="${option.id}" type="checkbox"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <hr/>
+</div>
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+</body>
+</html>

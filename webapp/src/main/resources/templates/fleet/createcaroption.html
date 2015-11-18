@@ -1,0 +1,45 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+
+
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+    <div class="row">
+        <div class="col-lg-12">
+
+<form method="POST" th:object="${carOption}" style="width: 50%;">
+    <div th:class="${#fields.hasErrors('name')}? 'has-error'">
+        <label th:for="${#ids.next('name')}"><p th:text="#{option.namem}">Name</p> </label>
+        <input type="text" th:field="*{name}" class="form-control"/>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="val-error"></span>
+    </div>
+
+    <div th:class="${#fields.hasErrors('description')}? 'has-error'">
+        <label th:for="${#ids.next('description')}"> <p th:text="#{option.description}">Description</p></label>
+        <input type="text" th:field="*{description}" class="form-control"/>
+        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="val-error"></span>
+    </div>
+
+
+    <br/>
+    <button type="submit" class="btn btn-primary"><p th:text="#{option.new}">add</p> </button>
+</form>
+
+        </div>
+
+        <hr/>
+    </div>
+</div>
+
+
+
+
+
+
+</body>
+</html>

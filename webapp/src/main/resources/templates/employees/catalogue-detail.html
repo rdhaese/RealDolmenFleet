@@ -1,0 +1,72 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="carDetails" style="width: 49%; float: left">
+                <h2>  <p th:text="#{car.details}" >Car details </p></h2>
+
+                <p th:text="#{car.brand} + ' :  ' +  ${car.brand}" > brand </p>
+
+                <p th:text="#{car.model} + ' :  ' +  ${car.model}" > model </p>
+
+                <p th:text="#{car.category} + ' :  ' +  ${car.category}" > category </p>
+
+                <p th:if="${car.category &gt; functionalLevelForLoggedInUser}" th:text="#{car.upgrade} + ' : €' +  ${#numbers.formatDecimal(car.amountUpgrade,1,2)}"> amountUpgrade</p>
+
+                <p th:if="${car.category &lt; functionalLevelForLoggedInUser}" th:text="#{car.downgrade} + ' : €' +  ${#numbers.formatDecimal(car.amountDowngrade,1,2)}"> amountDowngrade</p>
+
+                <p th:text="#{car.pk} + ' :  ' +  ${#numbers.formatDecimal(car.pk,1,2)}" > pk </p>
+
+                <p th:text="#{car.fiscalhp} + ' :  ' +  ${#numbers.formatDecimal(car.fiscalHP,1,2)}" > fhp </p>
+
+                <p th:text="#{car.emission} + ' :  ' +  ${#numbers.formatDecimal(car.emission,1,2)}" > emission </p>
+
+                <p th:text="#{car.fueltype} + ' :  ' +  ${car.fuelType}" > fuel type </p>
+
+                <p th:text="#{car.type} + ' :  ' +  ${car.carType}" > cartype </p>
+
+                <p th:text="#{car.deliverytime} + ' :  ' +  ${car.deliveryTime}" > delivery time </p>
+
+                <p th:text="#{car.idealkm} + ' :  ' +  ${car.idealKm}" > ideal km </p>
+
+                <p th:text="#{car.maxkm} + ' :  ' +  ${car.maxKm}" > maxkm </p>
+                <p th:text="#{car.price} + ' :  ' +  ${#numbers.formatDecimal(car.listPrice,1,2)}" > listprice </p>
+
+                <p th:text="#{car.benefit} + ' :  ' +  ${#numbers.formatDecimal(car.benefit,1,2)}" > benefit </p>
+
+            </div>
+            <div id="basePackDetails" style="width: 49%; float: right">
+                <h2> </h2>
+                <h3 th:text="#{car.basepack}">Base Pack</h3>
+                <h4 th:text="${car.basePack.name}">basePackName</h4>
+                <p th:text="#{car.price} + ' : € ' +  ${#numbers.formatDecimal(car.basePack.price,1,2)}" > basepackprice </p>
+
+                <h5><p th:text="#{car.options} + ' :  '" > caropitons </p></h5>
+                <ul>
+                    <li th:each="option : ${car.basePack.carOptions}">
+                        <h6 th:text="${option.name}"></h6>
+                        <p th:text="${option.description}"></p>
+                    </li>
+                </ul>
+            </div>
+            <div id="pictures" style="width: 49%; float: left">
+                <h3><p th:text="#{car.pictures}" > pictures </p></h3>
+                <a th:each="imgLink : ${car.pictures}" th:href="${imgLink}">
+                    <img th:src="${imgLink}" height="400" width="500" class="img-thumbnail"/>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+</div>
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head">
+</head>
+<body>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script>
+    function submit() {
+        document.forms["filter"].submit();
+    }
+</script>
+
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h2><p th:text="#{catalogue.catalogue}">Catalogue </p></h2>
+            <div id="catalog">
+                <h3><span th:text="#{catalogue.possibletoorder}">Possible To Order</span></h3>
+                <small> - <a href="#catalog-inner" data-toggle="collapse" th:text="#{hide-show}">Hide/Show</a>
+                </small>
+                <div id="catalog-inner" class="collapse in">
+                    <div style="width: 100%; float:left; margin-bottom: 5px;">
+                        <form method="get" th:action="@{/employees/catalogue/filter}" th:object="${filter}">
+                            <div style="width: 49%; float:left;">
+                                <span style="font-weight:bold;"><p th:text="#{car.brand}">Brand</p> </span>
+                                <input id="brand" name="brand" type="text" th:field="*{brand}" onblur="submit()"
+                                       class="form-control"/>
+                                <span style="font-weight:bold;"><p th:text="#{car.model}">model</p> </span>
+                                <input id="carModel" name="carModel" type="text" th:field="*{model}" onblur="submit()"
+                                       class="form-control"/><br/>
+                            </div>
+                            <div style="width: 49%; float:right;">
+                                <span style="font-weight:bold;"><p th:text="#{selectcar.funclevel}">func
+                                    level</p> </span>
+                                <input type="number" min="1" max="8" th:field="*{functionalLevel}" onblur="submit()"
+                                       class="form-control"/>
+                            </div>
+                        </form>
+                    </div>
+
+                    <hr/>
+
+                    <div style="width: 100%; float:left;">
+                <span th:if="${catalogueCars.isEmpty()}">
+                <p th:text="#{selectcar.nomatch}">No match</p>
+                </span>
+
+                        <table class="table" th:if="${!catalogueCars.isEmpty()}">
+                            <tbody>
+                            <tr th:each="carList  : ${catalogueCars}">
+                                <td th:each="car : ${carList}" style="text-align: center;">
+                                    <span th:text="${car.brand + ' ' + car.model}"
+                                          style="font-weight: bold;">carTitle</span>
+                                    <br/>
+                                    <a th:href="${'/employees/catalogue/detail?id=' + car.id}">
+                                        <img th:src="${car.pictures[0]}" height="200" width="250"
+                                             class="img-thumbnail"/>
+                                    </a>
+
+                                    <p><span th:text="#{catalogue.funclvl}">Functional level</span>: <span
+                                            th:text="${car.category}">category</span></p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <hr/>
+
+
+                <h3><p th:text="#{selectcar.fromfreepool}">From free pool</p></h3>
+                <p th:if="${freePoolCars.isEmpty()}" th:text="#{selectcar.noneinfreepool}">No cars in free pool.</p>
+                <table class="table" th:if="${!freePoolCars.isEmpty()}">
+                    <tbody>
+                    <tr th:each="carList  : ${freePoolCars}">
+                        <td th:each="carUsage : ${carList}" style="text-align: center;">
+                        <span th:text="${carUsage.orderedCar.car.brand + ' ' + carUsage.orderedCar.car.model}"
+                              style="font-weight: bold;">carTitle</span>
+                            <br/>
+                            <a th:href="${'/employees/catalogue/detail-from-free-pool?id=' + carUsage.id}">
+                                <img th:src="${carUsage.orderedCar.car.pictures[0]}" height="200" width="250"
+                                     class="img-thumbnail"/></a>
+
+                            <p th:text="#{selectcar.color}"> Color</p> <span
+                                th:text="${carUsage.orderedCar.color}">carColor</span>
+
+                            <p th:text="#{selectcar.currentkm}"> Current km: </p> <span
+                                th:text="${carUsage.usageUpdates[0].newTotalKm}">carColor</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#carsInUse').dataTable().columnFilter();
+
+    } );
+    $(document).ready( function () {
+        $('#carsInFreePool').dataTable().columnFilter();
+
+    } );
+</script>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <H2 th:text="#{managecars.ourcars}">Our Cars</H2>
+
+            <h3 th:text="#{managecars.inuse}">In Use</h3>
+            <p th:if="${ourCarsInUse.isEmpty()}" th:text="#{managecars.nocarsinuse}">No cars in use.</p>
+            <table class="table" th:if="${!ourCarsInUse.isEmpty()}" id="carsInUse">
+                <thead>
+                <th th:text="#{managecars.car}">Car</th>
+                <th th:text="#{confirm.employee}" >Employee</th>
+                <th th:text="#{ourcar.licenseplate}">License Plate</th>
+                <th th:text="#{managecars.action}">Action</th>
+                </thead>
+                <tbody>
+                <tr th:each="carUsage : ${ourCarsInUse}">
+                    <td th:with="car =${carUsage.orderedCar.car}">
+                        <img th:src="${car.pictures[0]}" height="200" width="250"
+                             class="img-thumbnail" style="float: left; margin-right: 1%"/>
+                        <span th:text="${car.brand + ' ' + car.model}"></span>
+                    </td>
+                    <td><span th:text="${carUsage.employee.name}"></span><small>(<a th:href="${#mvc.url('EC#editEmployee').arg(0,carUsage.employee.id).build()}" th:text="#{managecars.edit}">edit</a>)</small></td>
+                    <td th:text="${carUsage.licensePlate}"></td>
+                    <td>
+                        <a th:href="${'cars/detail/' + carUsage.id }" class="btn btn-primary form-control" th:text="#{managecars.details}"> details  </a>
+                        <form method="post" th:action="${'/fleet/cars/to-free-pool'}">
+                            <input type="hidden" name="carUsageId" th:value="${carUsage.id}" />
+                            <button type="submit" class="btn btn-warning form-control"><p th:text="#{managecars.tofreepool}"> to free pool  </p> </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h3 th:text="#{managecars.infreepool}">In Free Pool</h3>
+            <p th:if="${ourCarsInFreePool.isEmpty()}" th:text="#{managecars.emptypool}"> No cars in our free pool.</p>
+            <table class="table" th:if="${!ourCarsInFreePool.isEmpty()}" id="carsInFreePool">
+                <thead>
+                <th th:text="#{managecars.car}">Car</th>
+                <th th:text="#{managecars.action}">Action</th>
+                </thead>
+                <tbody>
+                <tr th:each="carUsage : ${ourCarsInFreePool}">
+                    <td th:with="car =${carUsage.orderedCar.car}">
+                        <img th:src="${car.pictures[0]}" height="200" width="250"
+                             class="img-thumbnail" style="float: left; margin-right: 1%;"/>
+                        <span th:text="${car.brand + ' ' + car.model}"></span>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary form-control" th:href="${'cars/detail/' + carUsage.id }">Details</a>
+                        <form method="post" th:action="${'/fleet/cars/remove'}">
+                            <input type="hidden" name="carUsageId" th:value="${carUsage.id}" />
+                            <input type="submit" class="btn btn-danger form-control" value="Remove" />
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <hr/>
+</div>
+</body>
+</html>

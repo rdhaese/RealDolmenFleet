@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurty3">
+
+<head th:fragment="head">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title th:text="#{fragments.head.title}">RealDolmen Fleet</title>
+    <link th:href="@{/favicon.ico}" rel="shortcut icon"/>
+    <link th:href="@{/css/bootstrap-3.0.3.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link th:href="@{/css/jquery-ui.css}" rel="stylesheet"/>
+    <link th:href="@{/css/jquery-ui.structure.css}" rel="stylesheet"/>
+    <link th:href="@{/css/jquery-ui.theme.css}" rel="stylesheet"/>
+    <link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="navbar navbar-default headertop" th:fragment="header">
+    <div class="container rdlogo">
+       <img src="http://www.realdolmen.com/static/images/RealDolmen-Logos/logo.png"/>
+    </div>
+      <div class="container">
+        <a class="navbar-brand rdportal" href="http://portal.realdolmen.com"><span class="rd-red">R</span><span class="rd-blue">D</span> Portal</a>
+
+        <ul class="nav navbar-nav headertext ">
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/}" th:text="#{fragments.navbar.overview}">Personal Overview</a></li>
+            <li class="dropdown dropback" sec:authorize="hasRole('ROLE_FLEET')">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false"><span  th:text="#{fragments.navbar.fleet}">Fleet</span> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a th:href="@{/fleet/rdemployee}" th:text="#{fragments.navbar.employees}">Employees</a></li>
+                    <li><a th:href="@{/fleet/cars}" th:text="#{fragments.navbar.ourcars}">Our Cars</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header"  th:text="#{fragments.navbar.orders}">Orders</li>
+                    <li><a th:href="@{/fleet/allow-order}" th:text="#{fragments.navbar.alloworder}">Allow Order</a></li>
+                    <li><a th:href="@{/fleet/disallow-ordering}" th:text="#{fragments.navbar.disalloworder}">Disallow Ordering</a></li>
+                    <li><a th:href="@{/fleet/confirm-order}" th:text="#{fragments.navbar.confirmorders}">Confirm/Disallow Orders</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header" th:text="#{fragments.navbar.catalog}">Catalog</li>
+                    <li><a th:href="@{/fleet/caroptions}" th:text="#{fragments.navbar.options}">Options</a></li>
+                    <li><a th:href="@{/fleet/packs}" th:text="#{fragments.navbar.carpacks}">Car Packs</a></li>
+                    <li><a th:href="@{/fleet/caroverview}" th:text="#{fragments.navbar.cars}">Cars</a></li>
+                </ul>
+            </li>
+            <li sec:authorize="isAuthenticated()" th:if="${session.loggedInUserCanOrderNewCar}"><a th:href="@{/employees/select-car}" th:text="#{fragments.navbar.orderingavailable}">Ordering Car
+                Available!</a></li>
+            <li sec:authorize="isAuthenticated()" th:if="${!session.loggedInUserCanOrderNewCar}"><a th:href="@{/employees/catalogue}" th:text="#{fragments.navbar.catalogue}">Catalogue</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right headertext">
+            <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}" th:text="#{fragments.navbar.login}">Login</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/employees/editpassword}" th:text="#{fragments.navbar.editpassword}">Edit password </a></li>
+            <li sec:authorize="isAuthenticated()"><p class="nav navbar-text" sec:authentication="name">
+                loggedInUserName</p></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" th:text="#{fragments.navbar.logout}">Log Out</a></li>
+
+            <li class="dropdown dropback">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false"><span  th:text="#{fragments.navbar.language}">Language</span> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="?lang=en" th:text="#{fragments.navbar.language.english}">English</a></li>
+                    <li><a href="?lang=nl" th:text="#{fragments.navbar.language.dutch}">Dutch</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div class="page-header text-center" id="page-header">
+    <h1><span class="rd-red">Real</span><span class="rd-blue">Dolmen</span> <span style="color:grey;">Fleet</span></h1>
+</div>
+
+<div class="scripts" th:remove="tag">
+    <script th:src="@{/js/jquery-2.0.2.min.js}"></script>
+    <script th:src="@{/js/bootstrap-3.0.3.min.js}"></script>
+    <script th:src="@{/js/jquery.dataTables.js}"></script>
+    <script th:src="@{/js/jquery.ui.js}"></script>
+    <script th:src="@{/js/jquery.dataTables.columnFilter.js}"></script>
+    <script th:src="@{/js/jquery-ui.js}"></script>
+</div>
+</body>
+</html>

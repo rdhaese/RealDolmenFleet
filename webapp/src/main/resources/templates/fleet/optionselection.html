@@ -1,0 +1,409 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $('#allPacks').dataTable().columnFilter();
+
+    });
+
+    $(document).ready(function () {
+        $('#allOptions').dataTable().columnFilter();
+
+    });
+
+</script>
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+    <div class="row">
+        <div class="col-lg-12">
+
+            <h1><b><p th:text="${car.brand} + '  ' +  ${car.model}">brand + model </p></b></h1>
+
+            <h4><a th:href="${#mvc.url('CCC#saveCar').arg(0, car.id).build()}" class="btn btn-primary"><p
+                    th:text="#{car.savenew}"> Save New Car </p></a></h4>
+
+
+            <div style="float:left; width: 44%">
+                <h3><p th:text="#{car.basepack}"> bse pack</p></h3>
+                <hr/>
+                <p id="basepack2" th:if="${car.basePack != null}" th:text="${car.basePack.name}"></p>
+                <p id="basepack"></p>
+
+                
+                
+    <h3>  <p th:text="#{car.optionalpacks}"> otpional pack</p></h3>
+            <hr/>
+    <table id="extrapacks">
+        <tr th:each="expack, idStat  : ${car.extraPacks}">
+
+            <td th:text="${expack.name}">1</td>
+
+            <td>  <a  th:onclick="'javascript:removeExtraPack(this);'"
+                      class="btn btn-danger form-control" th:text="#{car.removepack}">remove</a> </td>
+
+
+
+                    </tr>
+                </table>
+
+    <h3> <p th:text="#{car.extraposoptions}"> extra pos optios</p></h3>
+                <hr/>
+    <table id="extraoptions">
+        <tr th:each="opt, idStat  : ${car.extraOptions}">
+
+            <td th:text="${opt.name}">1</td>
+
+
+            <td>  <a  th:onclick="'javascript:removeExtraOption(this);'"
+                      class="btn btn-danger form-control" th:text="#{car.removeoption}">remove</a> </td>
+
+
+
+        </tr>
+    </table>
+
+</div>
+
+
+
+<div style="float:left; width: 54%">
+    <h2> <p th:text="#{car.allpacks}"> all packs </p></h2>
+    <table id="allPacks" class="display">
+        <thead>
+        <tr>
+            <th><p th:text="#{pack.name}"> Name </p> </th>
+            <th><p th:text="#{pack.price}"> Price </p> </th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th><p th:text="#{pack.name}"> Name </p> </th>
+            <th><p th:text="#{pack.price}"> Price </p> </th>
+        </tr>
+        </tfoot>
+
+        <tbody>
+
+
+        <tr th:each="pack  : ${packList}">
+
+            <td th:text="${pack.name}"></td>
+
+            <td>€ <span th:text="${#numbers.formatDecimal(pack.price,1,2)}"></span> </td>
+
+            <td>  <a th:onclick="'javascript:setBasePack(\'' + ${pack.id} + '\',\'' + ${pack.name}+ '\');'"
+                     class="btn btn-success form-control" th:text="#{car.setbasepack}">add </a> </td>
+
+            <td>  <a th:onclick="'javascript:addExtraPack(\'' + ${pack.id} + '\',\'' + ${pack.name}+ '\');'"
+                     class="btn btn-success form-control" th:text="#{car.addextrapack}">add </a> </td>
+
+
+
+
+        </tr>
+        </tbody>
+    </table>
+
+
+    <h2> <p th:text="#{car.alloptions}" > allopitons </p> </h2>
+    <table id="allOptions" class="display">
+        <thead>
+        <tr>
+            <th><p th:text="#{option.name}"> Name </p> </th>
+            <th><p th:text="#{option.description}"> Description</p></th>
+            <th></th>
+
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th><p th:text="#{option.name}"> Name </p> </th>
+            <th><p th:text="#{option.description}"> Description</p></th>
+        </tr>
+        </tfoot>
+
+        <tbody>
+
+
+        <tr th:each="option  : ${optionList}">
+
+            <td th:text="${option.name}"></td>
+
+            <td th:text="${option.description}"></td>
+
+            <td> <a th:href="${#mvc.url('CCC#addExtraOption').arg(0, option.id).build()}" class="btn btn-success form-control" > <p th:text="#{car.addoption}"> Add option </p> </a> </td>
+
+
+
+
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+
+
+        </div>
+
+        <hr/>
+    </div>
+</div>
+<script>
+
+    function setBasePack(id, name){
+        var request = $.ajax({
+            url : "/fleet/setajaxbasicpack",
+            type : "post",
+            data : "id=" + id
+        });
+
+        request.done(function(data) {
+
+         document.getElementById("basepack").innerHTML = name;
+         var b = document.getElementById("basepack2");
+         b.parentNode.removeChild(b);
+
+
+        });
+
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+
+
+    }
+
+    function removeExtraPack(element){
+
+
+        var id = element.parentNode.parentNode.rowIndex;
+
+        var request = $.ajax({
+            url : "http://localhost:8080/fleet/removeajaxextrapack",
+            type : "post",
+            data : "id=" + id
+        });
+
+        request.done(function(data) {
+
+            document.getElementById('extrapacks').deleteRow(id);
+
+
+
+        });
+
+        // callback handler that will be called on failure
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+    }
+
+    function removeExtraOption(element){
+
+
+        var id = element.parentNode.parentNode.rowIndex;
+
+        var request = $.ajax({
+            url : "http://localhost:8080/fleet/removeajaxextraoption",
+            type : "post",
+            data : "id=" + id
+        });
+
+        request.done(function(data) {
+
+            document.getElementById('extraoptions').deleteRow(id);
+
+            var table = document.getElementById("allOptions").getElementsByTagName('tbody')[0];
+            var new_tbody = document.createElement('tbody');
+
+           data.forEach(function(rowData) {
+
+                var row = document.createElement('tr');
+
+
+                var cell = document.createElement('td');
+                cell.appendChild(document.createTextNode(rowData["name"]));
+                row.appendChild(cell);
+
+               var cell2 = document.createElement('td');
+               var description = rowData["description"];
+               if(description == null){
+                   description = "";
+               }
+               cell2.appendChild(document.createTextNode(description));
+               row.appendChild(cell2);
+
+               var cell3 = document.createElement('td');
+
+               var a = document.createElement('a');
+               var linkText = document.createTextNode("Add");
+               a.appendChild(linkText);
+               a.title = "Add";
+
+
+               a.onclick = function() {
+                   addExtraOption(this, rowData["id"]);
+               }
+               a.className = "btn btn-success form-control";
+
+
+
+               row.appendChild(a);
+               new_tbody.appendChild(row);
+
+            });
+
+            table.parentNode.replaceChild(new_tbody, table);
+
+
+
+
+
+        });
+
+        // callback handler that will be called on failure
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+    }
+    
+
+
+    function addExtraOption(element, id){
+
+        var request = $.ajax({
+            url : "http://localhost:8080/fleet/addAjaxExtraOption",
+            type : "post",
+            data : "id=" + id
+        });
+
+
+        request.done(function(data) {
+            var tableRef = document.getElementById('extraoptions');
+
+            // Insert a row in the table at the last row
+            var newRow   = tableRef.insertRow(tableRef.rows.length);
+
+            // Insert a cell in the row at index 0 and  1
+            var newCell  = newRow.insertCell(0);
+            var newCell2 = newRow.insertCell(1);
+
+            // Append a text node to the cell
+            var newText  = document.createTextNode(data)
+            newCell.appendChild(newText);
+
+            var a = document.createElement('a');
+            var linkText = document.createTextNode("Remove");
+            a.appendChild(linkText);
+            a.title = "Remove";
+            var nbr = tableRef.getElementsByTagName('tr').length;
+            a.onclick = function() {
+                removeExtraOption(this);
+            }
+            a.className = "btn btn-danger form-control";
+
+            newCell2.appendChild(a);
+
+
+            var rowtodelete = (element.parentNode.rowIndex);
+            console.log(rowtodelete);
+            console.log(document.getElementById('allOptions').getElementsByTagName('tbody')[0]);
+            document.getElementById('allOptions').getElementsByTagName('tbody')[0].deleteRow(rowtodelete - 1);
+
+
+
+        });
+
+        // callback handler that will be called on failure
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+
+
+
+    }
+
+
+    function addExtraPack(id, name){
+        var request = $.ajax({
+            url : "http://localhost:8080/fleet/addajaxextrapack",
+            type : "post",
+            data : "id=" + id
+        });
+
+
+        request.done(function(data) {
+            var tableRef = document.getElementById('extrapacks');
+            console.log(tableRef);
+            console.log(name);
+                /*
+            if(!undefined ) {
+                document.getElementById('selectedoptions').appendChild(document.createElement('tbody'));
+                tableRef = document.getElementById('selectedoptions').getElementsByTagName('tbody')[0];
+            }
+            var rownumber = tableRef.rows.length;
+            */
+// Insert a row in the table at the last row
+            var newRow   = tableRef.insertRow(tableRef.rows.length);
+
+
+
+
+
+// Insert a cell in the row at index 0
+            var newCell  = newRow.insertCell(0);
+            var newCell2 = newRow.insertCell(1);
+
+// Append a text node to the cell
+            var newText  = document.createTextNode(name)
+            newCell.appendChild(newText);
+
+            var a = document.createElement('a');
+            var linkText = document.createTextNode("Remove");
+            a.appendChild(linkText);
+            a.title = "Remove";
+
+            var nbr = tableRef.getElementsByTagName('tr').length;
+            a.onclick = function() {
+                removeExtraPack(this);
+            }
+            a.className = "btn btn-danger form-control";
+
+
+            var newText2  = document.createTextNode(id)
+            newCell2.appendChild(a);
+
+
+
+        });
+
+        // callback handler that will be called on failure
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            // log the error to the console
+            alert("The following error occured: " + textStatus, errorThrown);
+        });
+
+
+
+    }
+</script>
+
+
+</body>
+</html>

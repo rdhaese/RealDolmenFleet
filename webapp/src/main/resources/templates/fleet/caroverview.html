@@ -1,0 +1,79 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragments :: head"></head>
+<body>
+<div th:replace="fragments/fragments :: header"></div>
+
+<div th:replace="fragments/fragments :: div.scripts"></div>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#allCars').dataTable().columnFilter();
+
+    } );
+</script>
+
+
+<div class="container">
+    <div th:replace="fragments/fragments :: div#page-header"></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div>
+
+                    <a href="/fleet/createcar" th:href="@{/fleet/createcar}" class="btn btn-primary"> <p th:text="#{car.createnew}">Create new car!</p>  </a>
+
+
+                <br/>
+                <br/>
+            </div>
+            <table id="allCars"  class="display" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th> <p th:text="#{car.brand}">Brand</p> </th>
+                    <th> <p th:text="#{car.model}">Model</p></th>
+                    <th> <p th:text="#{car.category}">func level</p></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tfoot>
+                <tr>
+                    <th> <p th:text="#{car.brand}">Brand</p></th>
+                    <th> <p th:text="#{car.model}">Model</p> </th>
+                    <th> <p th:text="#{car.category}">func level </p></th>
+
+                </tr>
+                </tfoot>
+
+
+                <tbody>
+
+
+                <tr th:each="car  : ${carList}">
+
+                    <td th:text="${car.brand}"></td>
+
+                    <td th:text="${car.model}"></td>
+
+                    <td th:text="${car.category}"></td>
+
+                    <td> <a th:href="${#mvc.url('ECC#editCar').arg(0,car.id).build()}"  class="btn btn-info" >  <p th:text="#{car.edit}">Edit</p> </a> </td>
+
+                    <td> <a th:href="${#mvc.url('CCC#deleteCarFromCatalog').arg(0,car.id).build()}" class="btn btn-danger">  <p th:text="#{car.delete}">delete</p> </a> </td>
+
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <hr/>
+    </div>
+</div>
+
+
+
+
+
+
+</body>
+</html>
