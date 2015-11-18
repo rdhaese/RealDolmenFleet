@@ -11,7 +11,6 @@ public enum CarType
     BREAK,
     MONOVOLUME,
     HYBRID,
-    ELECTRIC
-
+    ELECTRIC;
 
 }
